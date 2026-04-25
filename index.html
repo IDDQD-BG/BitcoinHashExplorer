@@ -337,6 +337,121 @@ c = year mod 7   ← ДИРЕКТНО лунната седмица!
   </div>
 </section>
 
+<!-- ══════════════════════════════════════════════
+  ДВОЕН ЧАСОВНИК: Bitcoin × Прабългарски Календар
+══════════════════════════════════════════════ -->
+<section style="position:relative;z-index:1;padding:100px 32px;background:linear-gradient(to bottom,transparent,rgba(200,169,110,.02) 30%,rgba(200,169,110,.02) 70%,transparent)" id="clocks">
+  <div style="max-width:1100px;margin:0 auto">
+    <p class="seye" style="text-align:center">Едно Време, Два Езика</p>
+    <h2 style="text-align:center">Bitcoin Clock × Прабългарски Календар</h2>
+    <p style="text-align:center;color:var(--stone);font-style:italic;margin-bottom:60px;font-size:1rem">Същият математически ритъм — 7514 години разстояние</p>
+    <div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;justify-content:center">
+      <!-- Двойният часовник SVG -->
+      <div style="flex:0 0 480px;max-width:100%">
+        <canvas id="dualClock" width="480" height="480" style="width:100%;max-width:480px;display:block;margin:0 auto"></canvas>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:.6rem;color:var(--stone)">
+          <span><span style="color:var(--gold)">●</span> Блок (2.5°)</span>
+          <span><span style="color:#c77dff">●</span> 2016 период</span>
+          <span><span style="color:#7fff00">●</span> Животно (12г)</span>
+          <span><span style="color:#00d4ff">●</span> БГ ден</span>
+        </div>
+      </div>
+      <!-- Информация -->
+      <div style="flex:1;min-width:260px;max-width:480px">
+        <div style="margin-bottom:28px">
+          <div style="font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;opacity:.7">Bitcoin Clock</div>
+          <div id="btcClockInfo" style="font-family:var(--mono);font-size:.72rem;color:var(--stone);line-height:2.1"></div>
+        </div>
+        <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,169,110,.2),transparent);margin:16px 0"></div>
+        <div style="margin-bottom:28px">
+          <div style="font-family:var(--mono);font-size:.6rem;color:#7fff00;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;opacity:.7">Прабългарски Календар</div>
+          <div id="bgCalInfo" style="font-family:var(--mono);font-size:.72rem;color:var(--stone);line-height:2.1"></div>
+        </div>
+        <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,169,110,.2),transparent);margin:16px 0"></div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--gold);background:rgba(200,169,110,.05);border:1px solid rgba(200,169,110,.12);border-left:2px solid var(--gold);padding:12px 14px;line-height:1.9" id="clockBridge">
+          26 × 2016 блока = 364 дни ✓<br>
+          20,160 = 10 × 2016 (Звездна год.)<br>
+          2016 × 2.5° = 5040° = 7! (= 7 лунни седм.)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+  ИНТЕРАКТИВНИ ОТКРИТИЯ
+══════════════════════════════════════════════ -->
+<section style="position:relative;z-index:1;padding:100px 32px" id="interactive">
+  <div style="max-width:1100px;margin:0 auto">
+    <p class="seye" style="text-align:center">Скритата Архитектура</p>
+    <h2 style="text-align:center">Разгледай всяко откритие</h2>
+    <p style="text-align:center;color:var(--stone);font-style:italic;margin-bottom:60px">Кликни на карта за интерактивен калкулатор</p>
+    <div id="intGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+  ТЕОРЕМА — ВИЗУАЛНО ДОКАЗАТЕЛСТВО
+══════════════════════════════════════════════ -->
+<section style="position:relative;z-index:1;padding:100px 32px" id="proof">
+  <div style="max-width:1000px;margin:0 auto">
+    <p class="seye" style="text-align:center">Визуално Доказателство</p>
+    <h2 style="text-align:center">Теоремата на Станков</h2>
+    <p style="text-align:center;color:var(--stone);font-style:italic;margin-bottom:50px;max-width:560px;margin-left:auto;margin-right:auto">Числовата ос · Корените · Decay rate φ² · Формулата</p>
+
+    <!-- Стъпка 1: Числова ос -->
+    <div style="background:var(--bg2);border:1px solid rgba(200,169,110,.1);padding:28px 24px;margin-bottom:16px;border-radius:2px">
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px;opacity:.7">Стъпка 1 — Числовата Ос и Пресечните Точки</div>
+      <canvas id="axisCanvas" width="900" height="160" style="width:100%;display:block"></canvas>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:.6rem;color:var(--stone)">
+        <span><span style="color:rgba(200,169,110,.4)">▬</span> Блок k</span>
+        <span><span style="color:rgba(200,169,110,.6)">┊</span> Полуцяло −k−½</span>
+        <span style="color:#ff6688">● Корен nₖ (реален)</span>
+        <span style="color:#7fff00">↔ εₖ = отклонение</span>
+      </div>
+    </div>
+
+    <!-- Стъпка 2: Decay curve -->
+    <div style="background:var(--bg2);border:1px solid rgba(200,169,110,.1);padding:28px 24px;margin-bottom:16px;border-radius:2px">
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px;opacity:.7">Стъпка 2 — Затихване φ² ≈ 2.618</div>
+      <canvas id="decayCanvas" width="900" height="200" style="width:100%;display:block"></canvas>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:.6rem;color:var(--stone)">
+        <span style="color:#ff6688">—— |εₖ| реално</span>
+        <span><span style="color:rgba(200,169,110,.5)">- - -</span> φ^(−2k) теория</span>
+        <span>÷X = деление φ² между стъпките</span>
+      </div>
+    </div>
+
+    <!-- Стъпка 3: Ratio convergence -->
+    <div style="background:var(--bg2);border:1px solid rgba(200,169,110,.1);padding:28px 24px;margin-bottom:16px;border-radius:2px">
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px;opacity:.7">Стъпка 3 — Ratio εₖ₊₁/εₖ → −1/φ²</div>
+      <canvas id="ratioCanvas" width="900" height="160" style="width:100%;display:block"></canvas>
+    </div>
+
+    <!-- Финалната формула -->
+    <div style="border:1px solid rgba(200,169,110,.2);padding:40px 36px;background:linear-gradient(135deg,rgba(200,169,110,.04),transparent 60%);position:relative;text-align:center;margin-top:24px">
+      <div style="position:absolute;top:-1px;left:-1px;width:24px;height:24px;border-top:1.5px solid var(--gold);border-left:1.5px solid var(--gold);opacity:.5"></div>
+      <div style="position:absolute;bottom:-1px;right:-1px;width:24px;height:24px;border-bottom:1.5px solid var(--gold);border-right:1.5px solid var(--gold);opacity:.5"></div>
+      <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;opacity:.65">Финална Асимптотична Формула</div>
+      <div style="font-family:var(--mono);font-size:clamp(.85rem,2.2vw,1.15rem);color:#e8d080;line-height:1.85;margin-bottom:20px">
+        nₖ = −k − ½ + A·(−1)ᵏ·φ^(−2k) + o(φ^(−2k))
+      </div>
+      <div style="width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto"></div>
+      <div style="font-family:var(--serif);font-size:.95rem;color:var(--stone);font-style:italic;max-width:500px;margin:0 auto">
+        Decay rate φ² = φ+1 е Fibonacci идентичността.<br>
+        Уравнението "знае" за собствената си структура.
+      </div>
+      <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+        <div style="text-align:center"><div style="font-family:var(--mono);font-size:.92rem;color:var(--gold)" id="proofPhi2">φ²=2.61803</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:2px">Decay rate</div></div>
+        <div style="width:1px;background:rgba(200,169,110,.15)"></div>
+        <div style="text-align:center"><div style="font-family:var(--mono);font-size:.92rem;color:var(--gold)">−0.38197</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:2px">−1/φ² лимит</div></div>
+        <div style="width:1px;background:rgba(200,169,110,.15)"></div>
+        <div style="text-align:center"><div style="font-family:var(--mono);font-size:.92rem;color:var(--gold)">50 корена</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:2px">120-цифрена точност</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="pull">
   <p class="pq">"Хеопсовата пирамида кодира π в камък.<br>Великден изчислява Луната чрез закон.<br>Bitcoin кодира π в код.<br><em>Три паметника. Едно знание.</em>"</p>
   <span class="pa">— Любомир Станков, 2026</span>
@@ -371,6 +486,566 @@ document.querySelectorAll(".tli,.dc").forEach(el=>io.observe(el));
 document.querySelectorAll(".dc").forEach((c,i)=>{c.style.transitionDelay=(i%4*.08)+"s";});
 function toggleTL(el){const was=el.classList.contains("active");document.querySelectorAll(".tli").forEach(t=>t.classList.remove("active"));if(!was)el.classList.add("active");}
 (async()=>{try{const r=await fetch("https://mempool.space/api/blocks/tip/height");const h=await r.json();document.getElementById("pBlock").textContent="#"+h.toLocaleString();const r2=await fetch("https://mempool.space/api/v1/blocks");const bl=await r2.json();if(bl&&bl[0]){const ago=Math.floor(Date.now()/1000)-bl[0].timestamp;const rem=Math.max(0,600-ago);document.getElementById("pNext").textContent="~"+Math.floor(rem/60)+":"+(rem%60).toString().padStart(2,"0");}}catch(e){}})();
+
+// ══ ДВОЕН ЧАСОВНИК ══
+const GENESIS_TS=1231006505;
+const ANIMALS=["🐭","🐂","🐆","🐇","🐲","🐍","🐎","🐒","🐓","🐕","🐗","🐏"];
+const ANIMAL_NAMES=["Мишка","Вол","Барс","Заек","Змей","Змия","Кон","Маймуна","Петел","Куче","Глиган","Овен"];
+const ELEMENTS=["🌊 Вода","🔥 Огън","🌍 Земя","🌲 Дърво","⚙ Метал"];
+
+function getBGYear(ts){
+  const d=new Date(ts*1000);
+  const m=d.getUTCMonth()+1,day=d.getUTCDate(),y=d.getUTCFullYear();
+  return m>12||(m===12&&day>=21)?y+5505:y+5505-1;
+}
+
+function drawDualClock(){
+  const cv=document.getElementById("dualClock");
+  if(!cv)return;
+  const dpr=window.devicePixelRatio||1;
+  const S=480;
+  if(cv._init!==S){cv.width=S*dpr;cv.height=S*dpr;cv._init=S;}
+  const ctx=cv.getContext("2d");
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,S,S);
+  const cx=S/2,cy=S/2;
+  const now=Math.floor(Date.now()/1000);
+  const blockEst=Math.floor((now-GENESIS_TS)/600);
+  const bInDay=blockEst%144;
+  const bIn2016=blockEst%2016;
+  const bIn364=blockEst%(26*2016);
+
+  // BG calendar
+  const bgY=getBGYear(now);
+  const aiIdx=((bgY-1)%12+12)%12;
+  const elIdx=Math.floor(((bgY-1)%60)/12);
+  const bgYStart=new Date(Date.UTC(new Date(now*1000).getUTCFullYear()-(new Date(now*1000).getUTCMonth()<12?1:0),11,21));
+  const doy=Math.floor((new Date(now*1000)-bgYStart)/86400000);
+
+  function polar(deg,r,ox=cx,oy=cy){const a=(deg-90)*Math.PI/180;return[ox+Math.cos(a)*r,oy+Math.sin(a)*r];}
+  function arc(deg,r,col,w=2){
+    if(deg<=0)return;
+    const a0=-Math.PI/2,a1=(deg-90)*Math.PI/180,laf=deg>180?1:0;
+    const[sx,sy]=[cx+Math.cos(a0)*r,cy+Math.sin(a0)*r];
+    const[ex,ey]=[cx+Math.cos(a1)*r,cy+Math.sin(a1)*r];
+    ctx.beginPath();ctx.moveTo(sx,sy);ctx.arc(cx,cy,r,a0,(deg-90)*Math.PI/180);
+    ctx.strokeStyle=col;ctx.lineWidth=w;ctx.stroke();
+  }
+
+  // Outermost ring: 364-day BG year arc
+  arc(doy/364*360,220,"rgba(127,255,0,.18)",8);
+
+  // 2016-period arc
+  arc(bIn2016/2016*360,206,"rgba(199,125,255,.35)",6);
+
+  // Outer tick ring (144 blocks / 24 hours)
+  for(let i=0;i<144;i++){
+    const[x1,y1]=polar(i/144*360,192);
+    const[x2,y2]=polar(i/144*360,i%6===0?200:196);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
+    ctx.strokeStyle=i%6===0?"rgba(200,169,110,.5)":"rgba(200,169,110,.15)";
+    ctx.lineWidth=i%6===0?1.5:.5;ctx.stroke();
+  }
+
+  // Hour labels
+  ctx.font="10px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.45)";ctx.textAlign="center";
+  [0,6,12,18].forEach(h=>{const[lx,ly]=polar(h/24*360,176);ctx.fillText(h+"h",lx,ly+4);});
+
+  // 12 animals inner ring
+  ANIMALS.forEach((a,i)=>{
+    const[ax,ay]=polar(i/12*360,140);
+    const isNow=i===aiIdx;
+    ctx.font=(isNow?"bold 18px":"14px")+" serif";
+    ctx.globalAlpha=isNow?1:.45;
+    ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillText(a,ax,ay);
+    ctx.globalAlpha=1;
+  });
+
+  // 21-sector grid (inner)
+  for(let i=0;i<21;i++){
+    const[x1,y1]=polar(i/21*360,100);
+    const[x2,y2]=polar(i/21*360,108);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
+    ctx.strokeStyle="rgba(200,169,110,.12)";ctx.lineWidth=1;ctx.stroke();
+  }
+
+  // BG day arc (doy/364)
+  arc(doy/364*360,108,"rgba(0,212,255,.3)",4);
+
+  // Bitcoin hour hand (orange) — 6 blocks = 1 hour
+  const hBlock=Math.floor(bInDay/6);
+  const[hx,hy]=polar(hBlock/24*360,75);
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(hx,hy);
+  ctx.strokeStyle="rgba(200,169,110,.9)";ctx.lineWidth=3;ctx.lineCap="round";ctx.stroke();
+
+  // Bitcoin block hand (blue) — exact block
+  const[bx,by]=polar(bInDay/144*360,100);
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(bx,by);
+  ctx.strokeStyle="rgba(0,212,255,.85)";ctx.lineWidth=1.5;ctx.lineCap="round";ctx.stroke();
+
+  // BG day hand (green)
+  const[dx,dy]=polar(doy/364*360,88);
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(dx,dy);
+  ctx.strokeStyle="rgba(127,255,0,.6)";ctx.lineWidth=1;ctx.lineCap="round";ctx.stroke();
+
+  // Center dot
+  ctx.beginPath();ctx.arc(cx,cy,5,0,Math.PI*2);ctx.fillStyle="#ff6688";ctx.fill();
+
+  // Center text
+  ctx.font="bold 11px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.9)";ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.fillText(bgY+"г.",cx,cy-18);
+  ctx.font="10px 'DM Mono',monospace";ctx.fillStyle="rgba(0,212,255,.7)";
+  ctx.fillText("блок "+bInDay+"/144",cx,cy+2);
+  ctx.font="9px serif";ctx.fillStyle="rgba(127,255,0,.7)";
+  ctx.fillText(ANIMALS[aiIdx]+" "+ANIMAL_NAMES[aiIdx],cx,cy+16);
+
+  // Outer label
+  ctx.font="8px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.4)";ctx.textAlign="center";
+  ctx.fillText("2016: "+bIn2016+"/2016",cx,cy+cy-12);
+}
+
+function updateClockInfo(){
+  const now=Math.floor(Date.now()/1000);
+  const blockEst=Math.floor((now-GENESIS_TS)/600);
+  const bInDay=blockEst%144, bIn2016=blockEst%2016;
+  const bgY=getBGYear(now);
+  const aiIdx=((bgY-1)%12+12)%12;
+  const elIdx=Math.floor(((bgY-1)%60)/12);
+  const bgYStart=new Date(Date.UTC(new Date(now*1000).getUTCFullYear()-1,11,21));
+  const doy=Math.floor((new Date(now*1000)-bgYStart)/86400000);
+
+  const bi=document.getElementById("btcClockInfo");
+  const bgi=document.getElementById("bgCalInfo");
+  if(bi)bi.innerHTML=
+    '<span style="color:var(--gold)">Блок #</span>'+blockEst.toLocaleString()+'<br>'+
+    '<span style="color:var(--gold)">В деня: </span>'+bInDay+'/144 · '+(bInDay*2.5).toFixed(1)+'°<br>'+
+    '<span style="color:var(--gold)">В период: </span>'+bIn2016+'/2016<br>'+
+    '<span style="color:var(--gold)">Период #</span>'+Math.floor(blockEst/2016)+
+    ' · Халвинг #'+Math.floor(blockEst/210000)+'<br>'+
+    '<span style="color:var(--gold)">2016×2.5°=</span><span style="color:#c77dff">5040°=7!</span>';
+  if(bgi)bgi.innerHTML=
+    '<span style="color:#7fff00">Година: </span>'+bgY.toLocaleString()+' г.<br>'+
+    '<span style="color:#7fff00">Животно: </span>'+ANIMALS[aiIdx]+' '+ANIMAL_NAMES[aiIdx]+'<br>'+
+    '<span style="color:#7fff00">Стихия: </span>'+ELEMENTS[elIdx]+'<br>'+
+    '<span style="color:#7fff00">Ден в годината: </span>'+doy+'/364<br>'+
+    '<span style="color:#7fff00">26×2016 блока=</span><span style="color:var(--gold)">364 дни ✓</span>';
+}
+
+function clockLoop(){drawDualClock();updateClockInfo();requestAnimationFrame(clockLoop);}
+clockLoop();
+
+// ══ ИНТЕРАКТИВНИ ОТКРИТИЯ ══
+const INT_DISC=[
+  {n:"01",ico:"🔗",title:"GCD = 3 Инвариант",
+   calc:`<div style="font-family:var(--mono);font-size:.65rem">
+     <div style="margin-bottom:8px"><span style="color:var(--gold)">Въведи хеш (64 hex):</span></div>
+     <input type="text" id="id01h" value="000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f" style="width:100%;font-size:.6rem;margin-bottom:6px">
+     <div style="display:flex;gap:6px;margin-bottom:8px">
+       <button onclick="id01run()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">АНАЛИЗ</button>
+       <button onclick="document.getElementById('id01h').value='000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f';id01run()" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.55rem;padding:4px 8px;cursor:pointer;border-radius:1px">Genesis</button>
+     </div>
+     <div id="id01out" style="color:var(--stone);line-height:2;min-height:40px"></div>
+   </div>`},
+  {n:"02",ico:"⚡",title:"0xffff = 3 × Ферма Прости",
+   calc:`<div style="font-family:var(--mono);font-size:.65rem">
+     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+       <button onclick="id02show(65535)" style="background:rgba(200,169,110,.1);border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">0xffff</button>
+       <button onclick="id02show(255)" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.58rem;padding:4px 8px;cursor:pointer;border-radius:1px">0xFF</button>
+       <button onclick="id02show(5)" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.58rem;padding:4px 8px;cursor:pointer;border-radius:1px">F₁=5</button>
+       <button onclick="id02show(17)" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.58rem;padding:4px 8px;cursor:pointer;border-radius:1px">F₂=17</button>
+       <button onclick="id02show(257)" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.58rem;padding:4px 8px;cursor:pointer;border-radius:1px">F₃=257</button>
+     </div>
+     <canvas id="id02cv" width="400" height="80" style="width:100%;display:block"></canvas>
+     <div id="id02out" style="color:var(--stone);line-height:1.9;margin-top:6px"></div>
+   </div>`},
+  {n:"03",ico:"🌙",title:"0xFF = Слн-Лн Разлика",
+   calc:`<div style="font-family:var(--mono);font-size:.65rem">
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+       <div><div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">Слн. година (дни)</div><input type="number" id="id03s" value="365" step=".01" style="width:100%;font-size:.65rem"></div>
+       <div><div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">Лунен месец</div><input type="number" id="id03l" value="29.53" step=".001" style="width:100%;font-size:.65rem"></div>
+     </div>
+     <div style="display:flex;gap:6px;margin-bottom:8px">
+       <button onclick="id03run()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">ПРЕСМЕТНИ</button>
+       <button onclick="document.getElementById('id03s').value=365;document.getElementById('id03l').value=29.53;id03run()" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.55rem;padding:4px 8px;cursor:pointer;border-radius:1px">Кръгли (0xFF)</button>
+     </div>
+     <div id="id03out" style="color:var(--stone);line-height:2"></div>
+   </div>`},
+  {n:"05",ico:"🌊",title:"21 = floor(π) × denom(π)",
+   calc:`<canvas id="id05cv" width="480" height="120" style="width:100%;display:block;margin-bottom:6px"></canvas>
+     <div style="font-family:var(--mono);font-size:.65rem;color:var(--stone);line-height:2" id="id05info">
+       π=3.14159... → floor(π)=<span style="color:var(--gold)">3</span><br>
+       π≈22/7 → denominator=<span style="color:var(--gold)">7</span> = лунна седмица<br>
+       3×7=<span style="color:var(--gold)">21</span>=F(8) · 21×96=<span style="color:#c77dff">2016</span> · 21M монети
+     </div>`},
+  {n:"07",ico:"📐",title:"2016×2.5°=5040°=7!",
+   calc:`<div style="font-family:var(--mono);font-size:.65rem">
+     <div style="display:flex;gap:6px;align-items:flex-end;margin-bottom:8px;flex-wrap:wrap">
+       <div><div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">Блокове</div><input type="number" id="id07b" value="2016" style="width:100px;font-size:.65rem"></div>
+       <button onclick="id07run()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">ПРЕСМЕТНИ</button>
+       <button onclick="document.getElementById('id07b').value=144;id07run()" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.55rem;padding:4px 8px;cursor:pointer;border-radius:1px">144 (ден)</button>
+     </div>
+     <canvas id="id07cv" width="200" height="200" style="width:140px;height:140px;float:right;margin-left:12px;display:block"></canvas>
+     <div id="id07out" style="color:var(--stone);line-height:2"></div>
+   </div>`},
+  {n:"09",ico:"🧬",title:"285 = 235 + 50",
+   calc:`<div style="font-family:var(--mono);font-size:.65rem">
+     <div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">Coinbase послание</div>
+     <input type="text" id="id09m" value="The Times 03/Jan/2009 Chancellor on brink of second bailout for banks" style="width:100%;font-size:.6rem;margin-bottom:6px" oninput="id09run()">
+     <div id="id09out" style="color:var(--stone);line-height:2"></div>
+   </div>`},
+  {n:"11",ico:"∞",title:"Теоремата на Станков",
+   calc:`<div style="font-family:var(--mono);font-size:.65rem">
+     <div style="display:flex;gap:6px;align-items:flex-end;margin-bottom:8px">
+       <div><div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">k =</div><input type="number" id="id11k" value="50" min="1" max="100000" style="width:90px;font-size:.65rem"></div>
+       <button onclick="id11run()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">ПРЕСМЕТНИ nₖ</button>
+     </div>
+     <div id="id11out" style="color:var(--stone);line-height:2"></div>
+   </div>`},
+];
+
+function buildIntGrid(){
+  const g=document.getElementById("intGrid");
+  if(!g||g.children.length>0)return;
+  INT_DISC.forEach(d=>{
+    const el=document.createElement("div");
+    el.style.cssText="background:var(--bg2);border:1px solid rgba(200,169,110,.08);border-radius:2px;overflow:hidden;transition:border-color .2s;";
+    el.innerHTML=`
+      <div onclick="this.parentElement.querySelector('.ic').style.display=this.parentElement.querySelector('.ic').style.display==='none'?'block':'none'"
+           style="display:flex;align-items:center;gap:12px;padding:18px 20px;cursor:pointer;background:var(--bg2);transition:background .18s"
+           onmouseover="this.style.background='rgba(200,169,110,.04)'" onmouseout="this.style.background='var(--bg2)'">
+        <span style="font-family:var(--serif);font-size:2rem;color:rgba(200,169,110,.12);font-weight:600;min-width:30px">${d.n}</span>
+        <span style="font-size:1.3rem">${d.ico}</span>
+        <span style="font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--white);flex:1">${d.title}</span>
+        <span style="font-family:var(--mono);font-size:.65rem;color:var(--dim)">▾</span>
+      </div>
+      <div class="ic" style="display:none;padding:16px 20px;border-top:1px solid rgba(200,169,110,.08)">${d.calc}</div>`;
+    g.appendChild(el);
+  });
+  // Авто-иниц.
+  setTimeout(()=>{id02show(65535);id05draw();id03run();id09run();id11run();id07run();},200);
+}
+const intObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){buildIntGrid();intObs.disconnect();}});},{threshold:.1});
+const intSec=document.getElementById("interactive");if(intSec)intObs.observe(intSec);
+
+// Интерактивни функции
+function id01run(){
+  const h=document.getElementById("id01h")?.value.trim().toLowerCase();
+  const out=document.getElementById("id01out");if(!out)return;
+  if(!h||h.length!==64){out.innerHTML='<span style="color:#ff6688">⚠ 64 hex символа</span>';return;}
+  function h2b(x){const b=[];for(let i=0;i<x.length;i+=2)b.push(parseInt(x.slice(i,i+2),16));return b;}
+  function bg(a,b){a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b];}return a;}
+  function pf(n){let s=n.toString();if(s.length%2)s="0"+s;const p=[];for(let i=0;i<s.length;i+=2)p.push(s.slice(i,i+2));return BigInt(p.reverse().join(""));}
+  const bytes=h2b(h);
+  const N=BigInt("0x"+h);
+  const F=BigInt("0x"+[...bytes].reverse().map(b=>b.toString(16).padStart(2,"0")).join(""));
+  const r1=N>F?N%F:F%N;const f1=pf(r1);const r2=r1>f1?r1%f1:f1>r1?f1%r1:0n;
+  const g1=bg(N,F),g2=bg(r1,N),g3=bg(r2,N);
+  const gc=g=>g===3n?"#7fff00":"#ff6688";
+  out.innerHTML=`<span style="color:var(--gold)">GCD(N,F) = </span><span style="color:${gc(g1)};font-weight:bold">${g1}</span> ${g1===3n?"✓":"✗"}<br>`+
+    `<span style="color:var(--gold)">GCD(r₁,N) = </span><span style="color:${gc(g2)};font-weight:bold">${g2}</span> ${g2===3n?"✓":"✗"}<br>`+
+    `<span style="color:var(--gold)">GCD(r₂,N) = </span><span style="color:${gc(g3)};font-weight:bold">${g3}</span> ${g3===3n?"✓":"✗"}<br>`+
+    `<span style="color:${g1===3n&&g2===3n&&g3===3n?"#7fff00":"#ff6688"}">GCD=3 инвариант: ${g1===3n&&g2===3n&&g3===3n?"ПОТВЪРДЕН ✓":"НЕ ✗"}</span>`;
+}
+function id02show(n){
+  const cv=document.getElementById("id02cv");const out=document.getElementById("id02out");
+  if(!cv)return;
+  const W=cv.offsetWidth||400,H=80;cv.width=W;cv.height=H;
+  const ctx=cv.getContext("2d");ctx.clearRect(0,0,W,H);
+  const bn=n.toString(2);
+  const cw=Math.min(18,Math.floor((W-20)/bn.length));
+  const fermat=[3,5,17,257,65537];const isF=fermat.includes(n);
+  [...bn].forEach((b,i)=>{
+    const x=10+i*cw,isOne=b==="1";
+    ctx.fillStyle=isOne?(isF?"rgba(127,255,0,.3)":"rgba(0,212,255,.25)"):"rgba(30,30,50,.8)";
+    ctx.strokeStyle=isOne?(isF?"#7fff00":"#00d4ff"):"#1a1a35";ctx.lineWidth=.8;
+    ctx.beginPath();ctx.roundRect(x,20,cw-2,28,2);ctx.fill();ctx.stroke();
+    ctx.fillStyle=isOne?(isF?"#7fff00":"#00d4ff"):"#555568";
+    ctx.font="bold 12px 'DM Mono',monospace";ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillText(b,x+cw/2-1,34);
+  });
+  const factors=[];let tmp=n;for(let p=2;p*p<=tmp;p++){while(tmp%p===0){factors.push(p);tmp/=p;}}if(tmp>1)factors.push(tmp);
+  const col=isF?"#7fff00":factors.length===1?"#00d4ff":"var(--gold)";
+  if(out)out.innerHTML=`<span style="color:${col}">${n} = ${bn}₂ (${bn.length} бита)</span><br>`+
+    `<span style="color:var(--stone)">${isF?"✦ Ферма просто — модел 1,нули,1":factors.join(" × ")}</span>`;
+}
+function id03run(){
+  const sol=parseFloat(document.getElementById("id03s")?.value)||365;
+  const lun=parseFloat(document.getElementById("id03l")?.value)||29.53;
+  const out=document.getElementById("id03out");if(!out)return;
+  const diff=sol-12*lun,hrs=diff*24,is255=Math.abs(hrs-255)<1;
+  out.innerHTML=`<span style="color:var(--gold)">${sol} − 12×${lun}</span> = <span style="color:#00d4ff">${diff.toFixed(4)} дни</span><br>`+
+    `= <span style="color:${is255?"#7fff00":"#00d4ff"}">${hrs.toFixed(2)} ч ${is255?"= 0xFF ✓":"≠ 255"}</span><br>`+
+    `<span style="color:var(--stone)">0xFF × F₃ = 255 × 257 = 0xffff ✓</span>`;
+}
+function id05draw(){
+  const cv=document.getElementById("id05cv");if(!cv)return;
+  const W=cv.offsetWidth||480,H=120;cv.width=W;cv.height=H;
+  const ctx=cv.getContext("2d");ctx.clearRect(0,0,W,H);
+  const nodes=[
+    {x:.1,y:.3,w:.18,h:.35,col:"#c8a96e",txt:"π=3.1415..."},
+    {x:.1,y:.65,w:.12,h:.3,col:"#7fff00",txt:"3=floor(π)"},
+    {x:.28,y:.65,w:.12,h:.3,col:"#00d4ff",txt:"7=denom"},
+    {x:.45,y:.48,w:.16,h:.35,col:"#c77dff",txt:"7=🌙 седм."},
+    {x:.65,y:.48,w:.16,h:.35,col:"#c8a96e",txt:"3×7=21"},
+    {x:.85,y:.48,w:.13,h:.3,col:"#7fff00",txt:"F(8)=21"},
+  ];
+  const arrows=[[0,1],[0,2],[2,3],[1,4],[3,4],[4,5]];
+  arrows.forEach(([a,b])=>{
+    const na=nodes[a],nb=nodes[b];
+    const ax=(na.x+na.w/2)*W,ay=(na.y+na.h/2)*H;
+    const bx=(nb.x+nb.w/2)*W,by=(nb.y+nb.h/2)*H;
+    ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);
+    ctx.strokeStyle="rgba(200,169,110,.2)";ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+  });
+  nodes.forEach(n=>{
+    ctx.fillStyle=n.col.replace(")",",0.1)").replace("rgb","rgba").replace("#","rgba(").replace("rgba(","").slice(0,-1);
+    ctx.fillStyle="rgba(0,0,0,.5)";
+    ctx.strokeStyle=n.col;ctx.lineWidth=1;
+    ctx.beginPath();ctx.roundRect(n.x*W,n.y*H,n.w*W,n.h*H,3);ctx.fill();ctx.stroke();
+    ctx.fillStyle=n.col;ctx.font="bold 10px 'DM Mono',monospace";ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillText(n.txt,(n.x+n.w/2)*W,(n.y+n.h/2)*H);
+  });
+}
+function id07run(){
+  const b=parseInt(document.getElementById("id07b")?.value)||2016;
+  const out=document.getElementById("id07out");const cv=document.getElementById("id07cv");
+  if(!out)return;
+  const deg=b*2.5,revs=deg/360;
+  let fact=1,fn=0;for(let i=1;i<=12;i++){if(Math.round(deg)===fact){fn=i;break;}fact*=(i+1);}
+  out.innerHTML=`<span style="color:var(--gold)">${b}</span> × 2.5° = <span style="color:#00d4ff">${deg.toLocaleString()}°</span><br>`+
+    `= <span style="color:${Number.isInteger(revs)?"#7fff00":"#c8a96e"}">${revs.toFixed(3)} обороти${Number.isInteger(revs)?" ✓":""}</span><br>`+
+    (fn?`= <span style="color:#7fff00">${fn}! ✦</span><br>`:"");
+  if(cv){
+    cv.width=cv.height=200;const ctx=cv.getContext("2d");const cx=100,cy=100,R=88;
+    ctx.clearRect(0,0,200,200);
+    if(deg%360>0){
+      const a0=-Math.PI/2,a1=(deg%360-90)*Math.PI/180,laf=deg%360>180?1:0;
+      ctx.beginPath();ctx.moveTo(cx+Math.cos(a0)*R,cy+Math.sin(a0)*R);
+      ctx.arc(cx,cy,R,a0,(deg%360-90)*Math.PI/180);
+      ctx.strokeStyle="rgba(200,169,110,.5)";ctx.lineWidth=4;ctx.stroke();
+    }
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.strokeStyle="rgba(200,169,110,.1)";ctx.lineWidth=1;ctx.stroke();
+    for(let i=0;i<24;i++){const a=(i/24*360-90)*Math.PI/180;
+      ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*(R-6),cy+Math.sin(a)*(R-6));ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);
+      ctx.strokeStyle=i%6===0?"rgba(200,169,110,.5)":"rgba(200,169,110,.15)";ctx.lineWidth=i%6===0?1.5:.4;ctx.stroke();}
+    const ang=(deg%360-90)*Math.PI/180;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(ang)*R*.8,cy+Math.sin(ang)*R*.8);
+    ctx.strokeStyle="#00d4ff";ctx.lineWidth=2;ctx.lineCap="round";ctx.stroke();
+    ctx.beginPath();ctx.arc(cx,cy,4,0,Math.PI*2);ctx.fillStyle="#ff6688";ctx.fill();
+    ctx.font="bold 11px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.8)";ctx.textAlign="center";
+    ctx.fillText((deg%360).toFixed(1)+"°",cx,cy-12);
+    if(fn){ctx.fillStyle="#7fff00";ctx.fillText(fn+"!",cx,cy+8);}
+  }
+}
+function id09run(){
+  const msg=document.getElementById("id09m")?.value||"";
+  const out=document.getElementById("id09out");if(!out)return;
+  const sc=msg.length+8,tx=4+1+32+4+1+sc+4+1+8+1+67+4,tot=80+1+tx;
+  const diff=tot-235;const col=diff===50?"#7fff00":Math.abs(diff-50)<3?"#c8a96e":"#ff6688";
+  out.innerHTML=`<span style="color:var(--gold)">${msg.length} символа</span> → скрипт ${sc}б → TX ${tx}б<br>`+
+    `Общо: <span style="color:#00d4ff">${tot} байта</span><br>`+
+    `${tot} − 235 (Метон) = <span style="color:${col}">${diff} ${diff===50?"= 50 BTC ✓":"≠ 50 BTC ✗"}</span>`;
+}
+function id11run(){
+  const k=parseInt(document.getElementById("id11k")?.value)||50;
+  const out=document.getElementById("id11out");if(!out)return;
+  const phi=(1+Math.sqrt(5))/2;
+  const ROOTS=[-0.627374237292,-1.477989493155,-2.499164223390,-3.502615861689,-4.498350256008,-5.500820256327,-6.499628652260,-7.500159406254,-8.499933684456,-9.500026996626];
+  const lastK=ROOTS.length,lastE=ROOTS[lastK-1]-(-lastK-0.5);
+  const A=lastE/(Math.pow(-1,lastK)*Math.pow(phi,-2*lastK));
+  const center=-k-0.5,corr=A*Math.pow(-1,k)*Math.pow(phi,-2*k),nPred=center+corr;
+  out.innerHTML=`<span style="color:var(--gold)">n_${k}</span> = <span style="color:#c77dff">${nPred.toFixed(15)}</span><br>`+
+    `Център: <span style="color:var(--gold)">${center}</span><br>`+
+    `Корекция: <span style="color:#7fff00">${corr>=0?"+":""}${corr.toExponential(5)}</span><br>`+
+    `φ² = φ+1 = <span style="color:var(--gold)">${(phi*phi).toFixed(8)}</span>`;
+}
+
+// ══ ТЕОРЕМА ДОКАЗАТЕЛСТВО ══
+const PROOF_ROOTS=[-0.627374237292,-1.477989493155,-2.499164223390,-3.502615861689,-4.498350256008,-5.500820256327,-6.499628652260,-7.500159406254,-8.499933684456,-9.500026996626];
+const PHI=(1+Math.sqrt(5))/2;
+
+function drawAxis(){
+  const cv=document.getElementById("axisCanvas");if(!cv)return;
+  const dpr=window.devicePixelRatio||1;
+  const W=cv.offsetWidth||900,H=160;
+  cv.width=W*dpr;cv.height=H*dpr;
+  const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
+  const nMin=-11,nMax=0.5,midY=H/2;
+  const toX=n=>32+(n-nMin)/(nMax-nMin)*(W-48);
+
+  // Блокове
+  for(let k=1;k<=10;k++){
+    const x1=toX(-k),x2=toX(-k+1);
+    ctx.fillStyle=k%2?"rgba(199,125,255,.07)":"rgba(0,212,255,.04)";
+    ctx.fillRect(x1,midY-34,x2-x1,68);
+    ctx.strokeStyle="rgba(199,125,255,.12)";ctx.lineWidth=.4;
+    ctx.strokeRect(x1,midY-34,x2-x1,68);
+    ctx.font="8px 'DM Mono',monospace";ctx.fillStyle="rgba(199,125,255,.45)";ctx.textAlign="center";
+    ctx.fillText("k="+k,(x1+x2)/2,midY-22);
+  }
+
+  // Ос
+  ctx.beginPath();ctx.moveTo(20,midY);ctx.lineTo(W-10,midY);
+  ctx.strokeStyle="rgba(200,169,110,.3)";ctx.lineWidth=1.5;ctx.stroke();
+
+  // Цели числа
+  for(let n=-10;n<=0;n++){
+    const x=toX(n);
+    ctx.beginPath();ctx.moveTo(x,midY-5);ctx.lineTo(x,midY+5);
+    ctx.strokeStyle="rgba(200,169,110,.35)";ctx.lineWidth=1;ctx.stroke();
+    ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.45)";ctx.textAlign="center";
+    ctx.fillText(n,x,midY+17);
+  }
+
+  // Полуцели
+  for(let k=1;k<=10;k++){
+    const x=toX(-k+.5);
+    ctx.beginPath();ctx.moveTo(x,midY-38);ctx.lineTo(x,midY+5);
+    ctx.strokeStyle="rgba(200,169,110,.25)";ctx.lineWidth=.8;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+  }
+
+  // Корени + εₖ
+  PROOF_ROOTS.forEach((n,i)=>{
+    const k=i,x=toX(n),cx2=toX(-k+.5);
+    ctx.beginPath();ctx.moveTo(cx2,midY-12);ctx.lineTo(x,midY-12);
+    ctx.strokeStyle="rgba(127,255,0,.65)";ctx.lineWidth=1.5;ctx.stroke();
+    // Точка
+    ctx.beginPath();ctx.arc(x,midY,6.5,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,102,136,.85)";ctx.fill();
+    ctx.strokeStyle="rgba(255,102,136,.3)";ctx.lineWidth=2;ctx.stroke();
+    // Лейбъл
+    ctx.font="bold 9px 'DM Mono',monospace";ctx.fillStyle="rgba(255,102,136,.8)";ctx.textAlign="center";
+    ctx.fillText("n"+k,x,midY-18);
+  });
+
+  // Формула
+  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(199,125,255,.6)";ctx.textAlign="left";
+  ctx.fillText("nₖ = −k − ½ + A·(−1)ᵏ·φ^(−2k)",12,H-8);
+  ctx.textAlign="right";ctx.fillStyle="rgba(127,255,0,.5)";
+  ctx.fillText("↔ εₖ → 0 при k→∞",W-12,H-8);
+}
+
+function drawDecay(){
+  const cv=document.getElementById("decayCanvas");if(!cv)return;
+  const dpr=window.devicePixelRatio||1;
+  const W=cv.offsetWidth||900,H=200,pad=44;
+  cv.width=W*dpr;cv.height=H*dpr;
+  const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
+  const eps=PROOF_ROOTS.map((n,i)=>Math.abs(n-(-i-.5)));
+  const maxE=Math.max(...eps);
+  const toX=k=>pad+k/(eps.length-1)*(W-2*pad);
+  const toY=e=>H-pad-20-(e/maxE)*(H-2*pad-22);
+
+  // Grid
+  for(let i=0;i<=4;i++){
+    const y=toY(maxE*(1-i/4));
+    ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(W-pad,y);
+    ctx.strokeStyle="rgba(200,169,110,.06)";ctx.lineWidth=.4;ctx.stroke();
+    ctx.font="8px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.3)";ctx.textAlign="right";
+    ctx.fillText((maxE*(1-i/4)).toFixed(3),pad-4,y+3);
+  }
+
+  // Теоретична φ^(-2k)
+  const A0=eps[0];
+  ctx.beginPath();
+  eps.forEach((_,i)=>{
+    const et=A0*Math.pow(PHI,-2*i);
+    const x=toX(i),y=toY(Math.abs(et));
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle="rgba(200,169,110,.35)";ctx.lineWidth=1.5;ctx.setLineDash([5,4]);ctx.stroke();ctx.setLineDash([]);
+
+  // Реална крива
+  ctx.beginPath();
+  eps.forEach((e,i)=>{const x=toX(i),y=toY(e);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.strokeStyle="#ff6688";ctx.lineWidth=2;ctx.stroke();
+
+  // Точки + ÷φ²
+  eps.forEach((e,i)=>{
+    const x=toX(i),y=toY(e);
+    ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle="#ff6688";ctx.fill();
+    ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.5)";ctx.textAlign="center";
+    ctx.fillText(i,x,H-8);
+    if(i>=1){
+      const r=eps[i-1]/e;
+      const close=Math.abs(r-PHI*PHI)<0.9;
+      ctx.fillStyle=close?"#7fff00":"rgba(200,169,110,.6)";
+      ctx.fillText("÷"+r.toFixed(2),x,y-11);
+    }
+  });
+
+  // Оси
+  ctx.strokeStyle="rgba(200,169,110,.2)";ctx.lineWidth=.8;
+  ctx.beginPath();ctx.moveTo(pad,pad);ctx.lineTo(pad,H-pad-18);ctx.lineTo(W-pad,H-pad-18);ctx.stroke();
+  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.4)";ctx.textAlign="left";
+  ctx.fillText("|εₖ|",4,pad+4);
+  ctx.textAlign="center";ctx.fillText("k",W/2,H-2);
+  // Легенда
+  ctx.fillStyle="rgba(200,169,110,.4)";ctx.textAlign="right";ctx.fillText("- - - φ^(−2k)",W-pad,pad+14);
+  ctx.fillStyle="#ff6688";ctx.fillText("——  реално",W-pad,pad+26);
+}
+
+function drawRatio(){
+  const cv=document.getElementById("ratioCanvas");if(!cv)return;
+  const dpr=window.devicePixelRatio||1;
+  const W=cv.offsetWidth||900,H=160,pad=44;
+  cv.width=W*dpr;cv.height=H*dpr;
+  const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
+  const eps=PROOF_ROOTS.map((n,i)=>Math.abs(n-(-i-.5)));
+  const ratios=eps.slice(1).map((e,i)=>eps[i]/e);
+  // Sign alternation included
+  const signRatios=PROOF_ROOTS.slice(1).map((n,i)=>{
+    const e1=PROOF_ROOTS[i]-(-i-.5);
+    const e2=n-(-(i+1)-.5);
+    return e1!==0?e2/e1:0;
+  });
+  const target=-1/PHI/PHI;
+  const midY=H/2;
+  const toX=k=>pad+k/(signRatios.length-1)*(W-2*pad);
+  const toY=v=>midY-(v/0.5)*(midY-pad);
+
+  // Zero line
+  ctx.beginPath();ctx.moveTo(pad,midY);ctx.lineTo(W-pad,midY);
+  ctx.strokeStyle="rgba(200,169,110,.2)";ctx.lineWidth=.8;ctx.stroke();
+
+  // Target line −1/φ²
+  const ty=toY(target);
+  ctx.beginPath();ctx.moveTo(pad,ty);ctx.lineTo(W-pad,ty);
+  ctx.strokeStyle="rgba(127,255,0,.5)";ctx.lineWidth=1;ctx.setLineDash([6,4]);ctx.stroke();ctx.setLineDash([]);
+  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(127,255,0,.6)";ctx.textAlign="right";
+  ctx.fillText("−1/φ²="+target.toFixed(5),W-pad,ty-5);
+
+  // Ratio line
+  ctx.beginPath();
+  signRatios.forEach((r,i)=>{const x=toX(i),y=toY(Math.max(-0.5,Math.min(0.5,r)));i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.strokeStyle="#00d4ff";ctx.lineWidth=1.8;ctx.stroke();
+
+  // Points
+  signRatios.forEach((r,i)=>{
+    const x=toX(i),y=toY(Math.max(-0.5,Math.min(0.5,r)));
+    const close=Math.abs(r-target)<0.05;
+    ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle=close?"#7fff00":"#00d4ff";ctx.fill();
+    ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.45)";ctx.textAlign="center";
+    ctx.fillText(i+1,x,H-8);
+    ctx.fillStyle=close?"#7fff00":"rgba(0,212,255,.6)";
+    ctx.fillText(r.toFixed(3),x,y-11);
+  });
+
+  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.4)";ctx.textAlign="left";
+  ctx.fillText("εₖ₊₁/εₖ",4,pad+4);
+  ctx.textAlign="center";ctx.fillText("k",W/2,H-2);
+  ctx.fillStyle="rgba(0,212,255,.5)";ctx.textAlign="right";
+  ctx.fillText("—— εₖ₊₁/εₖ (клони към −1/φ²)",W-pad,pad+14);
+}
+
+// Инициализация на proof секцията при scroll
+const proofObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+  setTimeout(()=>{drawAxis();drawDecay();drawRatio();},100);
+  proofObs.disconnect();
+}});},{threshold:.05});
+const proofSec=document.getElementById("proof");if(proofSec)proofObs.observe(proofSec);
+window.addEventListener("resize",()=>{drawAxis();drawDecay();drawRatio();drawDualClock();});
 </script>
 </body>
 </html>
