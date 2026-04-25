@@ -123,6 +123,7 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:var(--glow);}
   <button class="tab"     onclick="ST('tgeo',this)">📐 Геометрия</button>
   <button class="tab"     onclick="ST('tffb',this)">∞ Теорема</button>
   <button class="tab"     onclick="ST('tcal',this)">📅 Календар</button>
+  <button class="tab"     onclick="ST('tdisc',this)" style="border-color:rgba(247,147,26,.4);color:var(--accent)">✦ 12 Открития</button>
 </div>
 
 <!-- ═══ LIVE ═══ -->
@@ -557,7 +558,7 @@ let lHash='',selBTC='0.00005';
 let proOK = localStorage.getItem('pro')==='1';
 
 function ST(id,btn){
-  ['tv','ta','tc','tm','tp','talgo','tdiff','tgeo','tffb','tcal'].forEach(t=>{
+  ['tv','ta','tc','tm','tp','talgo','tdiff','tgeo','tffb','tcal','tdisc'].forEach(t=>{
     const el=document.getElementById(t);
     if(el) el.style.display=t===id?'':'none';
   });
@@ -566,6 +567,7 @@ function ST(id,btn){
   if(id==='tc') RC2();
   if(id==='tp') RPro();
   if(id==='tgeo') renderGeo();
+  if(id==='tdisc') initDisc();
 }
 
 function gcd(a,b){a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b];}return a;}
@@ -2363,6 +2365,1021 @@ window.CALinit = function() {
 };
 
 })();
+</script>
+
+<!-- ═══ 12 ОТКРИТИЯ ═══ -->
+<div id="tdisc" style="display:none">
+<div class="panel pp">
+  <div class="pt p">▸ 12 Оригинални Открития — Подстатии</div>
+  <div style="font-size:.65rem;color:var(--dim);margin-bottom:12px">Всяко откритие с история, доказателствен материал и значение. Кликни за разгъване.</div>
+  <div id="discContainer"></div>
+</div>
+
+<!-- АНТИКИТЕРА -->
+<div class="panel bp">
+  <div class="pt b">▸ Антикитерски Механизъм — Живи Зъбни Колела (~87 пр.Хр.)</div>
+  <div style="font-size:.65rem;color:var(--dim);margin-bottom:10px;line-height:1.8">
+    37 бронзови зъбни колела · <span style="color:var(--green)">64/38 = 32/19</span> · 
+    19-зъбното колело = <span style="color:var(--accent)">Метон в бронз</span> · 
+    Предсказва затъмнения, фази, Олимпиади
+  </div>
+  <div class="row" style="margin-bottom:10px">
+    <button id="antiBtn" class="btn" onclick="toggleAntikythera()">▶ Анимирай</button>
+    <button class="btn bb" onclick="antiAngle=0;document.getElementById('antiSvg').innerHTML=drawAntikythera(0)">↺ Нулирай</button>
+    <div style="flex:1;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--green)">64/38 = 32/19</span>
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--purple)">38 = 2 × 19 (Метон)</span>
+      <span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--accent)">19 = Метонов цикъл</span>
+    </div>
+  </div>
+  <div id="antiSvg" style="border:1px solid var(--border);border-radius:3px;overflow:hidden"></div>
+  <div class="grid" style="margin-top:10px">
+    <div class="card"><div class="cl">Главно предаване</div><div class="cv g">64 / 38 = 32/19</div></div>
+    <div class="card"><div class="cl">19-зъбно колело</div><div class="cv p">Метон в метал ✓</div></div>
+    <div class="card"><div class="cl">Сарос цикъл</div><div class="cv o">18 год = 223 лунни мес</div></div>
+    <div class="card"><div class="cl">Произход</div><div class="cv">~87 пр.Хр. (Родос/Корин)</div></div>
+    <div class="card"><div class="cl">Зъбни числа</div><div class="cv">19, 38, 53, 64, 96, 223, 235</div></div>
+    <div class="card"><div class="cl">235 = Метон лунни</div><div class="cv g">Вградено в зъбите ✓</div></div>
+  </div>
+</div>
+
+<!-- ПИРАМИДА -->
+<div class="panel" style="border-color:rgba(247,147,26,.2)">
+  <div class="pt">▸ Хеопсова Пирамида — Интерактивна Геометрия (~2560 пр.Хр.)</div>
+  <div style="font-size:.65rem;color:var(--dim);margin-bottom:10px;line-height:1.8">
+    Royal cubit = <span style="color:var(--purple)">π/6 метра = 52.36 cm</span> · 
+    4×основа/h = <span style="color:var(--green)">2π</span> (грешка 0.04%) · 
+    <span style="color:var(--accent)">21 × 2.5° = 52.5° ≈ 52.36</span>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+    <button id="pv_pi" class="btn pvbtn on" onclick="switchPyramid('pi')">π Формулата</button>
+    <button id="pv_cubit" class="btn pvbtn bb" onclick="switchPyramid('cubit')">Царски Лакет</button>
+    <button id="pv_bitcoin" class="pvbtn pbtn" onclick="switchPyramid('bitcoin')">Bitcoin Връзка</button>
+  </div>
+  <div id="pyramidSvg" style="border:1px solid var(--border);border-radius:3px;overflow:hidden"></div>
+  <div class="grid" style="margin-top:10px">
+    <div class="card"><div class="cl">Основа</div><div class="cv o">440 × 52.36 = 230.38 m</div></div>
+    <div class="card"><div class="cl">Височина</div><div class="cv o">280 × 52.36 = 146.61 m</div></div>
+    <div class="card"><div class="cl">4×b / h</div><div class="cv g">= 6.2832 ≈ 2π ✓ (0.04%)</div></div>
+    <div class="card"><div class="cl">Royal cubit</div><div class="cv p">π/6 м = 52.3599... cm</div></div>
+    <div class="card"><div class="cl">21 × 2.5°</div><div class="cv o">= 52.5° ≈ 52.36 (0.27%)</div></div>
+    <div class="card"><div class="cl">Грешка на π≈22/7</div><div class="cv g">= 0.04% — същата!</div></div>
+  </div>
+</div>
+
+</div>
+
+<style>
+.da{border:1px solid var(--border);border-radius:3px;margin-bottom:8px;overflow:hidden;transition:border-color .2s;}
+.da:hover{border-color:rgba(247,147,26,.3);}
+.dh{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;background:var(--bg2);transition:background .18s;}
+.dh:hover{background:rgba(247,147,26,.05);}
+.dnum{font-family:'Orbitron',sans-serif;font-size:1.2rem;color:rgba(247,147,26,.15);font-weight:900;min-width:32px;}
+.demoji{font-size:1.2rem;}
+.dtitle{font-family:'Orbitron',sans-serif;font-size:.65rem;color:var(--text);flex:1;letter-spacing:.05em;text-transform:uppercase;}
+.dformula{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--accent);background:rgba(247,147,26,.07);padding:2px 7px;border-radius:2px;display:none;}
+@media(min-width:640px){.dformula{display:block;}}
+.dtoggle{font-size:.75rem;color:var(--dim);transition:transform .22s;}
+.dtoggle.open{transform:rotate(180deg);}
+.dbody{display:none;padding:20px 22px;border-top:1px solid var(--border);background:var(--bg);}
+.dbody.open{display:block;}
+.dsect{margin-bottom:16px;}
+.dsect-title{font-family:'Orbitron',sans-serif;font-size:.55rem;color:var(--accent);letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;opacity:.7;}
+.dsect-text{font-size:.74rem;color:var(--dim);line-height:1.8;}
+.dsect-text strong{color:var(--text);}
+.dsect-text em{color:var(--accent);font-style:italic;}
+.dsect-text code{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--accent);background:rgba(247,147,26,.07);padding:1px 4px;border-radius:2px;}
+.dcode{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--blue);background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 13px;margin:8px 0;line-height:1.85;white-space:pre-wrap;border-radius:0 3px 3px 0;overflow-x:auto;}
+.dtags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;}
+.dtag{font-family:'Share Tech Mono',monospace;font-size:.57rem;padding:2px 7px;border:1px solid var(--border);border-radius:9px;color:var(--dim);}
+.dorigin{font-family:'Orbitron',sans-serif;font-size:.52rem;color:var(--purple);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+</style>
+
+<script>
+const DISC_DATA = [
+{n:'01',icon:'🔗',
+title:'GCD = 3 Инвариант',
+formula:'GCD(N,F)=GCD(r₁,N)=GCD(r₂,N)=3',
+origin:'Вавилон → Евклид → Bitcoin',
+tags:['GCD','Genesis Block','Модулна аритметика','3=floor(π)'],
+history:`Алгоритъмът на Евклид за намиране на GCD е описан около 300 г. пр.Хр. в "Начала" — но методът произлиза от вавилонски математици хиляди години по-рано. <strong>3 = floor(π)</strong> е структурният фундамент: в тропичното слънцестоене, в π≈22/7, в Метоновия цикъл — 3 се появява навсякъде.`,
+evidence:`Pair-flip алгоритъм върху Genesis хеша:
+
+r₁ = N mod F
+f₁ = pair_flip(r₁)   ← обръщане на десетичните двойки
+r₂ = r₁ mod f₁
+
+Резултат:
+GCD(N, F)         = 3  ✓
+GCD(r₁, N)        = 3  ✓
+GCD(r₂, N)        = 3  ✓
+GCD(r₂, TARGET)   = 3  ✓  ← difficulty target-ът!
+PubKey_X mod 3    = 0  ✓  ← X-координатата на Сатоши!
+
+Вероятност за случайно: < 1/243`,
+significance:`3 е архитектурното изходно число на Bitcoin. Той свързва Genesis хеша, difficulty target-а и публичния ключ в единна структура. Не е случайност — 3 е GCD инвариантът на целия протокол.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Pair-Flip Калкулатор — GCD за произволен хеш</div>
+<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+  <input type="text" id="d01hash" style="flex:1;font-size:.6rem;min-width:200px" value="000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f" placeholder="64 hex символа...">
+  <button class="btn" onclick="d01run()">ПРЕСМЕТНИ</button>
+  <button class="btn bb" onclick="document.getElementById('d01hash').value='000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f';d01run()">Genesis #0</button>
+</div>
+<div id="d01out" style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--blue);background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 13px;line-height:2;min-height:60px;border-radius:0 3px 3px 0"></div>
+</div>`},
+
+{n:'02',icon:'⚡',
+title:'0xffff = 3 × Три Ферма Прости',
+formula:'65535 = 3 × 5 × 17 × 257 = 3 × F₁ × F₂ × F₃',
+origin:'Пиер дьо Ферма (1640) → Bitcoin difficulty',
+tags:['Ферма прости','Difficulty','0xffff','Факторизация'],
+history:`Пиер дьо Ферма открил в 1640 г. числата Fₙ = 2^(2ⁿ)+1. Известни само пет прости: 3, 5, 17, 257, 65537. Гаус доказал: правилен n-ъгълник е конструируем с линийка и пергел само когато n е произведение на различни Ферма прости. Bitcoin difficulty target <strong>0x1d00ffff</strong> — мантисата 0xffff е числото с което се регулира трудността.`,
+evidence:`65535 = 3 × 21845
+       = 3 × 5 × 4369
+       = 3 × 5 × 17 × 257
+
+F₁ = 2²+1 = 5    = 101₂
+F₂ = 2⁴+1 = 17   = 10001₂
+F₃ = 2⁸+1 = 257  = 100000001₂
+
+Всяко Ферма просто в двоичен запис: 1, нули, 1
+
+Бонус: Genesis difficulty = 2536
+2536 / π² = 256.95 ≈ 257 = F₃  (грешка 0.019%!)
+
+0xffff = 0xFF × 257 = (слн-лн разлика в ч) × F₃`,
+significance:`Мантисата на Bitcoin difficulty е произведение на 3 (GCD инварианта) и три последователни Ферма прости. Небесната механика и двоичната аритметика са в едно 16-битово число.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Ферма Прости — Двоично Представяне и Факторизация</div>
+<div id="d02svg" style="overflow-x:auto"></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+  <button class="btn" onclick="d02show(65535)">0xffff=65535</button>
+  <button class="btn bb" onclick="d02show(255)">0xFF=255</button>
+  <button class="btn bg" onclick="d02show(5)">F₁=5</button>
+  <button class="btn" onclick="d02show(17)">F₂=17</button>
+  <button class="btn bb" onclick="d02show(257)">F₃=257</button>
+  <button class="btn bg" onclick="d02show(65537)">F₄=65537</button>
+</div>
+</div>`},
+
+{n:'03',icon:'🌙',
+title:'0xFF = Слн-Лн Разлика в Часове',
+formula:'365 − 12×29.53 = 10.64 дни = 255 ч = 0xFF',
+origin:'Вавилонски астрономи (700 пр.Хр.) → Bitcoin difficulty',
+tags:['Слн-лн синхронизация','0xFF','Метон','Астрономия'],
+history:`Вавилонските астрономи систематично измервали разликата между слънчевата (365.24 дни) и лунната година (354.37 дни) — около 11 дни. Тази разлика е физическата причина за Метоновия цикъл. <em>255 = 0xFF е максималният байт стойност</em> — компютрите "мислят" в байтове.`,
+evidence:`С "кръгли" астрономически стойности:
+365 − 12 × 29.53 = 10.64 дни
+
+В часове:
+10.64 × 24 = 255.36 ч ≈ 255 = 0xFF ✓
+
+Следствие:
+0xffff = 0xFF × 257 = (слн-лн разлика) × F₃
+
+Горният байт 0xFF = астрономия
+Долният F₃ = 257 = изчислителна константа`,
+significance:`Bitcoin difficulty мантисата кодира в долния си байт слн-лн разликата в часове. Небесната механика и двоичната аритметика са в едно число — 0xffff.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Слн-Лун Разлика — Интерактивен Калкулатор</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+  <div><div class="sl">Слн. година (дни)</div><input type="number" id="d03sol" value="365" step="0.0001" style="width:100%"></div>
+  <div><div class="sl">Лунен месец (дни)</div><input type="number" id="d03lun" value="29.53" step="0.001" style="width:100%"></div>
+</div>
+<button class="btn" onclick="d03run()">ПРЕСМЕТНИ</button>
+<button class="btn bb" onclick="document.getElementById('d03sol').value=365.2422;document.getElementById('d03lun').value=29.53059;d03run()" style="margin-left:6px">Точни стойности</button>
+<button class="btn bg" onclick="document.getElementById('d03sol').value=365;document.getElementById('d03lun').value=29.53;d03run()" style="margin-left:6px">Кръгли (0xFF)</button>
+<div id="d03out" style="margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--blue);background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--blue);padding:10px;line-height:2;border-radius:0 3px 3px 0"></div>
+</div>`},
+
+{n:'04',icon:'⏱',
+title:'Genesis Калибрация: Δ/2 − 11×600',
+formula:'Δ/2 − 11×600 ≈ B0→B1 (грешка 45 сек)',
+origin:'Слн-лн синхронизация → Genesis Block интервал',
+tags:['Genesis Block','Калибрация','MTP','600 сек'],
+history:`Блок 0 е добит 3 Ян 2009, 18:15:05 UTC. Блок 1 — 9 Ян 2009, 02:54:25 UTC. Интервалът: <strong>463,160 секунди = 5.36 дни</strong>. Никога не е получавало математическо обяснение. Версиите: "тест", "техническа пауза" — всички са спекулации. Реалността е по-красива.`,
+evidence:`Δ = 365.2422 − 12 × 29.53059 = 939,610 сек
+
+Формулата:
+Δ / 2             = 469,805 сек
+11 × 600          = 6,600 сек
+Δ/2 − 11×600      = 463,205 сек
+
+Реален B0→B1      = 463,160 сек
+Грешка            = 45 сек = 0.0098%
+
+11 = Bitcoin MTP (Median Time Past) блокове
+11 ≈ слн-лн разлика в дни
+22 = числителят на π≈22/7`,
+significance:`Genesis интервалът не е технически артефакт — той е кодирана астрономическа константа с точност 0.0098%. Сатоши е "калибрирал" Bitcoin спрямо слн-лн разликата.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Genesis Формула — Стъпка по Стъпка</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+  <div><div class="sl">Δ слн-лн разлика (сек)</div><input type="number" id="d04delta" value="939610" style="width:100%"></div>
+  <div><div class="sl">MTP блокове</div><input type="number" id="d04mtp" value="11" min="1" max="20" style="width:100%"></div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+  <button class="btn" onclick="d04run()">ПРЕСМЕТНИ</button>
+  <button class="btn bb" onclick="document.getElementById('d04delta').value=939610;document.getElementById('d04mtp').value=11;d04run()">Реални стойности</button>
+  <button class="btn bg" onclick="document.getElementById('d04delta').value=Math.round((365-12*29.53)*86400);document.getElementById('d04mtp').value=11;d04run()">Кръгли (0xFF)</button>
+</div>
+<div id="d04out" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--blue);background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px;line-height:2;border-radius:0 3px 3px 0"></div>
+</div>`},
+
+{n:'05',icon:'🌊',
+title:'21 = floor(π) × denom(π≈22/7)',
+formula:'21 = 3 × 7 = floor(π) × denom(22/7) = F(8)',
+origin:'Лунна орбита → π → 21M Bitcoin',
+tags:['π','Лунна седмица','21M','Fibonacci','Метон'],
+history:`π≈22/7 е известно от античността. Архимед го е използвал в "Измерване на кръга". Числото 7 е знаменателят на π≈22/7 — и едновременно <strong>лунната седмица</strong> (¼ от 29.53 дни ≈ 7 дни). Числото 3 = floor(π). Произведението им = 21.`,
+evidence:`floor(π) = 3
+29.53 / 4 = 7.38 ≈ 7 (лунна четвъртина = 1 седмица)
+π ≈ 22/7 → denominator = 7
+
+21 = 3 × 7 = floor(π) × седмица = F(8)
+
+Bitcoin:
+21 × 96    = 2016  (difficulty период)
+21 × 10000 = 210000 (халвинг)
+21 × 1M    = 21M   (максимален supply)
+secp256k1: p ≡ 1 (mod 21)`,
+significance:`21 е произведението на floor(π) и лунната седмица — математическата следа на π в небесната механика. Сатоши е вградил π и Луната в основата на Bitcoin supply-а.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ 21 — Визуален Разпад</div>
+<div id="d05svg" style="overflow-x:auto"></div>
+</div>`},
+
+{n:'06',icon:'⬡',
+title:'secp256k1: p ≡ 1 (mod 21)',
+formula:'p mod 3=1 · p mod 7=1 · p mod 21=1',
+origin:'Ферма малката теорема → secp256k1',
+tags:['secp256k1','Елиптична крива','Криптография','21-кратна симетрия'],
+history:`Кривата secp256k1 е избрана от Certicom (2000). Простото p = 2²⁵⁶−2³²−977 е специфично избрано за ефективност. По <strong>Малката теорема на Ферма</strong>: ако p ≡ 1 (mod k), тогава xᵏ≡1(mod p) има точно k решения.`,
+evidence:`p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
+
+p mod 3  = 1  ✓
+p mod 7  = 1  ✓
+p mod 21 = 1  ✓
+(p−1) mod 21 = 0  ✓
+
+Следствие: x²¹ ≡ 1 (mod p) има точно 21 решения.
+
+secp256k1 полето има вградена 21-кратна симетрия.`,
+significance:`Криптографският фундамент на Bitcoin — secp256k1 — е поле с 21-кратна симетрия. Числото 21 е вградено не само в supply-а, но и в математиката на ключовете.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Модулна Аритметика — p mod n</div>
+<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:flex-end">
+  <div><div class="sl">Модул n =</div><input type="number" id="d06n" value="21" min="2" max="1000" style="width:90px"></div>
+  <button class="btn" onclick="d06run()">ПРЕСМЕТНИ p mod n</button>
+</div>
+<div id="d06out" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--blue);background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--purple);padding:10px;line-height:2;border-radius:0 3px 3px 0"></div>
+</div>`},
+
+{n:'07',icon:'📐',
+title:'2016 × 2.5° = 5040° = 7!',
+formula:'2016 × 2.5° = 5040° = 7! = 14 × 360°',
+origin:'Геометрия на времето → Bitcoin difficulty период',
+tags:['Геометрия','Factorial','7!','Bitcoin Clock','2016'],
+history:`5040 = 7! е известно от античността. Платон в "Закони" препоръчва 5040 за идеален размер на полиса. Bitcoin "часовникът": при 144 блока/ден и 2.5°/блок, денят описва <strong>точен кръг (360°)</strong>. Блоковете се движат като часовникова стрелка.`,
+evidence:`144 блока/ден × 2.5°/блок = 360° (1 пълен оборот/ден) ✓
+2016 блока × 2.5° = 5040°
+5040 = 7! = 7×6×5×4×3×2×1
+5040 / 360 = 14 (точно 14 пълни обороти)
+
+Допълнение:
+7 × 144 = 1008 = 2016/2 (точно ½ difficulty период)
+1 Bitcoin седмица = 1008 блока = ½ период`,
+significance:`Един difficulty период = 5040° = 7! = факториел на лунната седмица. Геометрията на Bitcoin е построена върху лунния ритъм.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Bitcoin Clock — Ъглов Калкулатор</div>
+<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:flex-end">
+  <div><div class="sl">Брой блокове</div><input type="number" id="d07blocks" value="2016" min="1" style="width:110px"></div>
+  <button class="btn" onclick="d07run()">ПРЕСМЕТНИ</button>
+  <button class="btn bb" onclick="document.getElementById('d07blocks').value=144;d07run()">144 (ден)</button>
+  <button class="btn bg" onclick="document.getElementById('d07blocks').value=2016;d07run()">2016 (период)</button>
+</div>
+<div id="d07out" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--blue);background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--green);padding:10px;line-height:2;border-radius:0 3px 3px 0"></div>
+<div id="d07svg" style="margin-top:8px"></div>
+</div>`},
+
+{n:'08',icon:'📅',
+title:'Прабългарска Идеална Година = 26 × 2016 Блока',
+formula:'26 × 2016 = 52,416 блока = 364.0 дни',
+origin:'Прабългарски календар (5505 пр.Хр.) → Bitcoin (2009)',
+tags:['Прабългарски календар','ЮНЕСКО','364 дни','20160'],
+history:`Прабългарският календар е признат от ЮНЕСКО (1976) за <strong>най-точния и най-древния</strong>. Начало: 21 декември 5505 пр.Хр. Идеалната година: <strong>364 = 52×7</strong> — точно 52 седмици. Perpetual calendar — всяка дата завинаги закотвена в деня. Звездна година: <em>20,160 земни години</em>.`,
+evidence:`26 × 14 дни = 364 дни (прабълг. идеална година)
+26 × 2016 блока = 52,416 блока
+52,416 / 144 = 364.0 дни  ✓
+
+364 = 52 × 7 (52 седмици × 7 дни)
+364 mod 7 = 0 → перпетуален ефект
+
+Звездна година: 20,160 земни години
+20,160 = 10 × 2016 Bitcoin периода  ✓
+
+(bgkalendar.com потвърждава)`,
+significance:`Прабългарите са определили идеалната година като 364=52×7 хиляди години преди Bitcoin. Звездната им година = 10×2016 Bitcoin периода. 7514 години разделят двете — едно знание.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Прабълг. ↔ Bitcoin — Конвертор на Цикли</div>
+<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:flex-end">
+  <div><div class="sl">Bitcoin блок #</div><input type="number" id="d08block" value="892016" style="width:120px"></div>
+  <button class="btn" onclick="d08run()">КОНВЕРТИРАЙ</button>
+  <button class="btn bb" onclick="document.getElementById('d08block').value=Math.floor((Date.now()/1000-1231006505)/600);d08run()">Последен блок</button>
+</div>
+<div id="d08out" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--blue);background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--purple);padding:10px;line-height:2;border-radius:0 3px 3px 0"></div>
+</div>`},
+
+{n:'09',icon:'🧬',
+title:'Genesis = 285 Байта = Метон + Bitcoin',
+formula:'285 = 235 + 50 = 3 × 5 × 19',
+origin:'Метонов цикъл (432 пр.Хр.) → Genesis Block (2009)',
+tags:['Genesis Block','285 байта','Метон','50 BTC'],
+history:`Метон Атински (~432 пр.Хр.) открил: 19 слн. год = 235 лунни месеца (грешка 125 мин). Bitcoin Genesis блокът съдържа "The Times 03/Jan/2009..." — <strong>точно 69 символа</strong>. Водещата нула в "03" е математически задължителна.`,
+evidence:`Анатомия на Genesis:
+80 байта  → header
+1 байт    → tx_count
+204 байта → coinbase транзакция
+──────────
+285 байта  ОБЩО
+
+285 − 235 = 50 = Genesis reward ✓
+
+Проверка:
+"03/Jan" = 69 символа → 285 байта → 285−235 = 50 ✓
+"3/Jan"  = 68 символа → 284 байта → 284−235 = 49 ✗
+
+285 = 3 × 5 × 19 = GCD × Ферма₁ × Метон_год
+
+Сатоши е ИЗБРАЛ формата "03/Jan" с водеща нула.`,
+significance:`Genesis размерът кодира формулата на Bitcoin: Метонов цикъл + начална награда. Водещата нула е математически задължителна — без нея формулата се разпада.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Genesis Байт-Декодер — Промени Посланието</div>
+<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:flex-end">
+  <div><div class="sl">Coinbase послание</div><input type="text" id="d09msg" value="The Times 03/Jan/2009 Chancellor on brink of second bailout for banks" style="width:100%;font-size:.62rem" oninput="d09run()"></div>
+</div>
+<div id="d09out" style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--blue);background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px;line-height:2;border-radius:0 3px 3px 0"></div>
+</div>`},
+
+{n:'10',icon:'🌀',
+title:'F(4)=3, F(8)=21, F(12)=144 — Равни Разлики',
+formula:'F(4)=3 · F(8)=21 · F(12)=144 · разлика=4',
+origin:'Fibonacci (1202) → Bitcoin времеви константи',
+tags:['Fibonacci','Златно сечение','144','21','3'],
+history:`Fibonacci описал редицата в "Liber Abaci" (1202). Трите ключови Bitcoin числа — <strong>3</strong> (GCD), <strong>21</strong> (supply множител), <strong>144</strong> (блока/ден) — са Fibonacci числа на позиции 4, 8, 12.`,
+evidence:`Fibonacci с индекси:
+F(4)  = 3    → GCD инвариант · floor(π)
+F(8)  = 21   → 21×96=2016, 21M монети
+F(12) = 144  → 144 блока/ден, 144×2.5°=360°
+
+Разлики: 8−4=4, 12−8=4  ← РАВНИ! ✓
+F(4) = 3 = GCD инвариантът = мостът
+
+Допълнение:
+7 × 144 = 1008 = 2016/2 (½ период)
+144 / 21 ≈ 6.857 ≈ 2π+1`,
+significance:`Три Bitcoin константи са Fibonacci числа с равни индексни разлики от 4. Fibonacci структурата управлява астрономическото кодиране.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px">
+<div class="dsect-title">▸ Fibonacci Explorer — Намери Bitcoin числата</div>
+<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:flex-end">
+  <div><div class="sl">До индекс n =</div><input type="number" id="d10n" value="15" min="3" max="30" style="width:80px"></div>
+  <button class="btn" onclick="d10run()">ПОКАЖИ</button>
+</div>
+<div id="d10out" style="overflow-x:auto"></div>
+</div>`},
+
+{n:'11',icon:'∞',
+title:'Теоремата на Станков',
+formula:'nₖ = −k−½ + A·(−1)ᵏ·φ^(−2k), decay=φ²',
+origin:'Fibonacci (φ) среща Fermat (2^2^n) — Станков (2026)',
+tags:['Теорема','Асимптотика','Fibonacci','Fermat','φ²','Нова математика'],
+history:`Две от най-фундаменталните редици: <strong>Fibonacci</strong> — органичен растеж, управляван от φ. <strong>Fermat</strong> — изчислителен растеж, управляван от 2^(2ⁿ). Никой досега не е изследвал кога тези две редици са равни — т.е. корените на Fibonacci(n) = 2^(2ⁿ)−1.`,
+evidence:`Уравнение: Fibonacci(n) = 2^(2^n) − 1
+
+Числени корени (Mathematica 14.3, 120 цифри):
+n₀ ≈ −0.627374237292223369
+n₁ ≈ −1.477989493155223363
+n₂ ≈ −2.499164223390908025
+...всеки в интервала [−k−1, −k]
+
+Формула:
+nₖ = −k − ½ + A·(−1)ᵏ·φ^(−2k)
+
+Ratio тест (50 корена):
+ε_{k+1}/εₖ → −1/φ² = −0.38196601...
+
+Защо φ²? Char. уравнение x²=x+1 → корени φ и ψ=−1/φ
+ψ² = 1/φ² = нашият decay rate ✓`,
+significance:`Уравнението "знае" за собствената си структура. φ² = φ+1 е Fibonacci идентичността, вградена в асимптотиката. Пресечните точки на органичния и изчислителния растеж живеят точно при полуцелите числа — мостът между природата и компютрите.`},
+
+{n:'12',icon:'✝',
+title:'Великден — Метонът в Религиозния Закон',
+formula:'Великден = 1-ва неделя след 1-во пълнолуние след 21 март',
+origin:'Метон (432 пр.Хр.) → Никея (325 сл.Хр.) → Гаус (1800)',
+tags:['Великден','Computus','Метон','Никейски събор','Гаус','19','7'],
+history:`Никейският събор от 325 г. сл.Хр. унифицира изчисляването на Великден. Правилото изисква точен лунен календар — де факто кодифицира <strong>Метоновия цикъл</strong> в религиозен закон. Карл Фридрих Гаус формализира алгоритъма (Computus) в 1800 г.`,
+evidence:`Алгоритъмът на Гаус:
+
+a = year mod 19       ← ДИРЕКТНО Метоновият цикъл!
+b = year mod 4        ← Юлианска корекция
+c = year mod 7        ← ДИРЕКТНО лунната седмица!
+d = (19×a + M) mod 30 ← Epact (лунна фаза)
+e = (2×b + 4×c + 6×d + N) mod 7
+
+Великден = 22 март + d + e дни
+
+Използвани числа: 19, 7, 4, 30
+19 = Метонов цикъл
+7  = лунна седмица = denom(π≈22/7)
+30 = лунен месец
+
+Хронология:
+432 пр.Хр → Метон
+325 сл.Хр → Никея: Computus
+1800 сл.Хр → Гаус: алгоритъм
+2009 сл.Хр → Bitcoin: 285=3×5×19`,
+significance:`Великден е най-силното доказателство: <code>year mod 19</code> е буквално написано в алгоритъм използван от 2 милиарда хора, 1700 години. Не е теория. Метон е в закон. Bitcoin и Великден използват едни и същи числа (7, 19) по едни и същи причини — защото Луната и Слънцето диктуват тези числа.`,
+interactive:`<div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px"><div class="dsect-title">▸ Computus Калкулатор — Изчисли Великден за произволна година</div><div style="display:flex;gap:8px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap"><div><div class="sl">Година</div><input type="number" id="easterYear" value="2025" min="1582" max="9999" style="width:100px"></div><button class="btn" onclick="runEaster()">ПРЕСМЕТНИ</button><button class="btn bb" onclick="document.getElementById('easterYear').value=new Date().getFullYear();runEaster()">Тази год.</button></div><div id="easterOut"></div></div>`}
+];
+
+function initDisc(){
+  // Инициализираме визуализациите
+  setTimeout(()=>{
+    const a=document.getElementById('antiSvg');
+    if(a && a.innerHTML==='') a.innerHTML=drawAntikythera(0);
+    const p=document.getElementById('pyramidSvg');
+    if(p && p.innerHTML==='') { p.innerHTML=drawPyramid('pi'); document.getElementById('pv_pi')?.classList.add('on'); }
+  },100);
+  const c = document.getElementById('discContainer');
+  if(c.children.length > 0) return;
+  DISC_DATA.forEach(d=>{
+    const a = document.createElement('div');
+    a.className='da';
+    a.innerHTML=`
+      <div class="dh" onclick="toggleDisc(this)">
+        <div class="dnum">${d.n}</div>
+        <div class="demoji">${d.icon}</div>
+        <div class="dtitle">${d.title}</div>
+        <div class="dformula">${d.formula}</div>
+        <div class="dtoggle">▾</div>
+      </div>
+      <div class="dbody">
+        <div class="dorigin">${d.origin}</div>
+        <div class="dsect">
+          <div class="dsect-title">Историческа нишка</div>
+          <div class="dsect-text">${d.history}</div>
+        </div>
+        <div class="dsect">
+          <div class="dsect-title">Доказателствен материал</div>
+          <div class="dcode">${d.evidence}</div>
+        </div>
+        <div class="dsect">
+          <div class="dsect-title">Значение</div>
+          <div class="dsect-text">${d.significance}</div>
+        </div>
+        ${d.interactive ? d.interactive : ''}
+        <div class="dtags">${d.tags.map(t=>`<span class="dtag">${t}</span>`).join('')}</div>
+      </div>`;
+    c.appendChild(a);
+  });
+}
+
+function toggleDisc(h){
+  const b=h.nextElementSibling, t=h.querySelector('.dtoggle');
+  const wasOpen=b.classList.contains('open');
+  document.querySelectorAll('.dbody').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.dtoggle').forEach(x=>x.classList.remove('open'));
+  if(!wasOpen){
+    b.classList.add('open');t.classList.add('open');
+    // Инициализиране на интерактивни секции при отваряне
+    setTimeout(()=>{
+      if(b.querySelector('#antiSvg')) initAnti();
+      if(b.querySelector('#pyramidSvg')) initPyramid();
+      if(b.querySelector('#easterOut')) runEaster();
+    },50);
+  }
+}
+</script>
+
+<!-- ═══ ИНТЕРАКТИВНИ ДИГИТАЛИЗАЦИИ ═══ -->
+<script>
+// ══ ВЕЛИКДЕН COMPUTUS ══
+function computeEaster(year){
+  // Алгоритъм на Гаус (Григориански)
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19*a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2*e + 2*i - h - k) % 7;
+  const m = Math.floor((a + 11*h + 22*l) / 451);
+  const month = Math.floor((h + l - 7*m + 114) / 31);
+  const day   = ((h + l - 7*m + 114) % 31) + 1;
+  const names = ['','Яну','Фев','Мар','Апр','Май','Юни','Юли','Авг','Сеп','Окт','Ное','Дек'];
+  return {year,a,b,c,d,e,f,g,h,i,k,l,m,month,day,
+    dateStr: `${day} ${names[month]} ${year}`,
+    metonic: a, weekVar: l};
+}
+
+function runEaster(){
+  const yr = parseInt(document.getElementById('easterYear').value)||new Date().getFullYear();
+  const E = computeEaster(yr);
+  const out = document.getElementById('easterOut');
+  const moon_phases=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
+  const phase = moon_phases[E.h % 8];
+  out.innerHTML = `
+<div class="dcode" style="font-size:.7rem">
+<span style="color:var(--accent)">Входни данни:</span>
+  Година = <span style="color:var(--blue)">${yr}</span>
+
+<span style="color:var(--accent)">Стъпка 1 — Метонова позиция:</span>
+  a = ${yr} mod <span style="color:var(--green)">19</span> = <span style="color:var(--green)">${E.a}</span>
+  ← Година ${E.a+1} от 19-годишния Метонов цикъл
+  ${E.a===0?'← Начало на нов Метонов цикъл! ✦':''}
+
+<span style="color:var(--accent)">Стъпка 2 — Столетна корекция (Григорианска):</span>
+  b = floor(${yr}/100) = ${E.b}
+  d = floor(${E.b}/4)  = ${E.d}
+  f = floor((${E.b}+8)/25) = ${E.f}
+  g = floor((${E.b}-${E.f}+1)/3) = ${E.g}
+
+<span style="color:var(--accent)">Стъпка 3 — Лунна фаза (Epact):</span>
+  h = (19×<span style="color:var(--green)">${E.a}</span> + ${E.b} - ${E.d} - ${E.g} + 15) mod 30
+  h = <span style="color:var(--purple)">${E.h}</span>  ${phase}
+  ← Дни от пълнолуние
+
+<span style="color:var(--accent)">Стъпка 4 — Ден от седмицата:</span>
+  c = ${yr} mod 100 = ${E.c}
+  i = floor(${E.c}/4) = ${E.i}
+  k = ${E.c} mod 4 = ${E.k}
+  l = (32 + 2×${E.e} + 2×${E.i} - ${E.h} - ${E.k}) mod <span style="color:var(--green)">7</span>
+  l = <span style="color:var(--purple)">${E.l}</span>
+  ← Корекция за Неделя
+
+<span style="color:var(--accent)">Стъпка 5 — Финал:</span>
+  m = floor((${E.a} + 11×${E.h} + 22×${E.l}) / 451) = ${E.m}
+  месец = floor((${E.h} + ${E.l} - 7×${E.m} + 114) / 31) = ${E.month}
+  ден   = ((...) mod 31) + 1 = ${E.day}
+
+<span style="color:var(--green);font-size:.85rem">▶ Великден ${yr} = ${E.dateStr} (${E.month===3?'Март':'Април'})</span>
+
+<span style="color:var(--dim)">Ключови числа използвани: 19, 7, 30, 100
+19 = Метонов цикъл · 7 = лунна седмица · 30 = лунен месец</span>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+  ${[-2,-1,0,1,2].map(d=>{const e2=computeEaster(yr+d);return`<div style="background:var(--bg2);border:1px solid ${d===0?'var(--accent)':'var(--border)'};border-radius:3px;padding:5px 10px;font-size:.62rem;color:${d===0?'var(--accent)':'var(--dim)'}"><div style="font-size:.55rem;opacity:.7">${yr+d}</div>${e2.dateStr}</div>`}).join('')}
+</div>`;
+}
+
+// ══ АНТИКИТЕРА АНИМАЦИЯ ══
+let antikytheraAnim = null;
+let antiAngle = 0;
+
+function drawAntikythera(angle){
+  const W=560, H=280;
+  const cx=140, cy=140;
+  const gears = [
+    {x:140,y:140, r:55, teeth:64, color:'#c8a96e', label:'64', name:'Основно'},
+    {x:265,y:140, r:33, teeth:38, color:'#c77dff', label:'38=2×19', name:'Метон'},
+    {x:350,y:100, r:18, teeth:19, color:'#7fff00', label:'19=Метон', name:'19-год'},
+    {x:360,y:180, r:13, teeth:13, color:'#00d4ff', label:'13',       name:'Сарос'},
+    {x:420,y:140, r:22, teeth:27, color:'#f7931a', label:'27',       name:'Дракон'},
+  ];
+  // Предавателни числа
+  const ratios = [1, -64/38, (64/38)*(38/19), -(64/38)*(38/13), (64/38)*(38/27)];
+
+  let s = `<svg width="100%" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="background:var(--bg2);border-radius:3px">`;
+
+  // Свързващи линии
+  [[0,1],[1,2],[1,3],[1,4]].forEach(([a,b])=>{
+    s+=`<line x1="${gears[a].x}" y1="${gears[a].y}" x2="${gears[b].x}" y2="${gears[b].y}" stroke="rgba(200,169,110,.1)" stroke-width="1" stroke-dasharray="4,4"/>`;
+  });
+
+  gears.forEach((g,i)=>{
+    const ga = angle * ratios[i];
+    const rad = ga * Math.PI/180;
+
+    // Колело
+    s+=`<circle cx="${g.x}" cy="${g.y}" r="${g.r}" fill="none" stroke="${g.color}" stroke-width="1.2" opacity=".3"/>`;
+    s+=`<circle cx="${g.x}" cy="${g.y}" r="${g.r*0.15}" fill="${g.color}" opacity=".4"/>`;
+
+    // Зъби
+    for(let t=0; t<g.teeth; t++){
+      const a1 = (t/g.teeth)*Math.PI*2 + rad;
+      const a2 = ((t+0.4)/g.teeth)*Math.PI*2 + rad;
+      const r1=g.r, r2=g.r+4;
+      s+=`<path d="M ${g.x+Math.cos(a1)*r1} ${g.y+Math.sin(a1)*r1} L ${g.x+Math.cos(a1)*r2} ${g.y+Math.sin(a1)*r2} L ${g.x+Math.cos(a2)*r2} ${g.y+Math.sin(a2)*r2} L ${g.x+Math.cos(a2)*r1} ${g.y+Math.sin(a2)*r1} Z" fill="${g.color}" opacity=".6"/>`;
+    }
+
+    // Индикаторна линия
+    s+=`<line x1="${g.x}" y1="${g.y}" x2="${g.x+Math.cos(rad)*g.r*0.8}" y2="${g.y+Math.sin(rad)*g.r*0.8}" stroke="${g.color}" stroke-width="1.5"/>`;
+
+    // Лейбъл
+    s+=`<text x="${g.x}" y="${g.y+g.r+14}" fill="${g.color}" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">${g.label}</text>`;
+    s+=`<text x="${g.x}" y="${g.y+g.r+24}" fill="${g.color}" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace" opacity=".6">${g.name}</text>`;
+  });
+
+  // Оборот индикатор
+  const metonic_pct = (angle/360) % 1;
+  const metonic_years = (angle/360) * (38/64) * 19;
+  s+=`<text x="${W-10}" y="20" fill="var(--accent)" font-size="9" text-anchor="end" font-family="Share Tech Mono,monospace">Метон: ${(metonic_years%19).toFixed(2)}/19 год</text>`;
+  s+=`<text x="${W-10}" y="35" fill="var(--purple)" font-size="9" text-anchor="end" font-family="Share Tech Mono,monospace">Gear ratio: 64/38 = 32/19</text>`;
+  s+=`<text x="${W-10}" y="50" fill="var(--green)" font-size="9" text-anchor="end" font-family="Share Tech Mono,monospace">19-зъбно → Метон в бронз</text>`;
+
+  // Легенда
+  s+=`<text x="10" y="${H-8}" fill="var(--dim)" font-size="8" font-family="Share Tech Mono,monospace">~87 пр.Хр · 37 бронзови зъбни колела · Ант. механизъм</text>`;
+  s+='</svg>';
+  return s;
+}
+
+function startAntikythera(){
+  if(antikytheraAnim) return;
+  antikytheraAnim = setInterval(()=>{
+    antiAngle = (antiAngle + 0.8) % 3600;
+    const el = document.getElementById('antiSvg');
+    if(el) el.innerHTML = drawAntikythera(antiAngle);
+  }, 40);
+  document.getElementById('antiBtn').textContent = '⏸ Пауза';
+}
+function stopAntikythera(){
+  clearInterval(antikytheraAnim);
+  antikytheraAnim = null;
+  document.getElementById('antiBtn').textContent = '▶ Анимирай';
+}
+function toggleAntikythera(){
+  antikytheraAnim ? stopAntikythera() : startAntikythera();
+}
+function initAnti(){
+  const el = document.getElementById('antiSvg');
+  if(el && el.innerHTML==='') el.innerHTML = drawAntikythera(0);
+}
+
+// ══ ПИРАМИДА ══
+function drawPyramid(mode){
+  const W=560, H=280, cx=280, base=420, peak=280/2;
+  const S = 52.36; // Царски лакет в cm
+  const base_cubits = 440;
+  const h_cubits = 280;
+  const base_m = base_cubits * S / 100;
+  const h_m = h_cubits * S / 100;
+  const pi_real = 4 * base_m / (2 * h_m); // = 2×base/h ≈ π
+  const pi_err = Math.abs(pi_real - Math.PI)/Math.PI*100;
+
+  const left = cx - base/2, right = cx + base/2;
+  const top = H/2 - peak/2 + 20;
+  const bot = H/2 + peak/2 + 20;
+
+  let s = `<svg width="100%" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+  // Пирамида
+  s+=`<polygon points="${left},${bot} ${right},${bot} ${cx},${top}" fill="rgba(200,169,110,.06)" stroke="var(--accent)" stroke-width="1.5"/>`;
+
+  // Апотема (половин основа)
+  s+=`<line x1="${cx}" y1="${bot}" x2="${cx}" y2="${top}" stroke="var(--blue)" stroke-width="1" stroke-dasharray="4,3"/>`;
+  s+=`<text x="${cx+5}" y="${(top+bot)/2}" fill="var(--blue)" font-size="9" font-family="Share Tech Mono,monospace">h=280 лакета</text>`;
+
+  // Основа
+  s+=`<line x1="${left}" y1="${bot+12}" x2="${right}" y2="${bot+12}" stroke="var(--green)" stroke-width="1.5" marker-end="url(#arr)" marker-start="url(#arr)"/>`;
+  s+=`<text x="${cx}" y="${bot+26}" fill="var(--green)" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">440 лакета = 440 × 52.36 cm = ${base_m.toFixed(1)} m</text>`;
+
+  // π линия
+  if(mode==='pi'){
+    const r = h_m*100/base_m * (base/2);
+    s+=`<circle cx="${cx}" cy="${bot}" r="${r}" fill="none" stroke="var(--purple)" stroke-width="1" stroke-dasharray="3,3" opacity=".6"/>`;
+    s+=`<text x="${cx}" y="${top-10}" fill="var(--purple)" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">4×основа/h = ${pi_real.toFixed(5)} ≈ π=${Math.PI.toFixed(5)}</text>`;
+    s+=`<text x="${cx}" y="${top-22}" fill="var(--purple)" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">Грешка: ${pi_err.toFixed(3)}%</text>`;
+  }
+
+  // Royal cubit
+  if(mode==='bitcoin'){
+    // Bitcoin и пирамидата
+    s+=`<text x="${cx}" y="${top-10}" fill="var(--green)" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">21 × 2.5° = 52.5° ≈ π/6×100 = 52.36 cm</text>`;
+    s+=`<text x="${cx}" y="${top-22}" fill="var(--purple)" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">Разлика 52.5 - 52.36 = 0.14 ≈ грешката на π≈22/7</text>`;
+    // Ъглова линия 52.5°
+    const ang52 = (52.5-90)*Math.PI/180;
+    s+=`<line x1="${cx}" y1="${bot}" x2="${cx+Math.cos(ang52)*150}" y2="${bot+Math.sin(ang52)*150}" stroke="var(--green)" stroke-width="1" stroke-dasharray="4,3"/>`;
+    s+=`<text x="${cx+70}" y="${bot-40}" fill="var(--green)" font-size="9" font-family="Share Tech Mono,monospace">21×2.5°=52.5°</text>`;
+    s+=`<rect x="10" y="10" width="220" height="58" rx="3" fill="rgba(247,147,26,.06)" stroke="var(--accent)" stroke-width=".5"/>`;
+    s+=`<text x="20" y="26" fill="var(--accent)" font-size="9" font-family="Share Tech Mono,monospace">Bitcoin: 21 блока × 2.5°</text>`;
+    s+=`<text x="20" y="41" fill="var(--green)" font-size="9" font-family="Share Tech Mono,monospace">= 52.5° ≈ 52.36 = cubit</text>`;
+    s+=`<text x="20" y="56" fill="var(--dim)" font-size="8" font-family="Share Tech Mono,monospace">Грешка = грешката на π≈22/7</text>`;
+  }
+  if(mode==='cubit'){
+    s+=`<rect x="10" y="10" width="120" height="40" rx="3" fill="rgba(200,169,110,.08)" stroke="var(--accent)" stroke-width="1"/>`;
+    s+=`<text x="70" y="25" fill="var(--accent)" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">Царски лакет</text>`;
+    s+=`<text x="70" y="40" fill="var(--blue)" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">π/6 m = 52.36 cm</text>`;
+    s+=`<text x="70" y="52" fill="var(--dim)" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">π/6 = ${(Math.PI/6).toFixed(5)}</text>`;
+  }
+
+  // Числа
+  s+=`<defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--green)"/></marker></defs>`;
+
+  // π формула
+  s+=`<text x="${W-10}" y="20" fill="var(--accent)" font-size="9" text-anchor="end" font-family="Share Tech Mono,monospace">Хеопс (~2560 пр.Хр.)</text>`;
+  s+=`<text x="${W-10}" y="35" fill="var(--blue)" font-size="9" text-anchor="end" font-family="Share Tech Mono,monospace">Royal cubit = π/6 м</text>`;
+  s+=`<text x="${W-10}" y="50" fill="var(--purple)" font-size="9" text-anchor="end" font-family="Share Tech Mono,monospace">4×b/h = 2π (±0.04%)</text>`;
+  s+=`<text x="${W-10}" y="65" fill="var(--green)" font-size="9" text-anchor="end" font-family="Share Tech Mono,monospace">21 × 2.5° = 52.5° ≈ 52.36</text>`;
+
+  s+='</svg>';
+  return s;
+}
+
+function initPyramid(){
+  const el = document.getElementById('pyramidSvg');
+  if(el && el.innerHTML==='') el.innerHTML = drawPyramid('pi');
+}
+function switchPyramid(mode){
+  const el = document.getElementById('pyramidSvg');
+  if(el) el.innerHTML = drawPyramid(mode);
+  document.querySelectorAll('.pvbtn').forEach(b=>b.classList.remove('on'));
+  const btn = document.getElementById('pv_'+mode);
+  if(btn) btn.classList.add('on');
+}
+</script>
+<script>
+// ═══════════════════════════════
+//  ОТКРИТИЯ — ИНТЕРАКТИВНИ ФУНКЦИИ
+// ═══════════════════════════════
+
+// #01 Pair-Flip GCD
+function d01run(){
+  const h=document.getElementById('d01hash')?.value.trim().toLowerCase();
+  const out=document.getElementById('d01out');
+  if(!out) return;
+  if(!h||h.length!==64||!/^[0-9a-f]+$/.test(h)){out.innerHTML='<span style="color:var(--red)">⚠ Въведи 64 hex символа</span>';return;}
+  function h2b(x){const b=[];for(let i=0;i<x.length;i+=2)b.push(parseInt(x.slice(i,i+2),16));return b;}
+  function bg(a,b){a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b];}return a;}
+  function pf(n){let s=n.toString();if(s.length%2)s='0'+s;const p=[];for(let i=0;i<s.length;i+=2)p.push(s.slice(i,i+2));return BigInt(p.reverse().join(''));}
+  const bytes=h2b(h);
+  const N=BigInt('0x'+h);
+  const F=BigInt('0x'+[...bytes].reverse().map(b=>b.toString(16).padStart(2,'0')).join(''));
+  const r1=N>F?N%F:F%N;
+  const f1=pf(r1);
+  const r2=r1>f1?r1%f1:f1>r1?f1%r1:0n;
+  const g1=bg(N,F),g2=bg(r1,N),g3=bg(r2,N);
+  let z=0;for(const b of bytes){if(b===0)z++;else break;}
+  const c1=g1===3n?'var(--green)':'var(--red)', c2=g2===3n?'var(--green)':'var(--red)', c3=g3===3n?'var(--green)':'var(--red)';
+  out.innerHTML=`<span style="color:var(--accent)">Хеш:</span> ${h.slice(0,16)}...
+<span style="color:var(--dim)">Водещи нули:</span> <span style="color:var(--green)">${z} байта = ${z*8} бита</span>
+<span style="color:var(--dim)">N mod F = r₁:</span> ${r1.toString().slice(0,24)}...  <span style="color:var(--dim)">(${r1.toString().length} цифри${r1.toString().length===64?' <span style="color:var(--green)">← 64 (само Genesis!)</span>':''})</span>
+<span style="color:var(--dim)">pair_flip(r₁) = f₁:</span> ${f1.toString().slice(0,24)}...
+<span style="color:var(--dim)">r₁ mod f₁ = r₂:</span> ${r2.toString().slice(0,24)}...
+
+<span style="color:var(--dim)">GCD(N, F)  =</span> <span style="color:${c1};font-weight:bold">${g1}</span> ${g1===3n?'✓':'✗'}
+<span style="color:var(--dim)">GCD(r₁, N) =</span> <span style="color:${c2};font-weight:bold">${g2}</span> ${g2===3n?'✓':'✗'}
+<span style="color:var(--dim)">GCD(r₂, N) =</span> <span style="color:${c3};font-weight:bold">${g3}</span> ${g3===3n?'✓':'✗'}
+<span style="color:${g1===3n&&g2===3n&&g3===3n?'var(--green)':'var(--red)'}">GCD = 3 инвариант: ${g1===3n&&g2===3n&&g3===3n?'ПОТВЪРДЕН ✓':'НЕ ✗'}</span>`;
+}
+
+// #02 Fermat binary viz
+function d02show(n){
+  const el=document.getElementById('d02svg');
+  if(!el) return;
+  const bn=n.toString(2);
+  const W=Math.max(400,bn.length*22+40), H=100;
+  let s=`<svg width="100%" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  // Факторизация
+  function factors(x){const f=[];let n=x;for(let p=2;p*p<=n;p++){while(n%p===0){f.push(p);n/=p;}}if(n>1)f.push(n);return f;}
+  const fermat=[3,5,17,257,65537];
+  const isFermat=fermat.includes(n);
+  const isPrime=factors(n).length===1&&n>1;
+  // Битове
+  [...bn].forEach((b,i)=>{
+    const x=20+i*22, isOne=b==='1';
+    s+=`<rect x="${x}" y="20" width="18" height="28" rx="2" fill="${isOne?(isFermat?'rgba(127,255,0,.3)':'rgba(0,212,255,.25)'):'rgba(30,30,50,.8)'}" stroke="${isOne?(isFermat?'var(--green)':'var(--blue)'):'var(--border)'}" stroke-width="0.8"/>`;
+    s+=`<text x="${x+9}" y="39" fill="${isOne?(isFermat?'var(--green)':'var(--blue)'):'var(--dim)'}" font-size="13" text-anchor="middle" font-family="Share Tech Mono,monospace" font-weight="${isOne?'bold':'normal'}">${b}</text>`;
+  });
+  const col=isFermat?'var(--green)':isPrime?'var(--blue)':'var(--accent)';
+  s+=`<text x="${W/2}" y="68" fill="${col}" font-size="10" text-anchor="middle" font-family="Share Tech Mono,monospace">${n} = ${bn}₂  (${bn.length} бита)</text>`;
+  s+=`<text x="${W/2}" y="84" fill="${col}" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">${isFermat?'✦ Ферма просто (1, нули, 1)':factors(n).join(' × ')+' = '+factors(n).map(f=>fermat.includes(f)?'F':'').join('')}</text>`;
+  s+='</svg>';
+  el.innerHTML=s;
+}
+
+// #03 Слн-Лун
+function d03run(){
+  const sol=parseFloat(document.getElementById('d03sol')?.value)||365.2422;
+  const lun=parseFloat(document.getElementById('d03lun')?.value)||29.53;
+  const out=document.getElementById('d03out');
+  if(!out) return;
+  const diff_days=sol-12*lun;
+  const diff_hrs=diff_days*24;
+  const is0xFF=Math.abs(diff_hrs-255)<1;
+  out.innerHTML=`<span style="color:var(--accent)">Слн. година:</span>    ${sol} дни
+<span style="color:var(--accent)">12 × Луна:</span>       ${(12*lun).toFixed(4)} дни
+<span style="color:var(--accent)">Разлика Δ:</span>       <span style="color:var(--green)">${diff_days.toFixed(4)} дни</span>
+<span style="color:var(--accent)">В часове:</span>        <span style="color:${is0xFF?'var(--green)':'var(--blue)'}">${diff_hrs.toFixed(2)} ч  ${is0xFF?'= 0xFF ✓':'≠ 255 (не 0xFF)'}</span>
+<span style="color:var(--accent)">В секунди:</span>       ${Math.round(diff_days*86400).toLocaleString()} сек
+<span style="color:var(--accent)">0xFF × F₃:</span>       255 × 257 = <span style="color:var(--purple)">65535 = 0xffff ✓</span>
+<span style="color:var(--dim)">Метонов цикъл:</span>    19 × ${sol} = ${(19*sol).toFixed(2)} ≈ 235 × ${lun} = ${(235*lun).toFixed(2)}
+<span style="color:var(--dim)">Грешка:</span>           ${Math.abs(19*sol-235*lun).toFixed(2)} дни = ${(Math.abs(19*sol-235*lun)*24*60).toFixed(0)} мин`;
+}
+
+// #04 Genesis калибрация
+function d04run(){
+  const delta=parseFloat(document.getElementById('d04delta')?.value)||939610;
+  const mtp=parseInt(document.getElementById('d04mtp')?.value)||11;
+  const out=document.getElementById('d04out');
+  if(!out) return;
+  const formula=delta/2-mtp*600;
+  const b0b1=463160;
+  const err=Math.abs(formula-b0b1);
+  const pct=err/b0b1*100;
+  const col=pct<0.1?'var(--green)':pct<1?'var(--accent)':'var(--red)';
+  out.innerHTML=`<span style="color:var(--accent)">Δ (слн-лн разлика):</span>  ${delta.toLocaleString()} сек
+<span style="color:var(--accent)">Δ / 2:</span>              ${(delta/2).toLocaleString()} сек
+<span style="color:var(--accent)">MTP × 600:</span>          ${mtp} × 600 = ${(mtp*600).toLocaleString()} сек
+<span style="color:var(--accent)">─────────────────────</span>
+<span style="color:var(--accent)">Δ/2 − MTP×600 =</span>     <span style="color:var(--blue)">${formula.toLocaleString()} сек</span>
+<span style="color:var(--accent)">Реален B0→B1 =</span>      <span style="color:var(--blue)">463,160 сек</span>
+<span style="color:var(--accent)">Грешка =</span>             <span style="color:${col}">${err.toFixed(0)} сек (${pct.toFixed(4)}%) ${pct<0.1?'✓ ТОЧНО!':pct<1?'≈ БЛИЗО':'✗'}</span>
+<span style="color:var(--dim)">MTP=11 ≈ слн-лн в дни · 22=числител на π≈22/7</span>`;
+}
+
+// #05 21 SVG
+function d05init(){
+  const el=document.getElementById('d05svg');
+  if(!el||el.innerHTML!=='') return;
+  const W=560,H=140;
+  let s=`<svg width="100%" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  // π разпад
+  const blocks=[
+    {x:20,y:20,w:220,h:40,col:'var(--accent)',txt:'π = 3.14159...'},
+    {x:20,y:80,w:60,h:40,col:'var(--green)',txt:'floor(π)=3'},
+    {x:100,y:80,w:60,h:40,col:'var(--blue)',txt:'denom=7'},
+    {x:280,y:20,w:120,h:40,col:'var(--purple)',txt:'7 = лунна седмица'},
+    {x:420,y:20,w:120,h:40,col:'var(--accent)',txt:'29.53÷4≈7.38'},
+    {x:280,y:80,w:120,h:40,col:'var(--green)',txt:'3 × 7 = 21 ✓'},
+    {x:420,y:80,w:120,h:40,col:'var(--accent)',txt:'F(8)=21'},
+  ];
+  const arrows=[[0,1],[0,2],[3,6],[1,5],[2,5]];
+  arrows.forEach(([a,b])=>{
+    const ba=blocks[a],bb=blocks[b];
+    s+=`<line x1="${ba.x+ba.w/2}" y1="${ba.y+ba.h}" x2="${bb.x+bb.w/2}" y2="${bb.y}" stroke="rgba(200,169,110,.3)" stroke-width="1" stroke-dasharray="3,3"/>`;
+  });
+  blocks.forEach(b=>{
+    s+=`<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="3" fill="rgba(0,0,0,.4)" stroke="${b.col}" stroke-width="1"/>`;
+    s+=`<text x="${b.x+b.w/2}" y="${b.y+b.h/2+4}" fill="${b.col}" font-size="10" text-anchor="middle" font-family="Share Tech Mono,monospace">${b.txt}</text>`;
+  });
+  s+='</svg>';
+  el.innerHTML=s;
+}
+
+// #06 secp256k1 mod
+function d06run(){
+  const n=parseInt(document.getElementById('d06n')?.value)||21;
+  const out=document.getElementById('d06out');
+  if(!out) return;
+  const p=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2Fn;
+  const pmod=p%BigInt(n);
+  const factors=[];let tmp=n;for(let i=2;i*i<=tmp;i++){while(tmp%i===0){factors.push(i);tmp/=i;}}if(tmp>1)factors.push(tmp);
+  const nice=pmod===1n;
+  out.innerHTML=`<span style="color:var(--accent)">p = 2²⁵⁶ − 2³² − 977</span>
+<span style="color:var(--accent)">n = ${n} = ${factors.length?factors.join(' × '):n}</span>
+<span style="color:var(--accent)">──────────────────────────</span>
+<span style="color:var(--accent)">p mod ${n} = </span><span style="color:${nice?'var(--green)':'var(--red)'};font-size:.9rem;font-weight:bold"> ${pmod}</span>  ${nice?'← p ≡ 1 (mod '+n+') ✓':'← p ≢ 1 (mod '+n+')'}
+${nice?`<span style="color:var(--green)">x^${n} ≡ 1 (mod p) има точно ${n} решения в ℤ_p</span>
+<span style="color:var(--green)">${n}-кратна симетрия в secp256k1 ✓</span>`:`<span style="color:var(--dim)">Няма ${n}-кратна симетрия</span>`}
+<span style="color:var(--dim)">Провери с: 3, 7, 21, 42, 63...</span>`;
+}
+
+// #07 Clock calc
+function d07run(){
+  const b=parseInt(document.getElementById('d07blocks')?.value)||2016;
+  const out=document.getElementById('d07out');
+  const svg=document.getElementById('d07svg');
+  if(!out) return;
+  const deg=b*2.5;
+  const revs=deg/360;
+  const days=b/144;
+  // Factorial check
+  let fact=1,factN=0;for(let i=1;i<=12;i++){if(fact===Math.round(deg)){factN=i;break;}fact*=(i+1);}
+  const isFact=factN>0;
+  out.innerHTML=`<span style="color:var(--accent)">Блокове:</span>      ${b.toLocaleString()}
+<span style="color:var(--accent)">× 2.5° =</span>       <span style="color:var(--blue)">${deg.toLocaleString()}°</span>
+<span style="color:var(--accent)">÷ 360° =</span>       <span style="color:var(--green)">${revs.toFixed(4)} обороти ${Number.isInteger(revs)?'(ТОЧНО ✓)':''}</span>
+<span style="color:var(--accent)">В дни:</span>         ${days.toFixed(4)} дни
+${isFact?`<span style="color:var(--green)">${deg.toLocaleString()}° = ${factN}! = ${[...Array(factN)].map((_,i)=>i+1).join('×')} ✦</span>`:''}`;
+  // Mini clock SVG
+  const cx=60,cy=60,R=48;
+  const angle=(deg%360-90)*Math.PI/180;
+  let cs=`<svg width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">`;
+  cs+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="var(--border)" stroke-width="1"/>`;
+  for(let i=0;i<24;i++){const a=(i/24*360-90)*Math.PI/180;cs+=`<line x1="${cx+Math.cos(a)*(R-5)}" y1="${cy+Math.sin(a)*(R-5)}" x2="${cx+Math.cos(a)*R}" y2="${cy+Math.sin(a)*R}" stroke="${i%6===0?'var(--accent)':'var(--border)'}" stroke-width="${i%6===0?1.5:.5}"/>`;}
+  // Arc
+  if(deg%360>0){
+    const a0=-Math.PI/2,a1=((deg%360)-90)*Math.PI/180,laf=(deg%360)>180?1:0;
+    cs+=`<path d="M ${cx+Math.cos(a0)*R} ${cy+Math.sin(a0)*R} A ${R} ${R} 0 ${laf} 1 ${cx+Math.cos(a1)*R} ${cy+Math.sin(a1)*R}" fill="none" stroke="var(--accent)" stroke-width="3" opacity=".6"/>`;
+  }
+  cs+=`<line x1="${cx}" y1="${cy}" x2="${cx+Math.cos(angle)*R*.75}" y2="${cy+Math.sin(angle)*R*.75}" stroke="var(--blue)" stroke-width="2"/>`;
+  cs+=`<circle cx="${cx}" cy="${cy}" r="3" fill="var(--accent)"/>`;
+  cs+=`<text x="${cx}" y="${cy+R+16}" fill="var(--dim)" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">${(deg%360).toFixed(1)}°</text>`;
+  cs+='</svg>';
+  if(svg) svg.innerHTML=cs;
+}
+
+// #08 Прабългарски конвертор
+function d08run(){
+  const block=parseInt(document.getElementById('d08block')?.value)||0;
+  const out=document.getElementById('d08out');
+  if(!out) return;
+  const GENESIS=1231006505;
+  const days=block*600/86400;
+  const periods=Math.floor(block/2016);
+  const bg_periods=periods;
+  const bg_years_364=block*600/86400/364;
+  const star_week=Math.floor(bg_years_364/420);
+  const star_year_frac=bg_years_364/20160;
+  out.innerHTML=`<span style="color:var(--accent)">Bitcoin блок #${block.toLocaleString()}</span>
+<span style="color:var(--dim)">────────────────────────────────</span>
+<span style="color:var(--dim)">Секунди от Genesis:</span>  ${(block*600).toLocaleString()} сек
+<span style="color:var(--dim)">Дни от Genesis:</span>      ${days.toFixed(2)} дни
+<span style="color:var(--dim)">Difficulty периода:</span>  #${periods.toLocaleString()}
+<span style="color:var(--dim)">────────────────────────────────</span>
+<span style="color:var(--purple)">Прабълг. идеални год:</span> ${bg_years_364.toFixed(4)} × 364-дни
+<span style="color:var(--purple)">26×2016 цикли:</span>        ${Math.floor(block/(2016*26)).toLocaleString()} пълни прабълг. години
+<span style="color:var(--purple)">Звездна седмица:</span>      #${star_week.toLocaleString()} (×420 год)
+<span style="color:var(--purple)">Звездна година:</span>       ${(star_year_frac*100).toFixed(6)}% (20,160 земни год)
+<span style="color:var(--green)">20,160 = 10 × 2016 Bitcoin периода ✓</span>`;
+}
+
+// #09 Genesis байт декодер
+function d09run(){
+  const msg=document.getElementById('d09msg')?.value||'';
+  const out=document.getElementById('d09out');
+  if(!out) return;
+  const script_bytes=msg.length+8; // 4 diff + 1 opcode + 1 height + 1 push + msg
+  const base_tx=4+1+32+4+1+script_bytes+4+1+8+1+67+4;
+  const total=80+1+base_tx;
+  const metonic=235;
+  const diff=total-metonic;
+  const col=diff===50?'var(--green)':Math.abs(diff-50)<5?'var(--accent)':'var(--red)';
+  out.innerHTML=`<span style="color:var(--accent)">Послание:</span>     "${msg.slice(0,60)}${msg.length>60?'...':''}"
+<span style="color:var(--accent)">Дължина:</span>      <span style="color:var(--blue)">${msg.length} символа</span>
+<span style="color:var(--dim)">────────────────────────────────</span>
+<span style="color:var(--dim)">Header:</span>        80 байта
+<span style="color:var(--dim)">TX count:</span>      1 байт
+<span style="color:var(--dim)">Coinbase TX:</span>   ${base_tx} байта (script=${script_bytes})
+<span style="color:var(--dim)">────────────────────────────────</span>
+<span style="color:var(--accent)">ОБЩО:</span>         <span style="color:var(--blue)">${total} байта</span>
+<span style="color:var(--dim)">Метон (235):</span>  235 лунни месеца
+<span style="color:var(--accent)">Разлика:</span>      <span style="color:${col};">${total} − 235 = ${diff} ${diff===50?'BTC = начална награда! ✓':diff>50?'(>'+(diff-50)+' от 50)':'(<'+(50-diff)+' от 50)'}</span>`;
+}
+
+// #10 Fibonacci explorer
+function d10run(){
+  const n=parseInt(document.getElementById('d10n')?.value)||15;
+  const out=document.getElementById('d10out');
+  if(!out) return;
+  const fibs=[0,1];
+  for(let i=2;i<=n;i++) fibs.push(fibs[i-1]+fibs[i-2]);
+  const btc={3:'GCD инвариант',5:'F₁=Ферма',8:'дни/2 месеца',13:'F(7)',21:'21M·2016÷96',34:'',55:'',89:'',144:'блока/ден·360°',233:'',377:''};
+  let rows=fibs.slice(1).map((f,i)=>{
+    const idx=i+1;
+    const is_btc=[3,4,8,12].includes(idx);
+    const note=btc[f]||'';
+    return `<tr style="background:${is_btc?'rgba(247,147,26,.06)':''}">
+      <td style="padding:3px 8px;border:1px solid var(--border);color:${is_btc?'var(--accent)':'var(--dim)'}">${idx}</td>
+      <td style="padding:3px 8px;border:1px solid var(--border);color:${is_btc?'var(--accent)':'var(--blue)'}${note?' ;font-weight:bold':''}">${f}</td>
+      <td style="padding:3px 8px;border:1px solid var(--border);color:var(--green);font-size:.6rem">${note}</td>
+      <td style="padding:3px 8px;border:1px solid var(--border);color:var(--dim);font-size:.6rem">${i>0?'φ≈'+(f/fibs[i]).toFixed(4):''}</td>
+    </tr>`;
+  }).join('');
+  out.innerHTML=`<table style="width:100%;border-collapse:collapse;font-size:.68rem;font-family:'Share Tech Mono',monospace">
+    <thead><tr style="background:var(--bg2)">
+      <th style="padding:4px 8px;color:var(--accent);border:1px solid var(--border)">n</th>
+      <th style="padding:4px 8px;color:var(--accent);border:1px solid var(--border)">F(n)</th>
+      <th style="padding:4px 8px;color:var(--accent);border:1px solid var(--border)">Bitcoin роля</th>
+      <th style="padding:4px 8px;color:var(--accent);border:1px solid var(--border)">F(n)/F(n-1)</th>
+    </tr></thead><tbody>${rows}</tbody>
+  </table>`;
+}
+
+// Инициализация при отваряне
+const _discTogOld = window.toggleDisc;
+window.toggleDisc = function(h){
+  _discTogOld(h);
+  const b=h.nextElementSibling;
+  if(b.classList.contains('open')){
+    setTimeout(()=>{
+      if(b.querySelector('#d01hash')) d01run();
+      if(b.querySelector('#d02svg')) d02show(65535);
+      if(b.querySelector('#d03sol')) d03run();
+      if(b.querySelector('#d04delta')) d04run();
+      if(b.querySelector('#d05svg')) d05init();
+      if(b.querySelector('#d06n')) d06run();
+      if(b.querySelector('#d07blocks')) d07run();
+      if(b.querySelector('#d08block')) d08run();
+      if(b.querySelector('#d09msg')) d09run();
+      if(b.querySelector('#d10n')) d10run();
+    },60);
+  }
+};
 </script>
 </body>
 </html>
