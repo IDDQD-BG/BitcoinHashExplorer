@@ -3,1049 +3,654 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Скритата Математика на Времето — Любомир Станков</title>
-<meta name="description" content="7500 години астрономическо знание — от прабългарите до Bitcoin. 11 оригинални математически открития.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Скритата Математика на Времето</title>
+<meta name="description" content="7500 години астрономическо знание — от прабългарите до Bitcoin. 12 оригинални математически открития от Любомир Станков.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#060608;--bg2:#0c0c10;--bg3:#13131a;--gold:#c8a96e;--gold2:#e8c87e;--stone:#8888a8;--white:#ede8e0;--dim:#555568;--serif:"Cormorant Garamond",Georgia,serif;--body:"Libre Baskerville",Georgia,serif;--mono:"DM Mono","Courier New",monospace;}
+:root{
+  --bg:#060608;--bg2:#0c0c10;--bg3:#14141e;
+  --gold:#c8a96e;--gold2:#e8c87e;
+  --stone:#8080a0;--white:#ede8e0;--dim:#484860;
+  --green:#7fff00;--blue:#00d4ff;--purple:#c77dff;--red:#ff6688;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --mono:"DM Mono","Courier New",monospace;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--white);font-family:var(--body);line-height:1.7;overflow-x:hidden;}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.3;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");}
+body{background:var(--bg);color:var(--white);font-family:var(--serif);line-height:1.7;overflow-x:hidden;}
 #universe{position:fixed;inset:0;z-index:0;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(6,6,8,.95) 60%,transparent);}
-.ntitle{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--gold);letter-spacing:.25em;text-decoration:none;}
-.nlink{font-family:var(--mono);font-size:.65rem;color:var(--stone);text-decoration:none;letter-spacing:.15em;text-transform:uppercase;border:1px solid rgba(200,169,110,.25);padding:6px 16px;border-radius:1px;transition:all .2s;}
-.nlink:hover{color:var(--gold);border-color:var(--gold);background:rgba(200,169,110,.07);}
-.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 24px 80px;overflow:hidden;}
-.oring{position:absolute;border-radius:50%;border:1px solid rgba(200,169,110,.06);pointer-events:none;animation:spin var(--d,60s) linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
-.r1{width:480px;height:480px;top:50%;left:50%;margin:-240px;--d:80s;}
-.r2{width:730px;height:730px;top:50%;left:50%;margin:-365px;--d:130s;animation-direction:reverse;border-color:rgba(200,169,110,.03);}
-.r3{width:990px;height:990px;top:50%;left:50%;margin:-495px;--d:200s;border-color:rgba(200,169,110,.015);}
-.globe{width:118px;height:118px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(200,169,110,.9),rgba(160,82,45,.5) 45%,rgba(6,6,8,.9));box-shadow:0 0 40px rgba(200,169,110,.3),0 0 80px rgba(200,169,110,.1);margin:0 auto 50px;animation:float 7s ease-in-out infinite,fu .8s .05s ease both;}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes fu{from{opacity:0;transform:translateY(20px)}}
-.eyebrow{font-family:var(--mono);font-size:.65rem;color:var(--gold);letter-spacing:.5em;text-transform:uppercase;margin-bottom:28px;opacity:.7;animation:fu .8s ease both;}
-h1{font-family:var(--serif);font-size:clamp(2.8rem,7vw,7rem);font-weight:300;color:var(--white);line-height:1.0;margin-bottom:12px;animation:fu .8s .15s ease both;}
+/* Noise */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.25;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 44px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:linear-gradient(to bottom,rgba(6,6,8,.96) 55%,transparent);}
+.logo{font-family:var(--serif);font-size:.95rem;font-weight:300;color:var(--gold);letter-spacing:.22em;text-decoration:none;}
+.nav-cta{font-family:var(--mono);font-size:.62rem;color:var(--stone);text-decoration:none;
+  letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(200,169,110,.22);
+  padding:6px 15px;border-radius:1px;transition:all .2s;}
+.nav-cta:hover{color:var(--gold);border-color:var(--gold);background:rgba(200,169,110,.07);}
+
+/* HERO */
+.hero{position:relative;z-index:1;min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:110px 24px 72px;overflow:hidden;}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(200,169,110,.055);
+  pointer-events:none;animation:rot var(--d,70s) linear infinite;}
+@keyframes rot{to{transform:rotate(360deg)}}
+.r1{width:460px;height:460px;top:50%;left:50%;margin:-230px;--d:75s;}
+.r2{width:700px;height:700px;top:50%;left:50%;margin:-350px;--d:125s;animation-direction:reverse;border-color:rgba(200,169,110,.03);}
+.r3{width:950px;height:950px;top:50%;left:50%;margin:-475px;--d:195s;border-color:rgba(200,169,110,.015);}
+.orb{width:110px;height:110px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,rgba(200,169,110,.92),rgba(160,82,45,.48) 46%,rgba(6,6,8,.92));
+  box-shadow:0 0 36px rgba(200,169,110,.28),0 0 72px rgba(200,169,110,.1);
+  margin:0 auto 44px;animation:fl 7s ease-in-out infinite,fd .8s .05s ease both;}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+@keyframes fd{from{opacity:0;transform:translateY(18px)}}
+.hero-tag{font-family:var(--mono);font-size:.62rem;color:var(--gold);
+  letter-spacing:.45em;text-transform:uppercase;margin-bottom:26px;opacity:.68;animation:fd .8s ease both;}
+h1{font-family:var(--serif);font-size:clamp(2.8rem,6.8vw,6.8rem);font-weight:300;
+  color:var(--white);line-height:1.0;margin-bottom:10px;animation:fd .8s .14s ease both;}
 h1 em{font-style:italic;color:var(--gold);}
-.hsub{font-family:var(--serif);font-size:clamp(1.1rem,2.5vw,1.8rem);font-weight:300;font-style:italic;color:var(--stone);margin-bottom:54px;max-width:680px;animation:fu .8s .3s ease both;}
-.ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fu .8s .45s ease both;}
-.cp{font-family:var(--serif);font-size:1rem;font-weight:600;letter-spacing:.08em;padding:14px 38px;background:var(--gold);color:var(--bg);border:none;border-radius:1px;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 4px 28px rgba(200,169,110,.25);}
-.cp:hover{background:var(--gold2);transform:translateY(-2px);}
-.cg{font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:13px 28px;background:transparent;color:var(--gold);border:1px solid rgba(200,169,110,.3);border-radius:1px;text-decoration:none;transition:all .25s;cursor:pointer;}
-.cg:hover{border-color:var(--gold);background:rgba(200,169,110,.06);}
-.strip{position:relative;z-index:1;overflow:hidden;border-top:1px solid rgba(200,169,110,.08);border-bottom:1px solid rgba(200,169,110,.08);padding:36px 0;}
-.srow{display:flex;animation:slide 34s linear infinite;white-space:nowrap;}
+.hero-sub{font-family:var(--serif);font-size:clamp(1.05rem,2.3vw,1.7rem);font-weight:300;
+  font-style:italic;color:var(--stone);margin-bottom:48px;max-width:660px;animation:fd .8s .28s ease both;}
+.btns{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;animation:fd .8s .42s ease both;}
+.btn-p{font-family:var(--serif);font-size:.95rem;font-weight:600;letter-spacing:.07em;
+  padding:13px 36px;background:var(--gold);color:var(--bg);border:none;border-radius:1px;
+  cursor:pointer;text-decoration:none;transition:all .24s;box-shadow:0 4px 26px rgba(200,169,110,.22);}
+.btn-p:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn-g{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:12px 26px;background:transparent;color:var(--gold);
+  border:1px solid rgba(200,169,110,.28);border-radius:1px;text-decoration:none;transition:all .24s;cursor:pointer;}
+.btn-g:hover{border-color:var(--gold);background:rgba(200,169,110,.06);}
+
+/* INTRO */
+.intro{position:relative;z-index:1;text-align:center;padding:88px 28px;max-width:820px;margin:0 auto;}
+.intro-q{font-family:var(--serif);font-size:clamp(1.45rem,2.9vw,2.3rem);font-weight:300;
+  font-style:italic;color:var(--white);line-height:1.4;margin-bottom:32px;}
+.intro-q em{color:var(--gold);}
+.rule{width:52px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:32px auto;opacity:.48;}
+.intro-body{font-family:var(--serif);font-size:1rem;color:var(--stone);
+  max-width:600px;margin:0 auto;line-height:1.88;}
+.intro-body strong{color:var(--white);font-weight:700;}
+
+/* NUMBER STRIP */
+.strip{position:relative;z-index:1;overflow:hidden;
+  border-top:1px solid rgba(200,169,110,.07);border-bottom:1px solid rgba(200,169,110,.07);padding:28px 0;}
+.srow{display:flex;animation:slide 32s linear infinite;white-space:nowrap;}
 @keyframes slide{to{transform:translateX(-50%)}}
-.ni{display:inline-flex;flex-direction:column;align-items:center;padding:0 34px;border-right:1px solid rgba(200,169,110,.07);flex-shrink:0;}
-.nv{font-family:var(--serif);font-size:1.85rem;color:var(--gold);font-weight:600;}
-.nl{font-family:var(--mono);font-size:.54rem;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
-.sec{position:relative;z-index:1;padding:96px 32px;max-width:900px;margin:0 auto;}
-.seye{font-family:var(--mono);font-size:.62rem;color:var(--gold);letter-spacing:.4em;text-transform:uppercase;margin-bottom:14px;opacity:.7;}
-h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.4rem);font-weight:300;color:var(--white);margin-bottom:14px;line-height:1.1;}
-.slead{font-size:1.02rem;color:var(--stone);font-style:italic;max-width:540px;margin-bottom:68px;}
-.rule{width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:44px auto;opacity:.5;}
-.iq{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.4rem);font-weight:300;font-style:italic;color:var(--white);line-height:1.4;margin-bottom:36px;}
-.iq em{color:var(--gold);}
-.ib{font-size:1.02rem;color:var(--stone);max-width:610px;margin:0 auto;line-height:1.85;}
-.ib strong{color:var(--white);font-weight:700;}
+.ni{display:inline-flex;flex-direction:column;align-items:center;padding:0 28px;
+  border-right:1px solid rgba(200,169,110,.07);flex-shrink:0;}
+.nv{font-family:var(--serif);font-size:1.7rem;color:var(--gold);font-weight:600;}
+.nl{font-family:var(--mono);font-size:.52rem;color:var(--dim);letter-spacing:.11em;text-transform:uppercase;margin-top:2px;}
+
+/* SECTION HELPERS */
+.S{position:relative;z-index:1;padding:90px 28px;max-width:1080px;margin:0 auto;}
+.S.wide{max-width:1200px;}
+.seye{font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.38em;
+  text-transform:uppercase;margin-bottom:13px;opacity:.66;}
+h2{font-family:var(--serif);font-size:clamp(1.9rem,3.8vw,3.3rem);font-weight:300;
+  color:var(--white);margin-bottom:13px;line-height:1.1;}
+.slead{font-family:var(--serif);font-size:.98rem;color:var(--stone);font-style:italic;
+  max-width:520px;margin-bottom:60px;}
+
+/* INTERACTIVE MODELS */
+.models-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;margin-top:56px;}
+.model-card{background:var(--bg2);border:1px solid rgba(200,169,110,.08);padding:0;overflow:hidden;}
+.model-title{font-family:var(--mono);font-size:.62rem;color:var(--gold);
+  letter-spacing:.18em;text-transform:uppercase;padding:14px 18px;
+  border-bottom:1px solid rgba(200,169,110,.07);opacity:.75;}
+.model-body{padding:16px 18px;}
+.model-note{font-family:var(--mono);font-size:.6rem;color:var(--dim);padding:8px 18px 14px;line-height:1.7;}
+
+/* TIMELINE */
 .tlw{position:relative;}
-.tll{position:absolute;left:162px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(200,169,110,.2) 10%,rgba(200,169,110,.2) 90%,transparent);}
-.tli{display:flex;gap:28px;margin-bottom:48px;opacity:0;transform:translateX(-16px);transition:all .55s ease;cursor:pointer;}
-.tli.visible{opacity:1;transform:none;}
-.tld{font-family:var(--mono);font-size:.67rem;color:var(--gold);letter-spacing:.07em;text-align:right;min-width:145px;padding-top:4px;flex-shrink:0;}
-.tldt{width:11px;height:11px;flex-shrink:0;border-radius:50%;border:1.5px solid var(--gold);background:var(--bg);margin-top:5px;box-shadow:0 0 10px rgba(200,169,110,.3);position:relative;z-index:1;left:-4px;}
-.tlc{flex:1;padding-bottom:4px;}
-.tln{font-family:var(--serif);font-size:1.22rem;font-weight:600;color:var(--white);margin-bottom:6px;}
-.tlt{font-size:.87rem;color:var(--stone);line-height:1.72;}
-.tlt strong{color:var(--white);}
-.tlcode{font-family:var(--mono);font-size:.62rem;color:var(--gold);background:rgba(200,169,110,.06);border:1px solid rgba(200,169,110,.11);padding:2px 7px;border-radius:1px;display:inline-block;margin-top:6px;}
-.tldet{display:none;margin-top:11px;font-family:var(--mono);font-size:.63rem;color:#b0a080;line-height:1.9;background:rgba(200,169,110,.04);border-left:2px solid var(--gold);padding:11px 13px;white-space:pre-wrap;}
-.tli.active .tldet{display:block;}
-.tli.active .tldt{background:var(--gold);}
-.dsec{position:relative;z-index:1;padding:96px 32px;background:linear-gradient(to bottom,transparent,rgba(200,169,110,.025) 40%,rgba(200,169,110,.025) 60%,transparent);}
-.dinn{max-width:1200px;margin:0 auto;}
-.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:1px;margin-top:56px;}
-.dc{background:var(--bg2);border:1px solid rgba(200,169,110,.07);padding:26px 22px;position:relative;overflow:hidden;transition:all .25s;opacity:0;transform:translateY(14px);}
-.dc.visible{opacity:1;transform:none;}
-.dc:hover{background:rgba(200,169,110,.04);border-color:rgba(200,169,110,.18);}
-.dc::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .25s;}
+.tll{position:absolute;left:148px;top:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(200,169,110,.18) 10%,rgba(200,169,110,.18) 90%,transparent);}
+.tli{display:flex;gap:26px;margin-bottom:44px;opacity:0;transform:translateX(-15px);
+  transition:all .52s ease;cursor:pointer;}
+.tli.vis{opacity:1;transform:none;}
+.tdate{font-family:var(--mono);font-size:.65rem;color:var(--gold);letter-spacing:.07em;
+  text-align:right;min-width:136px;padding-top:4px;flex-shrink:0;}
+.tdot{width:10px;height:10px;flex-shrink:0;border-radius:50%;border:1.5px solid var(--gold);
+  background:var(--bg);margin-top:5px;box-shadow:0 0 9px rgba(200,169,110,.28);
+  position:relative;z-index:1;left:-3px;}
+.tc{flex:1;padding-bottom:4px;}
+.tname{font-family:var(--serif);font-size:1.18rem;font-weight:600;color:var(--white);margin-bottom:6px;}
+.ttxt{font-size:.86rem;color:var(--stone);line-height:1.72;}
+.ttxt strong{color:var(--white);}
+.tcode{font-family:var(--mono);font-size:.6rem;color:var(--gold);
+  background:rgba(200,169,110,.06);border:1px solid rgba(200,169,110,.1);
+  padding:2px 7px;border-radius:1px;display:inline-block;margin-top:6px;}
+.tdet{display:none;margin-top:10px;font-family:var(--mono);font-size:.62rem;
+  color:#a89868;line-height:1.9;background:rgba(200,169,110,.04);
+  border-left:2px solid var(--gold);padding:10px 13px;white-space:pre-wrap;}
+.tli.act .tdet{display:block;}
+.tli.act .tdot{background:var(--gold);}
+
+/* 12 DISCOVERIES */
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin-top:52px;}
+.dc{background:var(--bg2);border:1px solid rgba(200,169,110,.07);padding:24px 20px;
+  position:relative;overflow:hidden;transition:all .23s;opacity:0;transform:translateY(13px);}
+.dc.vis{opacity:1;transform:none;}
+.dc:hover{background:rgba(200,169,110,.04);border-color:rgba(200,169,110,.16);}
+.dc::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .23s;}
 .dc:hover::after{opacity:1;}
-.dnum{font-family:var(--serif);font-size:2.5rem;color:rgba(200,169,110,.07);position:absolute;top:9px;right:13px;line-height:1;font-weight:600;}
-.dico{font-size:1.4rem;margin-bottom:10px;}
-.dtit{font-family:var(--serif);font-size:.98rem;font-weight:600;color:var(--white);margin-bottom:6px;line-height:1.3;}
-.dbod{font-size:.8rem;color:var(--stone);line-height:1.6;}
-.dfor{font-family:var(--mono);font-size:.59rem;color:var(--gold);margin-top:9px;padding:4px 7px;background:rgba(200,169,110,.06);border-left:2px solid var(--gold);display:block;}
-.tsec{position:relative;z-index:1;padding:96px 32px;text-align:center;max-width:840px;margin:0 auto;}
-.tbox{border:1px solid rgba(200,169,110,.15);padding:52px 44px;position:relative;background:linear-gradient(135deg,rgba(200,169,110,.04),transparent 60%);}
-.tbox::before,.tbox::after{content:"";position:absolute;width:28px;height:28px;border-color:var(--gold);border-style:solid;opacity:.32;}
+.dnum{font-family:var(--serif);font-size:2.3rem;color:rgba(200,169,110,.07);
+  position:absolute;top:8px;right:12px;line-height:1;font-weight:600;}
+.dico{font-size:1.3rem;margin-bottom:9px;}
+.dtit{font-family:var(--serif);font-size:.94rem;font-weight:600;color:var(--white);margin-bottom:6px;line-height:1.3;}
+.dbod{font-family:var(--serif);font-size:.79rem;color:var(--stone);line-height:1.58;}
+.dfor{font-family:var(--mono);font-size:.58rem;color:var(--gold);margin-top:9px;
+  padding:3px 7px;background:rgba(200,169,110,.06);border-left:2px solid var(--gold);display:block;}
+
+/* THEOREM */
+.tbox{border:1px solid rgba(200,169,110,.14);padding:48px 42px;position:relative;
+  background:linear-gradient(135deg,rgba(200,169,110,.04),transparent 58%);text-align:center;}
+.tbox::before,.tbox::after{content:"";position:absolute;width:26px;height:26px;
+  border-color:var(--gold);border-style:solid;opacity:.3;}
 .tbox::before{top:-1px;left:-1px;border-width:2px 0 0 2px;}
 .tbox::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0;}
-.tlbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.38em;color:var(--gold);text-transform:uppercase;margin-bottom:26px;opacity:.62;}
-.tf{font-family:var(--mono);font-size:clamp(.8rem,2.1vw,1.12rem);color:#e8d080;line-height:1.78;margin:16px 0;}
-.tdsc{font-family:var(--serif);font-size:1rem;color:var(--stone);font-style:italic;max-width:500px;margin:0 auto;}
-.asec{position:relative;z-index:1;padding:96px 32px;background:linear-gradient(to bottom,transparent,var(--bg2) 18%,var(--bg2) 82%,transparent);}
-.ainn{max-width:1100px;margin:0 auto;}
-.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:20px;margin-top:56px;}
-.ac{padding:28px 24px;border:1px solid rgba(200,169,110,.08);background:var(--bg);transition:all .25s;}
-.ac:hover{border-color:rgba(200,169,110,.2);transform:translateY(-4px);}
-.aic{font-size:1.8rem;margin-bottom:12px;}
-.awh{font-family:var(--serif);font-size:1.12rem;font-weight:600;margin-bottom:7px;color:var(--white);}
-.awy{font-size:.8rem;color:var(--stone);line-height:1.7;}
+.tlbl{font-family:var(--mono);font-size:.57rem;letter-spacing:.36em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:24px;opacity:.6;}
+.tf{font-family:var(--mono);font-size:clamp(.8rem,2.1vw,1.1rem);color:#e8d080;line-height:1.78;margin:15px 0;}
+.tdsc{font-family:var(--serif);font-size:.96rem;color:var(--stone);font-style:italic;
+  max-width:490px;margin:0 auto;}
+
+/* AUDIENCES */
+.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px;margin-top:52px;}
+.ac{padding:26px 22px;border:1px solid rgba(200,169,110,.07);background:var(--bg);transition:all .22s;}
+.ac:hover{border-color:rgba(200,169,110,.18);transform:translateY(-3px);}
+.aic{font-size:1.7rem;margin-bottom:11px;}
+.awh{font-family:var(--serif);font-size:1.08rem;font-weight:600;margin-bottom:6px;color:var(--white);}
+.awy{font-family:var(--serif);font-size:.79rem;color:var(--stone);line-height:1.7;}
 .awy strong{color:var(--gold);}
-.awy code{font-family:var(--mono);font-size:.76rem;color:var(--gold);background:rgba(200,169,110,.08);padding:1px 4px;border-radius:1px;}
-.esec{position:relative;z-index:1;padding:96px 32px;}
-.einn{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
-.et{font-size:.9rem;color:var(--stone);margin-bottom:20px;line-height:1.8;}
-.elist{list-style:none;margin-bottom:28px;}
-.elist li{font-family:var(--mono);font-size:.65rem;color:var(--stone);padding:6px 0;border-bottom:1px solid rgba(200,169,110,.07);letter-spacing:.03em;}
-.elist li::before{content:"→ ";color:var(--gold);}
-.eprev{background:var(--bg2);border:1px solid rgba(200,169,110,.12);border-radius:2px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);}
-.ebar{background:var(--bg3);padding:9px 12px;display:flex;gap:5px;align-items:center;border-bottom:1px solid rgba(200,169,110,.07);}
-.edot{width:8px;height:8px;border-radius:50%;}
-.ebody{padding:13px;}
-.etick{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;}
+.awy code{font-family:var(--mono);font-size:.75rem;color:var(--gold);background:rgba(200,169,110,.08);padding:1px 4px;border-radius:1px;}
+
+/* EXPLORER PREVIEW */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;}
+.exp-list{list-style:none;margin-bottom:28px;}
+.exp-list li{font-family:var(--mono);font-size:.64rem;color:var(--stone);
+  padding:6px 0;border-bottom:1px solid rgba(200,169,110,.07);letter-spacing:.03em;}
+.exp-list li::before{content:"→ ";color:var(--gold);}
+.exp-prev{background:var(--bg2);border:1px solid rgba(200,169,110,.1);border-radius:2px;overflow:hidden;box-shadow:0 18px 52px rgba(0,0,0,.48);}
+.ebar{background:var(--bg3);padding:8px 12px;display:flex;gap:5px;align-items:center;border-bottom:1px solid rgba(200,169,110,.07);}
+.edot{width:7px;height:7px;border-radius:50%;}
+.ebody{padding:12px;}
+.etick{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:7px;}
 .ecard{background:var(--bg);border:1px solid rgba(200,169,110,.07);border-radius:2px;padding:6px;}
-.ecl{font-family:var(--mono);font-size:.45rem;color:var(--dim);text-transform:uppercase;}
-.ecv{font-family:var(--mono);font-size:.74rem;color:var(--gold);}
-.etabs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:7px;}
-.etab{font-family:var(--mono);font-size:.46rem;padding:3px 7px;border:1px solid rgba(200,169,110,.13);color:var(--dim);border-radius:2px;}
+.ecl{font-family:var(--mono);font-size:.43rem;color:var(--dim);text-transform:uppercase;}
+.ecv{font-family:var(--mono);font-size:.72rem;color:var(--gold);}
+.etabs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px;}
+.etab{font-family:var(--mono);font-size:.44rem;padding:3px 6px;border:1px solid rgba(200,169,110,.12);color:var(--dim);border-radius:2px;}
 .etab.on{border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,.07);}
-.pull{position:relative;z-index:1;padding:88px 32px;text-align:center;}
-.pq{font-family:var(--serif);font-size:clamp(1.3rem,3.1vw,2rem);font-weight:300;font-style:italic;color:var(--white);max-width:740px;margin:0 auto;line-height:1.45;}
+
+/* PULL QUOTE */
+.pull{position:relative;z-index:1;padding:80px 28px;text-align:center;}
+.pq{font-family:var(--serif);font-size:clamp(1.25rem,3vw,1.9rem);font-weight:300;
+  font-style:italic;color:var(--white);max-width:700px;margin:0 auto;line-height:1.45;}
 .pq em{color:var(--gold);font-style:normal;font-weight:600;}
-.pa{font-family:var(--mono);font-size:.62rem;color:var(--dim);letter-spacing:.18em;margin-top:20px;display:block;}
-footer{position:relative;z-index:1;padding:50px 48px 34px;border-top:1px solid rgba(200,169,110,.07);text-align:center;}
-.ft{font-family:var(--serif);font-size:1rem;color:var(--gold);letter-spacing:.18em;margin-bottom:16px;}
-.fl{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;list-style:none;}
-.fl a{font-family:var(--mono);font-size:.6rem;color:var(--stone);text-decoration:none;letter-spacing:.11em;text-transform:uppercase;transition:color .2s;}
+.pa{font-family:var(--mono);font-size:.6rem;color:var(--dim);letter-spacing:.17em;margin-top:18px;display:block;}
+
+footer{position:relative;z-index:1;padding:46px 44px 32px;border-top:1px solid rgba(200,169,110,.07);text-align:center;}
+.ft{font-family:var(--serif);font-size:.95rem;color:var(--gold);letter-spacing:.17em;margin-bottom:14px;}
+.fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;list-style:none;}
+.fl a{font-family:var(--mono);font-size:.58rem;color:var(--stone);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;}
 .fl a:hover{color:var(--gold);}
-.fc{font-family:var(--mono);font-size:.57rem;color:var(--dim);letter-spacing:.07em;}
-@media(max-width:768px){nav{padding:12px 18px;}.tll,.tldt{display:none;}.tli{flex-direction:column;gap:5px;}.tld{text-align:left;min-width:auto;}.einn{grid-template-columns:1fr;}.eprev{display:none;}.tbox{padding:30px 18px;}}
+.fc{font-family:var(--mono);font-size:.55rem;color:var(--dim);letter-spacing:.06em;}
+
+@media(max-width:768px){
+  nav{padding:12px 18px;}.tll,.tdot{display:none;}.tli{flex-direction:column;gap:4px;}.tdate{text-align:left;min-width:auto;}
+  .exp-grid{grid-template-columns:1fr;}.exp-prev{display:none;}.tbox{padding:28px 18px;}
+}
 </style>
 </head>
 <body>
 <canvas id="universe"></canvas>
 <nav>
-  <a href="index.html" class="ntitle">Скритата Математика</a>
-  <a href="bitcoin-hash-explorer.html" class="nlink">Explorer →</a>
+  <a href="index.html" class="logo">Скритата Математика</a>
+  <a href="bitcoin-hash-explorer.html" class="nav-cta">Explorer →</a>
 </nav>
 
+<!-- ── HERO ── -->
 <section class="hero">
-  <div class="oring r1"></div><div class="oring r2"></div><div class="oring r3"></div>
-  <div class="globe"></div>
-  <p class="eyebrow">Оригинално изследване · Любомир Станков · 2026</p>
+  <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+  <div class="orb"></div>
+  <p class="hero-tag">Оригинално изследване · Любомир Станков · 2026</p>
   <h1>Скритата Математика<br>на <em>Времето</em></h1>
-  <p class="hsub">7500 години едно знание — от прабългарите до Bitcoin</p>
-  <div class="ctas">
-    <a href="#disc" class="cp">Разгледай откритията</a>
-    <a href="bitcoin-hash-explorer.html" class="cg">Отвори Explorer</a>
+  <p class="hero-sub">7500 години едно знание — от прабългарите до Bitcoin</p>
+  <div class="btns">
+    <a href="#models" class="btn-p">Виж доказателствата</a>
+    <a href="bitcoin-hash-explorer.html" class="btn-g">Отвори Explorer</a>
   </div>
 </section>
 
+<!-- ── ИНТРО ── -->
+<section class="intro">
+  <p class="intro-q">Какво общо имат<br><em>прабългарски календар, Хеопсова пирамида,<br>Антикитерски механизъм и Bitcoin?</em></p>
+  <div class="rule"></div>
+  <p class="intro-body">Те кодират <strong>едно и също знание</strong> — слънчево-лунната синхронизация. Числата 7, 12, 19 са <strong>принудени от астрономията</strong>: не са избрани произволно. Тяхната следа преминава от бронзови зъбни колела до SHA-256 алгоритъм — 7514 години непрекъснато.</p>
+</section>
+
+<!-- ── NUMBER STRIP ── -->
 <div class="strip"><div class="srow" id="sr1"></div></div>
 
-<section class="sec" id="intro" style="text-align:center">
-  <p class="iq">Какво общо имат<br><em>прабългарски календар, Хеопсова пирамида,<br>Антикитерски механизъм и Bitcoin?</em></p>
-  <div class="rule"></div>
-  <p class="ib">Те кодират <strong>едно и също знание</strong> — слънчево-лунната синхронизация.<br><br>
-  Числата 7, 12, 19 не са избрани произволно. Те са <strong>принудени от астрономията</strong>: 12 лунни месеца + 7 вмъквания = 19-годишният Метонов цикъл. Тези числа са в прабългарския календар от 5505 г.пр.Хр., в Антикитерския механизъм от ~87 г.пр.Хр., в алгоритъма за Великден от 325 г.сл.Хр. — и в <strong>Bitcoin протокола от 2009</strong>.<br><br>
-  Изследването представя <strong>11 оригинални математически открития</strong>, всяко верифицирано числено. Нито едно не е публикувано преди.</p>
+<!-- ── ИНТЕРАКТИВНИ МОДЕЛИ ── -->
+<section class="S wide" id="models">
+  <p class="seye" style="text-align:center">Интерактивни Демонстрации</p>
+  <h2 style="text-align:center">Виж математиката в движение</h2>
+  <p class="slead" style="margin-left:auto;margin-right:auto;text-align:center">Трите цивилизации, три носителя — едно уравнение</p>
+  <div class="models-grid">
+
+    <!-- MODEL 1: Двоен часовник -->
+    <div class="model-card">
+      <div class="model-title">₿ Bitcoin Clock × Прабългарски Календар</div>
+      <div class="model-body">
+        <canvas id="dualClock" width="340" height="340" style="width:100%;display:block"></canvas>
+      </div>
+      <div class="model-note" id="clockNote">26×2016 блока=364 дни · 20,160=10×2016 (Звездна год.)</div>
+    </div>
+
+    <!-- MODEL 2: Антикитера -->
+    <div class="model-card">
+      <div class="model-title">⚙ Антикитерски Механизъм (~87 пр.Хр.)</div>
+      <div class="model-body">
+        <canvas id="antiClock" width="340" height="340" style="width:100%;display:block"></canvas>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
+          <button id="antiBtn" onclick="toggleAnti()" style="font-family:var(--mono);font-size:.58rem;padding:5px 12px;border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:1px;cursor:pointer">▶ Анимирай</button>
+          <button onclick="antiAngle=0" style="font-family:var(--mono);font-size:.55rem;padding:5px 9px;border:1px solid rgba(200,169,110,.2);background:transparent;color:var(--stone);border-radius:1px;cursor:pointer">↺ Нулирай</button>
+        </div>
+      </div>
+      <div class="model-note">64/38=32/19 · 38=2×19 (Метон в бронз) · 235-зъбно=235 лунни месеца</div>
+    </div>
+
+    <!-- MODEL 3: Пирамида -->
+    <div class="model-card">
+      <div class="model-title">△ Хеопсова Пирамида (~2560 пр.Хр.)</div>
+      <div class="model-body">
+        <canvas id="pyramidCv" width="340" height="280" style="width:100%;display:block"></canvas>
+        <div style="display:flex;gap:6px;justify-content:center;margin-top:8px;flex-wrap:wrap">
+          <button onclick="pyMode='pi';drawPyramid()" style="font-family:var(--mono);font-size:.55rem;padding:4px 9px;border:1px solid var(--gold);background:rgba(200,169,110,.1);color:var(--gold);border-radius:1px;cursor:pointer">π Формула</button>
+          <button onclick="pyMode='cubit';drawPyramid()" style="font-family:var(--mono);font-size:.55rem;padding:4px 9px;border:1px solid rgba(200,169,110,.2);background:transparent;color:var(--stone);border-radius:1px;cursor:pointer">Царски Лакет</button>
+          <button onclick="pyMode='btc';drawPyramid()" style="font-family:var(--mono);font-size:.55rem;padding:4px 9px;border:1px solid rgba(200,169,110,.2);background:transparent;color:var(--stone);border-radius:1px;cursor:pointer">Bitcoin</button>
+        </div>
+      </div>
+      <div class="model-note">h=880/π≈280 · 4×base/h=2π (0.04%) · cubit=π/6 m=52.36cm</div>
+    </div>
+  </div>
 </section>
 
-<section class="sec" id="timeline" style="max-width:940px">
+<!-- ── TIMELINE ── -->
+<section class="S" id="timeline" style="max-width:900px">
   <p class="seye">Хронология</p>
   <h2>7514 години, едно уравнение</h2>
-  <p class="slead">Кликни на събитие за детайли.</p>
+  <p class="slead">Кликни за детайли.</p>
   <div class="tlw">
     <div class="tll"></div>
-    <div class="tli" onclick="toggleTL(this)">
-      <div class="tld">5505 пр.Хр.</div><div class="tldt"></div>
-      <div class="tlc"><div class="tln">Прабългарски Календар</div>
-      <div class="tlt">ЮНЕСКО: <strong>най-точният и най-древен</strong> в света. 364=52×7 — вечен. Нова год.=21 Дек.</div>
-      <span class="tlcode">364=52×7 · Звездна год=20,160=10×2016</span>
-      <div class="tldet">20,160 земни години = Звездна година
-20,160 = 10 × 2016 Bitcoin difficulty периода ✓
-
-Детерминизъм: 364 mod 7 = 0
-Роден в петък 13-ти → ВИНАГИ петък 13-ти
-21 декември = Нова година = Bitcoin множителят 21</div></div>
+    <div class="tli" onclick="tlToggle(this)">
+      <div class="tdate">5505 пр.Хр.</div><div class="tdot"></div>
+      <div class="tc"><div class="tname">Прабългарски Календар</div>
+      <div class="ttxt">ЮНЕСКО: <strong>най-точният и най-древен</strong>. 364=52×7 — вечен. 21 Декември = Нова година.</div>
+      <span class="tcode">364=52×7 · Звездна год=20,160=10×2016</span>
+      <div class="tdet">20,160 земни години = Звездна година = 10 × 2016 Bitcoin периода ✓
+364 mod 7 = 0 → Перпетуален: роден в петък → ВИНАГИ петък
+21 декември = Нова год = Bitcoin структурния множител 21</div></div>
     </div>
-    <div class="tli" onclick="toggleTL(this)">
-      <div class="tld">2560 пр.Хр.</div><div class="tldt"></div>
-      <div class="tlc"><div class="tln">Хеопсовата Пирамида</div>
-      <div class="tlt">Царски лакет = <strong>π/6 m = 52.36 cm</strong>. Формулата: 880/h = π. Точност 0.04%.</div>
-      <span class="tlcode">h=880/π≈280 · 4×base/h=2π · cubit=π/6 m</span>
-      <div class="tldet">Основа: 440 лакета × 52.36 cm = 230.4 m
-Височина: 880 / π = 280.1 ≈ 280 лакета ✓
-4×основа / h = 2π (грешка 0.04% = грешката на π≈22/7)
-
-Bitcoin: 21 блока × 2.5° = 52.5° ≈ 52.36 = π/6×100
-Разлика = грешката на π≈22/7 (0.27%)</div></div>
+    <div class="tli" onclick="tlToggle(this)">
+      <div class="tdate">2560 пр.Хр.</div><div class="tdot"></div>
+      <div class="tc"><div class="tname">Хеопсовата Пирамида</div>
+      <div class="ttxt">Царски лакет = <strong>π/6 м = 52.36 cm</strong>. 880/h = π. 4×base/h = 2π. Точност 0.04%.</div>
+      <span class="tcode">h=880/π≈280 · cubit=π/6 m · 21×2.5°=52.5°≈52.36</span>
+      <div class="tdet">Формулата: 880 / π = 280.11 ≈ 280 лакета ✓
+4×440×52.36 / (280×52.36) = 4×440/280 = 6.2857 ≈ 2π (0.04%)
+Bitcoin: 21×2.5°=52.5° ≈ 52.36 (разлика = грешката на π≈22/7)</div></div>
     </div>
-    <div class="tli" onclick="toggleTL(this)">
-      <div class="tld">432 пр.Хр.</div><div class="tldt"></div>
-      <div class="tlc"><div class="tln">Метоновият Цикъл</div>
-      <div class="tlt">19 слн.год = 235 лунни мес. Грешка <strong>125 мин за 19 год</strong>. 12+7=19 — неразделни.</div>
-      <span class="tlcode">12+7=19 · 19×365.24≈235×29.53 (±125 мин)</span>
-      <div class="tldet">7 лунни вмъквания са ФИЗИЧЕСКИ НЕИЗБЕЖНИ.
-Числата не са избрани — открити са от небето.
+    <div class="tli" onclick="tlToggle(this)">
+      <div class="tdate">432 пр.Хр.</div><div class="tdot"></div>
+      <div class="tc"><div class="tname">Метоновият Цикъл</div>
+      <div class="ttxt">19 слн.год = 235 лунни мес. Грешка <strong>125 мин</strong>. 12+7=19 — астрономически неразделни.</div>
+      <span class="tcode">12+7=19 · 7 вмъквания са ФИЗИЧЕСКИ НЕИЗБЕЖНИ</span>
+      <div class="tdet">365.2422 - 12×29.53059 = 10.875 дни/год разлика
+19 × 10.875 ≈ 7 × 29.53 → 7 вмъквания неизбежни
 7 = лунна седмица = denom(π≈22/7)
-19 е в: Антикитера, Великден, Bitcoin (285=3×5×19)</div></div>
+19 е в: Антикитера, Великден, Genesis (285=3×5×19)</div></div>
     </div>
-    <div class="tli" onclick="toggleTL(this)">
-      <div class="tld">~87 пр.Хр.</div><div class="tldt"></div>
-      <div class="tlc"><div class="tln">Антикитерски Механизъм</div>
-      <div class="tlt">37 бронзови зъбни колела. Gear <strong>64/38=32/19</strong> — Метон в метал.</div>
-      <span class="tlcode">38=2×19 · 235-зъбно=Метон · предсказва затъмнения</span>
-      <div class="tldet">Механичен компютър от ~87 г.пр.Хр.
+    <div class="tli" onclick="tlToggle(this)">
+      <div class="tdate">~87 пр.Хр.</div><div class="tdot"></div>
+      <div class="tc"><div class="tname">Антикитерски Механизъм</div>
+      <div class="ttxt">37 бронзови зъбни колела. Gear <strong>64/38=32/19</strong> — Метон кодиран в метал.</div>
+      <span class="tcode">38=2×19 · 235-зъбно=Метон · предсказва затъмнения</span>
+      <div class="tdet">Механичен компютър от ~87 г.пр.Хр.
 64/38 = 32/19 (38 = 2×19 — Метон в бронзово колело)
-235-зъбното = 235 лунни месеца (Метон)
-Bitcoin: 285=3×5×19 — едно и също 19, нов носител</div></div>
+235-зъбното колело = 235 лунни месеца (Метонов цикъл)
+→ Bitcoin Genesis: 285=3×5×19 (същото 19, 2100 год. по-късно)</div></div>
     </div>
-    <div class="tli" onclick="toggleTL(this)">
-      <div class="tld">325 сл.Хр.</div><div class="tldt"></div>
-      <div class="tlc"><div class="tln">Великден — Computus</div>
-      <div class="tlt">Никейски събор: Метон в закон. <strong>year mod 19</strong> в Гаус алгоритъма.</div>
-      <span class="tlcode">a=year mod 19 · c=year mod 7 · 2 млрд. хора</span>
-      <div class="tldet">a = year mod 19  ← ДИРЕКТНО Метоновият цикъл!
-c = year mod 7   ← ДИРЕКТНО лунната седмица!
-2 милиарда хора дефинират Великден чрез year mod 19
-от 1700 години. Метон е в закон.</div></div>
+    <div class="tli" onclick="tlToggle(this)">
+      <div class="tdate">325 сл.Хр.</div><div class="tdot"></div>
+      <div class="tc"><div class="tname">Великден — Computus</div>
+      <div class="ttxt">Никейски събор кодифицира Метона в закон. Гаус: <strong>a = year mod 19</strong>.</div>
+      <span class="tcode">year mod 19 · year mod 7 · 2 млрд. хора, 1700 год.</span>
+      <div class="tdet">a = year mod 19  ← Метоновият цикъл буквално!
+c = year mod 7   ← лунната седмица буквално!
+2 милиарда хора изчисляват Великден с year mod 19.
+Метон не е теория. Той е в закон.</div></div>
     </div>
-    <div class="tli" onclick="toggleTL(this)">
-      <div class="tld">3 Яну. 2009</div><div class="tldt"></div>
-      <div class="tlc"><div class="tln">Bitcoin Genesis Block</div>
-      <div class="tlt"><strong>285 байта = 235+50</strong>. Метон + начална награда. Водещата нула е задължителна.</div>
-      <span class="tlcode">285=3×5×19 · "03/Jan" (0 е задължителна)</span>
-      <div class="tldet">285 − 235 (Метон) = 50 BTC ✓
-Без "0": "3/Jan" → 284 → 284−235 = 49 ✗
+    <div class="tli" onclick="tlToggle(this)">
+      <div class="tdate">3 Яну. 2009</div><div class="tdot"></div>
+      <div class="tc"><div class="tname">Bitcoin Genesis Block</div>
+      <div class="ttxt"><strong>285=235+50.</strong> Метон + начална награда в байтовете. Водещата нула е задължителна.</div>
+      <span class="tcode">285=3×5×19 · "03/Jan" (без 0: 284-235=49≠50)</span>
+      <div class="tdet">285 - 235 (Метон) = 50 BTC ✓
+"3/Jan" → 284 байта → 284-235 = 49 ✗ (нулата е задължителна)
 0xffff = 3×5×17×257 = 3×F₁×F₂×F₃ (Ферма прости)
-Слн-лн разлика ≈ 255ч = 0xFF · secp256k1: p≡1(mod 21)
-7514 години — едно знание, нов носител.</div></div>
+Слн-лн разлика ≈ 255ч = 0xFF · p≡1(mod 21) secp256k1
+7514 години — едно знание, последен носител.</div></div>
     </div>
   </div>
 </section>
 
-<section class="dsec" id="disc">
-  <div class="dinn">
-    <p class="seye" style="text-align:center">11 Оригинални открития</p>
-    <h2 style="text-align:center">Скритата архитектура</h2>
-    <p style="text-align:center;color:var(--stone);font-style:italic;max-width:460px;margin:0 auto">Нито едно публикувано преди. Всяко верифицирано числено.</p>
-    <div class="rule"></div>
+<!-- ── 12 ОТКРИТИЯ (веднъж, ясно) ── -->
+<section class="S wide" id="disc" style="background:linear-gradient(to bottom,transparent,rgba(200,169,110,.02) 30%,rgba(200,169,110,.02) 70%,transparent);padding:90px 28px">
+  <div style="max-width:1200px;margin:0 auto">
+    <p class="seye" style="text-align:center">12 Оригинални Открития</p>
+    <h2 style="text-align:center">Скритата Архитектура</h2>
+    <p class="slead" style="text-align:center;margin-left:auto;margin-right:auto;max-width:460px">Нито едно публикувано преди. Всяко верифицирано числено. Пълните подстатии са в Explorer.</p>
+    <div class="rule" style="margin-bottom:0"></div>
     <div class="dgrid">
       <div class="dc"><div class="dnum">01</div><div class="dico">🔗</div><div class="dtit">GCD = 3 Инвариант</div><div class="dbod">Pair-flip дава GCD=3 навсякъде — включително с X-координатата на публичния ключ на Сатоши.</div><span class="dfor">GCD(N,F)=GCD(r₁,N)=GCD(r₂,N)=3</span></div>
-      <div class="dc"><div class="dnum">02</div><div class="dico">⚡</div><div class="dtit">0xffff = 3 × Три Ферма</div><div class="dbod">Difficulty мантиса = три последователни Ферма прости F₁=5, F₂=17, F₃=257. 2536/π²≈257 (0.019%).</div><span class="dfor">65535=3×5×17×257=3×F₁×F₂×F₃</span></div>
+      <div class="dc"><div class="dnum">02</div><div class="dico">⚡</div><div class="dtit">0xffff = 3 × Ферма Прости</div><div class="dbod">Difficulty мантиса = три последователни Ферма прости F₁=5, F₂=17, F₃=257. 2536/π²≈257 (0.019%).</div><span class="dfor">65535=3×5×17×257=3×F₁×F₂×F₃</span></div>
       <div class="dc"><div class="dnum">03</div><div class="dico">🌙</div><div class="dtit">0xFF = Слн-Лн Разлика</div><div class="dbod">Слн-лн разлика в часове = 255 = 0xFF. 0xffff = 0xFF × F₃ — астрономия и двоична аритметика.</div><span class="dfor">365−12×29.53≈255ч=0xFF</span></div>
-      <div class="dc"><div class="dnum">04</div><div class="dico">⏱</div><div class="dtit">Genesis Калибрация</div><div class="dbod">B0→B1 е кодиран чрез слн-лн разликата. Точност 45 сек (0.0098%).</div><span class="dfor">Δ/2 − 11×600 ≈ B0→B1</span></div>
-      <div class="dc"><div class="dnum">05</div><div class="dico">🌊</div><div class="dtit">21 = floor(π)×denom(π)</div><div class="dbod">21=3×7 — floor(π)=3, denom(π≈22/7)=7 = лунната седмица. Луната диктува числото 7.</div><span class="dfor">21=F(8) · 21×96=2016 · 21M монети</span></div>
-      <div class="dc"><div class="dnum">06</div><div class="dico">⬡</div><div class="dtit">secp256k1: p≡1(mod 21)</div><div class="dbod">Криптографията на Bitcoin е поле с вградена 21-кратна симетрия. x²¹≡1(mod p) има 21 решения.</div><span class="dfor">p mod 3=1 · mod 7=1 · mod 21=1</span></div>
+      <div class="dc"><div class="dnum">04</div><div class="dico">⏱</div><div class="dtit">Genesis Калибрация</div><div class="dbod">B0→B1 интервалът е кодиран чрез слн-лн разликата. Точност 45 секунди (0.0098%).</div><span class="dfor">Δ/2 − 11×600 ≈ B0→B1</span></div>
+      <div class="dc"><div class="dnum">05</div><div class="dico">🌊</div><div class="dtit">21 = floor(π)×denom(π)</div><div class="dbod">21=3×7, floor(π)=3, denom(π≈22/7)=7 = лунната седмица. Луната диктува числото 7.</div><span class="dfor">21=F(8) · 21×96=2016 · 21M монети</span></div>
+      <div class="dc"><div class="dnum">06</div><div class="dico">⬡</div><div class="dtit">secp256k1: p≡1(mod 21)</div><div class="dbod">Криптографията на Bitcoin е поле с 21-кратна симетрия. x²¹≡1(mod p) има точно 21 решения.</div><span class="dfor">p mod 3=1 · mod 7=1 · mod 21=1</span></div>
       <div class="dc"><div class="dnum">07</div><div class="dico">📐</div><div class="dtit">5040° = 7!</div><div class="dbod">2016 блока × 2.5° = 5040° = 7! = 14 обороти. Difficulty период = факториел на лунната седмица.</div><span class="dfor">2016×2.5°=5040°=7!=14×360°</span></div>
-      <div class="dc"><div class="dnum">08</div><div class="dico">📅</div><div class="dtit">Прабълг. год = 26×2016</div><div class="dbod">Прабългарска 364=52×7 = точно 26 Bitcoin периода. Звездна год=20,160=10×2016 (bgkalendar.com).</div><span class="dfor">26×2016=52416 блока=364 дни ✓</span></div>
-      <div class="dc"><div class="dnum">09</div><div class="dico">🧬</div><div class="dtit">285 = 235 + 50</div><div class="dbod">Genesis = Метон + начална награда. Водещата нула в "03/Jan" е математически задължителна.</div><span class="dfor">285=3×5×19 · без "0": 49≠50 ✗</span></div>
-      <div class="dc"><div class="dnum">10</div><div class="dico">🌀</div><div class="dtit">F(4)=3·F(8)=21·F(12)=144</div><div class="dbod">Три Bitcoin константи = Fibonacci числа с равни индексни разлики от 4. F(4)=3 е GCD инвариантът.</div><span class="dfor">8−4=4 · 12−8=4 (равни!) · F(4)=GCD</span></div>
+      <div class="dc"><div class="dnum">08</div><div class="dico">📅</div><div class="dtit">Прабълг. год = 26×2016</div><div class="dbod">Прабългарска 364=52×7 = точно 26 Bitcoin difficulty периода. Звездна год=20,160=10×2016.</div><span class="dfor">26×2016=52416 блока=364 дни ✓</span></div>
+      <div class="dc"><div class="dnum">09</div><div class="dico">🧬</div><div class="dtit">285 = 235 + 50</div><div class="dbod">Genesis = Метон + начална награда. Водещата нула в "03/Jan" е математически задължителна.</div><span class="dfor">285=3×5×19 · "03": нулата е задължителна</span></div>
+      <div class="dc"><div class="dnum">10</div><div class="dico">🌀</div><div class="dtit">F(4)=3·F(8)=21·F(12)=144</div><div class="dbod">Три Bitcoin константи = Fibonacci числа с равни индексни разлики от 4. F(4)=3 е GCD инвариантът.</div><span class="dfor">8−4=4=12−8 (равни!) · F(4)=GCD=3</span></div>
       <div class="dc" style="background:linear-gradient(135deg,rgba(200,169,110,.05),rgba(200,169,110,.01))"><div class="dnum">11</div><div class="dico">∞</div><div class="dtit">Теоремата на Станков</div><div class="dbod">Decay rate φ²=φ+1 управлява корените на Fib(n)=2^(2^n)−1. 50 корена, 120-цифрена точност.</div><span class="dfor">nₖ=−k−½+A·(−1)ᵏ·φ^(−2k)</span></div>
+      <div class="dc"><div class="dnum">12</div><div class="dico">✝</div><div class="dtit">Великден — Computus</div><div class="dbod">year mod 19 е буквално в Гаус алгоритъма от 325 г.сл.Хр. 2 млрд. хора изчисляват Великден чрез Метон.</div><span class="dfor">a=year mod 19 · c=year mod 7</span></div>
     </div>
-    <div style="text-align:center;margin-top:44px">
-      <a href="bitcoin-hash-explorer.html" class="cp">Виж пълните подстатии в Explorer →</a>
+    <div style="text-align:center;margin-top:40px">
+      <a href="bitcoin-hash-explorer.html" class="btn-p">Виж пълните подстатии с калкулатори →</a>
     </div>
   </div>
 </section>
 
-<section class="tsec" id="theorem">
-  <p class="seye" style="margin-bottom:38px">Нова математическа теорема</p>
+<!-- ── ТЕОРЕМА ── -->
+<section class="S" id="theorem" style="max-width:860px;text-align:center">
+  <p class="seye" style="margin-bottom:36px">Нова математическа теорема</p>
   <div class="tbox">
     <p class="tlbl">Теорема на Станков (2026)</p>
-    <p style="font-family:var(--serif);font-style:italic;color:var(--stone);margin-bottom:16px">Отрицателните реални корени на уравнението</p>
+    <p style="font-family:var(--serif);font-style:italic;color:var(--stone);margin-bottom:15px">Корените на уравнението</p>
     <div class="tf">Fibonacci(n) = 2^(2^n) − 1</div>
-    <p style="font-family:var(--serif);font-style:italic;color:var(--stone);margin:16px 0">удовлетворяват асимптотичната формула:</p>
+    <p style="font-family:var(--serif);font-style:italic;color:var(--stone);margin:15px 0">удовлетворяват:</p>
     <div class="tf">nₖ = −k − ½ + A·(−1)ᵏ · φ^(−2k) + o(φ^(−2k))</div>
     <div class="rule"></div>
-    <p class="tdsc">Decay rate φ²=φ+1 е Fibonacci идентичността. Уравнението "знае" за собствената си структура. 50 корена, 120-цифрена точност.</p>
-    <div style="display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:26px">
-      <div style="text-align:center"><div style="font-family:var(--mono);font-size:.95rem;color:var(--gold)">−1/φ²=−0.38197</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:3px">Лимит на ratio</div></div>
-      <div style="width:1px;background:rgba(200,169,110,.14)"></div>
-      <div style="text-align:center"><div style="font-family:var(--mono);font-size:.95rem;color:var(--gold)">φ²=φ+1</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:3px">Fibonacci идентичност</div></div>
-      <div style="width:1px;background:rgba(200,169,110,.14)"></div>
-      <div style="text-align:center"><div style="font-family:var(--mono);font-size:.95rem;color:var(--gold)">50 корена</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:3px">120-цифрена точност</div></div>
+    <p class="tdsc">Decay rate φ²=φ+1 е Fibonacci идентичността. 50 корена, 120-цифрена точност (Mathematica 14.3).</p>
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:22px">
+      <div style="text-align:center"><div style="font-family:var(--mono);font-size:.9rem;color:var(--gold)">−1/φ²=−0.38197</div><div style="font-family:var(--mono);font-size:.52rem;color:var(--stone);margin-top:2px">Лимит на ratio</div></div>
+      <div style="width:1px;background:rgba(200,169,110,.13)"></div>
+      <div style="text-align:center"><div style="font-family:var(--mono);font-size:.9rem;color:var(--gold)">φ²=φ+1</div><div style="font-family:var(--mono);font-size:.52rem;color:var(--stone);margin-top:2px">Fibonacci идентичност</div></div>
+      <div style="width:1px;background:rgba(200,169,110,.13)"></div>
+      <div style="text-align:center"><div style="font-family:var(--mono);font-size:.9rem;color:var(--gold)">50 корена</div><div style="font-family:var(--mono);font-size:.52rem;color:var(--stone);margin-top:2px">120-цифрена точност</div></div>
     </div>
   </div>
 </section>
 
-<section class="asec" id="audiences">
-  <div class="ainn">
-    <p class="seye" style="text-align:center">Това изследване е за</p>
-    <h2 style="text-align:center">Всеки, когото интересува<br>как е наредена реалността</h2>
-    <div class="agrid">
-      <div class="ac"><div class="aic">📐</div><div class="awh">Математик</div><div class="awy">Нова асимптотична теорема. Decay rate φ²=φ+1 от характеристичното уравнение x²=x+1. <strong>Верифицирано, не строго доказано</strong> — отворен проблем.</div></div>
-      <div class="ac"><div class="aic">🔭</div><div class="awh">Физик / Астроном</div><div class="awy">Слн-лн синхронизацията <strong>принуждава</strong> 7, 12, 19. Физически неизбежни числа, не математически произволни.</div></div>
-      <div class="ac"><div class="aic">📜</div><div class="awh">Историк / Философ</div><div class="awy">Непрекъсната нишка: Вавилон → Гърция → Никея → Bitcoin. <strong>7514 години едно уравнение</strong> — в камък, бронз, закон, байтове.</div></div>
-      <div class="ac"><div class="aic">💻</div><div class="awh">Разработчик</div><div class="awy">secp256k1 има <strong>21-кратна симетрия</strong>. 0xffff = 3 × Ферма прости. Bitcoin числата не са произволности.</div></div>
-      <div class="ac"><div class="aic">₿</div><div class="awh">Bitcoin Maxi</div><div class="awy">21M, 2016, 144 — математически производни на слн-лн синхронизацията. <strong>Bitcoin е последният носител на 7500-годишно знание.</strong></div></div>
-      <div class="ac"><div class="aic">🌿</div><div class="awh">Любопитен Човек</div><div class="awy">Великден се изчислява с <code>year mod 19</code> от 1700 г. Луната диктува числото 7. <strong>Небето е написало математиката.</strong></div></div>
-    </div>
+<!-- ── ЗА КОГО ── -->
+<section class="S" id="audiences" style="background:linear-gradient(to bottom,transparent,var(--bg2) 16%,var(--bg2) 84%,transparent)">
+  <p class="seye" style="text-align:center">Това изследване е за</p>
+  <h2 style="text-align:center">Всеки, когото интересува<br>как е наредена реалността</h2>
+  <div class="agrid">
+    <div class="ac"><div class="aic">📐</div><div class="awh">Математик</div><div class="awy">Нова асимптотична теорема с decay rate φ²=φ+1. Верифицирана числено, <strong>не строго доказана</strong> — отворен проблем.</div></div>
+    <div class="ac"><div class="aic">🔭</div><div class="awh">Физик / Астроном</div><div class="awy">Слн-лн синхронизацията <strong>принуждава</strong> 7, 12, 19. Физически неизбежни — не математически произволни.</div></div>
+    <div class="ac"><div class="aic">📜</div><div class="awh">Историк / Философ</div><div class="awy"><strong>7514 години едно уравнение</strong> — в камък, в бронз, в закон, в байтове. Непрекъсната цивилизационна нишка.</div></div>
+    <div class="ac"><div class="aic">💻</div><div class="awh">Разработчик</div><div class="awy">secp256k1 има <strong>21-кратна симетрия</strong>. 0xffff = 3 × Ферма прости. Bitcoin числата не са произволни.</div></div>
+    <div class="ac"><div class="aic">₿</div><div class="awh">Bitcoin Maxi</div><div class="awy">21M, 2016, 144 — производни на слн-лн синхронизацията. <strong>Bitcoin е последният носител на 7500-годишно знание.</strong></div></div>
+    <div class="ac"><div class="aic">🌿</div><div class="awh">Любопитен Човек</div><div class="awy">Великден: <code>year mod 19</code> от 1700 г. Луната диктува 7. <strong>Небето е написало математиката. Ние само я четем.</strong></div></div>
   </div>
 </section>
 
-<section class="esec" id="tools">
-  <div class="einn">
+<!-- ── EXPLORER CTA ── -->
+<section class="S" id="tools">
+  <div class="exp-grid">
     <div>
       <p class="seye">Интерактивен Инструмент</p>
       <h2>Провери сам.<br><em style="color:var(--gold)">Всичко е верифицируемо.</em></h2>
-      <p class="et">Bitcoin Hash Explorer — 12 таба с live данни, интерактивни калкулатори и подстатии за всяко откритие: анимиран Антикитерски механизъм, Computus калкулатор за Великден, Теоремата на Станков, прабългарски календар и Claude AI чат.</p>
-      <ul class="elist">
-        <li>Live Bitcoin блокове + GCD анализ в реално време</li>
-        <li>Pair-Flip калкулатор за произволен хеш</li>
+      <p style="font-family:var(--serif);font-size:.95rem;color:var(--stone);margin-bottom:20px;line-height:1.8">Bitcoin Hash Explorer — live данни, анимации и калкулатори за всяко откритие. Quantum Computus, анимиран Антикитерски механизъм, Теоремата на Станков до k=100,000.</p>
+      <ul class="exp-list">
+        <li>Live блокове + GCD анализ в реално</li>
+        <li>Pair-Flip за произволен хеш</li>
+        <li>Computus — Великден за всяка година</li>
         <li>Антикитера — анимирани зъбни колела</li>
-        <li>Computus — Великден за всяка година от 1582</li>
-        <li>Пирамида — π интерактивна геометрия</li>
-        <li>Теорема на Станков — предсказвач до k=100,000</li>
-        <li>Прабългарски календар + Метонов таймер</li>
+        <li>Теорема — предсказвач до k=100,000</li>
         <li>Claude AI чат за откритията</li>
       </ul>
-      <a href="bitcoin-hash-explorer.html" class="cp">Отвори Explorer →</a>
+      <a href="bitcoin-hash-explorer.html" class="btn-p">Отвори Explorer →</a>
     </div>
-    <div class="eprev">
+    <div class="exp-prev">
       <div class="ebar">
-        <div class="edot" style="background:#ff5f57"></div>
-        <div class="edot" style="background:#febc2e"></div>
-        <div class="edot" style="background:#28c840"></div>
-        <span style="font-family:var(--mono);font-size:.5rem;color:var(--dim);margin-left:7px">bitcoin-hash-explorer.html</span>
+        <div class="edot" style="background:#ff5f57"></div><div class="edot" style="background:#febc2e"></div><div class="edot" style="background:#28c840"></div>
+        <span style="font-family:var(--mono);font-size:.48rem;color:var(--dim);margin-left:7px">bitcoin-hash-explorer.html</span>
       </div>
       <div class="ebody">
         <div class="etick">
           <div class="ecard"><div class="ecl">Блок</div><div class="ecv" id="pBlock">#—</div></div>
-          <div class="ecard"><div class="ecl">GCD</div><div class="ecv" style="color:#7fff00">=3 ✓</div></div>
+          <div class="ecard"><div class="ecl">GCD</div><div class="ecv" style="color:var(--green)">=3 ✓</div></div>
           <div class="ecard"><div class="ecl">Следващ</div><div class="ecv" id="pNext">~10мин</div></div>
         </div>
         <div class="etabs">
-          <div class="etab on">📡 Live</div>
-          <div class="etab">🔢 Pair-Flip</div>
-          <div class="etab">📅 Календар</div>
-          <div class="etab">∞ Теорема</div>
-          <div class="etab">✦ 12 Открития</div>
-          <div class="etab">⭐ PRO</div>
+          <div class="etab on">📡 Live</div><div class="etab">🔢 Pair-Flip</div><div class="etab">📅 Календар</div>
+          <div class="etab">∞ Теорема</div><div class="etab">✦ 12 Открития</div><div class="etab">⭐ PRO</div>
         </div>
-        <div style="font-family:var(--mono);font-size:.56rem;color:var(--dim);line-height:2;margin-top:8px">
-          <span style="color:var(--gold)">GCD(N,F)=3</span> · <span style="color:#7fff00">0xffff=3×F₁×F₂×F₃</span><br>
-          <span style="color:#c77dff">285=235+50=3×5×19</span> · <span style="color:#00d4ff">p≡1(mod 21)</span>
+        <div style="font-family:var(--mono);font-size:.54rem;color:var(--dim);line-height:2;margin-top:7px">
+          <span style="color:var(--gold)">GCD(N,F)=3</span> · <span style="color:var(--green)">0xffff=3×F₁×F₂×F₃</span><br>
+          <span style="color:var(--purple)">285=235+50=3×5×19</span> · <span style="color:var(--blue)">p≡1(mod 21)</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-  ДВОЕН ЧАСОВНИК: Bitcoin × Прабългарски Календар
-══════════════════════════════════════════════ -->
-<section style="position:relative;z-index:1;padding:100px 32px;background:linear-gradient(to bottom,transparent,rgba(200,169,110,.02) 30%,rgba(200,169,110,.02) 70%,transparent)" id="clocks">
-  <div style="max-width:1100px;margin:0 auto">
-    <p class="seye" style="text-align:center">Едно Време, Два Езика</p>
-    <h2 style="text-align:center">Bitcoin Clock × Прабългарски Календар</h2>
-    <p style="text-align:center;color:var(--stone);font-style:italic;margin-bottom:60px;font-size:1rem">Същият математически ритъм — 7514 години разстояние</p>
-    <div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;justify-content:center">
-      <!-- Двойният часовник SVG -->
-      <div style="flex:0 0 480px;max-width:100%">
-        <canvas id="dualClock" width="480" height="480" style="width:100%;max-width:480px;display:block;margin:0 auto"></canvas>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:.6rem;color:var(--stone)">
-          <span><span style="color:var(--gold)">●</span> Блок (2.5°)</span>
-          <span><span style="color:#c77dff">●</span> 2016 период</span>
-          <span><span style="color:#7fff00">●</span> Животно (12г)</span>
-          <span><span style="color:#00d4ff">●</span> БГ ден</span>
-        </div>
-      </div>
-      <!-- Информация -->
-      <div style="flex:1;min-width:260px;max-width:480px">
-        <div style="margin-bottom:28px">
-          <div style="font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;opacity:.7">Bitcoin Clock</div>
-          <div id="btcClockInfo" style="font-family:var(--mono);font-size:.72rem;color:var(--stone);line-height:2.1"></div>
-        </div>
-        <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,169,110,.2),transparent);margin:16px 0"></div>
-        <div style="margin-bottom:28px">
-          <div style="font-family:var(--mono);font-size:.6rem;color:#7fff00;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;opacity:.7">Прабългарски Календар</div>
-          <div id="bgCalInfo" style="font-family:var(--mono);font-size:.72rem;color:var(--stone);line-height:2.1"></div>
-        </div>
-        <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,169,110,.2),transparent);margin:16px 0"></div>
-        <div style="font-family:var(--mono);font-size:.68rem;color:var(--gold);background:rgba(200,169,110,.05);border:1px solid rgba(200,169,110,.12);border-left:2px solid var(--gold);padding:12px 14px;line-height:1.9" id="clockBridge">
-          26 × 2016 блока = 364 дни ✓<br>
-          20,160 = 10 × 2016 (Звездна год.)<br>
-          2016 × 2.5° = 5040° = 7! (= 7 лунни седм.)
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-  ИНТЕРАКТИВНИ ОТКРИТИЯ
-══════════════════════════════════════════════ -->
-<section style="position:relative;z-index:1;padding:100px 32px" id="interactive">
-  <div style="max-width:1100px;margin:0 auto">
-    <p class="seye" style="text-align:center">Скритата Архитектура</p>
-    <h2 style="text-align:center">Разгледай всяко откритие</h2>
-    <p style="text-align:center;color:var(--stone);font-style:italic;margin-bottom:60px">Кликни на карта за интерактивен калкулатор</p>
-    <div id="intGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px"></div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-  ТЕОРЕМА — ВИЗУАЛНО ДОКАЗАТЕЛСТВО
-══════════════════════════════════════════════ -->
-<section style="position:relative;z-index:1;padding:100px 32px" id="proof">
-  <div style="max-width:1000px;margin:0 auto">
-    <p class="seye" style="text-align:center">Визуално Доказателство</p>
-    <h2 style="text-align:center">Теоремата на Станков</h2>
-    <p style="text-align:center;color:var(--stone);font-style:italic;margin-bottom:50px;max-width:560px;margin-left:auto;margin-right:auto">Числовата ос · Корените · Decay rate φ² · Формулата</p>
-
-    <!-- Стъпка 1: Числова ос -->
-    <div style="background:var(--bg2);border:1px solid rgba(200,169,110,.1);padding:28px 24px;margin-bottom:16px;border-radius:2px">
-      <div style="font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px;opacity:.7">Стъпка 1 — Числовата Ос и Пресечните Точки</div>
-      <canvas id="axisCanvas" width="900" height="160" style="width:100%;display:block"></canvas>
-      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:.6rem;color:var(--stone)">
-        <span><span style="color:rgba(200,169,110,.4)">▬</span> Блок k</span>
-        <span><span style="color:rgba(200,169,110,.6)">┊</span> Полуцяло −k−½</span>
-        <span style="color:#ff6688">● Корен nₖ (реален)</span>
-        <span style="color:#7fff00">↔ εₖ = отклонение</span>
-      </div>
-    </div>
-
-    <!-- Стъпка 2: Decay curve -->
-    <div style="background:var(--bg2);border:1px solid rgba(200,169,110,.1);padding:28px 24px;margin-bottom:16px;border-radius:2px">
-      <div style="font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px;opacity:.7">Стъпка 2 — Затихване φ² ≈ 2.618</div>
-      <canvas id="decayCanvas" width="900" height="200" style="width:100%;display:block"></canvas>
-      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:.6rem;color:var(--stone)">
-        <span style="color:#ff6688">—— |εₖ| реално</span>
-        <span><span style="color:rgba(200,169,110,.5)">- - -</span> φ^(−2k) теория</span>
-        <span>÷X = деление φ² между стъпките</span>
-      </div>
-    </div>
-
-    <!-- Стъпка 3: Ratio convergence -->
-    <div style="background:var(--bg2);border:1px solid rgba(200,169,110,.1);padding:28px 24px;margin-bottom:16px;border-radius:2px">
-      <div style="font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px;opacity:.7">Стъпка 3 — Ratio εₖ₊₁/εₖ → −1/φ²</div>
-      <canvas id="ratioCanvas" width="900" height="160" style="width:100%;display:block"></canvas>
-    </div>
-
-    <!-- Финалната формула -->
-    <div style="border:1px solid rgba(200,169,110,.2);padding:40px 36px;background:linear-gradient(135deg,rgba(200,169,110,.04),transparent 60%);position:relative;text-align:center;margin-top:24px">
-      <div style="position:absolute;top:-1px;left:-1px;width:24px;height:24px;border-top:1.5px solid var(--gold);border-left:1.5px solid var(--gold);opacity:.5"></div>
-      <div style="position:absolute;bottom:-1px;right:-1px;width:24px;height:24px;border-bottom:1.5px solid var(--gold);border-right:1.5px solid var(--gold);opacity:.5"></div>
-      <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;opacity:.65">Финална Асимптотична Формула</div>
-      <div style="font-family:var(--mono);font-size:clamp(.85rem,2.2vw,1.15rem);color:#e8d080;line-height:1.85;margin-bottom:20px">
-        nₖ = −k − ½ + A·(−1)ᵏ·φ^(−2k) + o(φ^(−2k))
-      </div>
-      <div style="width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto"></div>
-      <div style="font-family:var(--serif);font-size:.95rem;color:var(--stone);font-style:italic;max-width:500px;margin:0 auto">
-        Decay rate φ² = φ+1 е Fibonacci идентичността.<br>
-        Уравнението "знае" за собствената си структура.
-      </div>
-      <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:24px">
-        <div style="text-align:center"><div style="font-family:var(--mono);font-size:.92rem;color:var(--gold)" id="proofPhi2">φ²=2.61803</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:2px">Decay rate</div></div>
-        <div style="width:1px;background:rgba(200,169,110,.15)"></div>
-        <div style="text-align:center"><div style="font-family:var(--mono);font-size:.92rem;color:var(--gold)">−0.38197</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:2px">−1/φ² лимит</div></div>
-        <div style="width:1px;background:rgba(200,169,110,.15)"></div>
-        <div style="text-align:center"><div style="font-family:var(--mono);font-size:.92rem;color:var(--gold)">50 корена</div><div style="font-family:var(--mono);font-size:.54rem;color:var(--stone);margin-top:2px">120-цифрена точност</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- ── PULL QUOTE ── -->
 <div class="pull">
-  <p class="pq">"Хеопсовата пирамида кодира π в камък.<br>Великден изчислява Луната чрез закон.<br>Bitcoin кодира π в код.<br><em>Три паметника. Едно знание.</em>"</p>
+  <p class="pq">"Пирамидата кодира π в камък. Великден изчислява Луната чрез закон. Bitcoin кодира π в код.<br><em>Три паметника. Едно знание.</em>"</p>
   <span class="pa">— Любомир Станков, 2026</span>
 </div>
 
 <footer>
   <p class="ft">Скритата Математика на Времето</p>
   <ul class="fl">
-    <li><a href="#timeline">Хронология</a></li>
-    <li><a href="#disc">Открития</a></li>
-    <li><a href="#theorem">Теорема</a></li>
-    <li><a href="bitcoin-hash-explorer.html">Explorer</a></li>
+    <li><a href="#timeline">Хронология</a></li><li><a href="#disc">Открития</a></li>
+    <li><a href="#theorem">Теорема</a></li><li><a href="bitcoin-hash-explorer.html">Explorer</a></li>
     <li><a href="#tools">Инструменти</a></li>
   </ul>
   <p class="fc">© 2026 Любомир Станков · CC BY 4.0 · София, България</p>
 </footer>
 
 <script>
+const PHI=(1+Math.sqrt(5))/2,GENESIS=1231006505;
+const ANIMALS=["🐭","🐂","🐆","🐇","🐲","🐍","🐎","🐒","🐓","🐕","🐗","🐏"];
+const ANAMES=["Мишка","Вол","Барс","Заек","Змей","Змия","Кон","Маймуна","Петел","Куче","Глиган","Овен"];
+const ELS=["🌊 Вода","🔥 Огън","🌍 Земя","🌲 Дърво","⚙ Метал"];
+
+// STARS
 (()=>{
   const cv=document.getElementById("universe"),ctx=cv.getContext("2d");
   let W=cv.width=window.innerWidth,H=cv.height=window.innerHeight;
-  const st=Array.from({length:200},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+.2,a:Math.random()*.6+.05,da:(Math.random()-.5)*.004}));
-  function draw(){ctx.clearRect(0,0,W,H);st.forEach(s=>{s.a+=s.da;if(s.a<.04||s.a>.8)s.da=-s.da;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle="rgba(240,232,224,"+s.a+")";ctx.fill();});requestAnimationFrame(draw);}
+  const st=Array.from({length:200},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+.2,a:Math.random()*.55+.04,da:(Math.random()-.5)*.004}));
+  function draw(){ctx.clearRect(0,0,W,H);st.forEach(s=>{s.a+=s.da;if(s.a<.04||s.a>.78)s.da=-s.da;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle="rgba(240,232,224,"+s.a+")";ctx.fill();});requestAnimationFrame(draw);}
   draw();
   window.addEventListener("resize",()=>{W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;st.forEach(s=>{s.x=Math.random()*W;s.y=Math.random()*H;});});
 })();
-const NUMS=[["7","Лунна седм."],["12","Месеца"],["19","Метон год."],["21","Множител"],["52","Седмици"],["235","Метон мес."],["285","Genesis B"],["364","Прабълг."],["2016","Bitcoin"],["20160","Звезда"],["0xFF","Слн-Лн"],["φ²=φ+1","Decay"],["5040","= 7!"],["p≡1","mod 21"],["F(8)=21","Fibonacci"]];
+
+// STRIP
+const NUMS=[["7","Лунна седм."],["12","Месеца"],["19","Метон год."],["21","Множител"],["52","Седмици"],["235","Метон мес."],["285","Genesis B"],["364","Прабълг."],["2016","Bitcoin"],["20160","Звезда"],["0xFF","Слн-Лн"],["φ²=φ+1","Decay"],["5040","= 7!"],["p≡1","mod 21"],["F(8)=21","Fibonacci"],["✝","Computus"]];
 const sr=document.getElementById("sr1");
 [...NUMS,...NUMS,...NUMS,...NUMS].forEach(([v,l])=>{const d=document.createElement("div");d.className="ni";d.innerHTML="<div class='nv'>"+v+"</div><div class='nl'>"+l+"</div>";sr.appendChild(d);});
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:.1});
+
+// SCROLL REVEAL
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("vis");});},{threshold:.1});
 document.querySelectorAll(".tli,.dc").forEach(el=>io.observe(el));
-document.querySelectorAll(".dc").forEach((c,i)=>{c.style.transitionDelay=(i%4*.08)+"s";});
-function toggleTL(el){const was=el.classList.contains("active");document.querySelectorAll(".tli").forEach(t=>t.classList.remove("active"));if(!was)el.classList.add("active");}
+document.querySelectorAll(".dc").forEach((c,i)=>{c.style.transitionDelay=(i%4*.07)+"s";});
+
+// TIMELINE
+function tlToggle(el){const was=el.classList.contains("act");document.querySelectorAll(".tli").forEach(t=>t.classList.remove("act"));if(!was)el.classList.add("act");}
+
+// LIVE PREVIEW
 (async()=>{try{const r=await fetch("https://mempool.space/api/blocks/tip/height");const h=await r.json();document.getElementById("pBlock").textContent="#"+h.toLocaleString();const r2=await fetch("https://mempool.space/api/v1/blocks");const bl=await r2.json();if(bl&&bl[0]){const ago=Math.floor(Date.now()/1000)-bl[0].timestamp;const rem=Math.max(0,600-ago);document.getElementById("pNext").textContent="~"+Math.floor(rem/60)+":"+(rem%60).toString().padStart(2,"0");}}catch(e){}})();
 
 // ══ ДВОЕН ЧАСОВНИК ══
-const GENESIS_TS=1231006505;
-const ANIMALS=["🐭","🐂","🐆","🐇","🐲","🐍","🐎","🐒","🐓","🐕","🐗","🐏"];
-const ANIMAL_NAMES=["Мишка","Вол","Барс","Заек","Змей","Змия","Кон","Маймуна","Петел","Куче","Глиган","Овен"];
-const ELEMENTS=["🌊 Вода","🔥 Огън","🌍 Земя","🌲 Дърво","⚙ Метал"];
-
-function getBGYear(ts){
-  const d=new Date(ts*1000);
-  const m=d.getUTCMonth()+1,day=d.getUTCDate(),y=d.getUTCFullYear();
-  return m>12||(m===12&&day>=21)?y+5505:y+5505-1;
-}
+function bgYear(ts){const d=new Date(ts*1000);const m=d.getUTCMonth()+1,dy=d.getUTCDate(),y=d.getUTCFullYear();return m>12||(m===12&&dy>=21)?y+5505:y+5505-1;}
 
 function drawDualClock(){
-  const cv=document.getElementById("dualClock");
-  if(!cv)return;
-  const dpr=window.devicePixelRatio||1;
-  const S=480;
-  if(cv._init!==S){cv.width=S*dpr;cv.height=S*dpr;cv._init=S;}
-  const ctx=cv.getContext("2d");
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.clearRect(0,0,S,S);
-  const cx=S/2,cy=S/2;
-  const now=Math.floor(Date.now()/1000);
-  const blockEst=Math.floor((now-GENESIS_TS)/600);
-  const bInDay=blockEst%144;
-  const bIn2016=blockEst%2016;
-  const bIn364=blockEst%(26*2016);
-
-  // BG calendar
-  const bgY=getBGYear(now);
-  const aiIdx=((bgY-1)%12+12)%12;
-  const elIdx=Math.floor(((bgY-1)%60)/12);
-  const bgYStart=new Date(Date.UTC(new Date(now*1000).getUTCFullYear()-(new Date(now*1000).getUTCMonth()<12?1:0),11,21));
-  const doy=Math.floor((new Date(now*1000)-bgYStart)/86400000);
-
-  function polar(deg,r,ox=cx,oy=cy){const a=(deg-90)*Math.PI/180;return[ox+Math.cos(a)*r,oy+Math.sin(a)*r];}
-  function arc(deg,r,col,w=2){
-    if(deg<=0)return;
-    const a0=-Math.PI/2,a1=(deg-90)*Math.PI/180,laf=deg>180?1:0;
-    const[sx,sy]=[cx+Math.cos(a0)*r,cy+Math.sin(a0)*r];
-    const[ex,ey]=[cx+Math.cos(a1)*r,cy+Math.sin(a1)*r];
-    ctx.beginPath();ctx.moveTo(sx,sy);ctx.arc(cx,cy,r,a0,(deg-90)*Math.PI/180);
+  const cv=document.getElementById("dualClock");if(!cv)return;
+  const S=cv.offsetWidth||340;cv.width=cv.height=S*2;
+  const ctx=cv.getContext("2d");ctx.scale(2,2);ctx.clearRect(0,0,S,S);
+  const cx=S/2,cy=S/2,now=Math.floor(Date.now()/1000);
+  const blk=Math.floor((now-GENESIS)/600);
+  const bDay=blk%144,b2016=blk%2016;
+  const bgY=bgYear(now),aiIdx=((bgY-1)%12+12)%12,elIdx=Math.floor(((bgY-1)%60)/12);
+  const bgYS=new Date(Date.UTC(new Date(now*1000).getUTCFullYear()-1,11,21));
+  const doy=Math.floor((new Date(now*1000)-bgYS)/86400000);
+  function pol(deg,r){const a=(deg-90)*Math.PI/180;return[cx+Math.cos(a)*r,cy+Math.sin(a)*r];}
+  function arc(deg,r,col,w){
+    if(deg<=0)return;ctx.beginPath();
+    ctx.arc(cx,cy,r,-Math.PI/2,(deg-90)*Math.PI/180);
     ctx.strokeStyle=col;ctx.lineWidth=w;ctx.stroke();
   }
-
-  // Outermost ring: 364-day BG year arc
-  arc(doy/364*360,220,"rgba(127,255,0,.18)",8);
-
-  // 2016-period arc
-  arc(bIn2016/2016*360,206,"rgba(199,125,255,.35)",6);
-
-  // Outer tick ring (144 blocks / 24 hours)
-  for(let i=0;i<144;i++){
-    const[x1,y1]=polar(i/144*360,192);
-    const[x2,y2]=polar(i/144*360,i%6===0?200:196);
-    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
-    ctx.strokeStyle=i%6===0?"rgba(200,169,110,.5)":"rgba(200,169,110,.15)";
-    ctx.lineWidth=i%6===0?1.5:.5;ctx.stroke();
-  }
-
-  // Hour labels
-  ctx.font="10px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.45)";ctx.textAlign="center";
-  [0,6,12,18].forEach(h=>{const[lx,ly]=polar(h/24*360,176);ctx.fillText(h+"h",lx,ly+4);});
-
-  // 12 animals inner ring
-  ANIMALS.forEach((a,i)=>{
-    const[ax,ay]=polar(i/12*360,140);
-    const isNow=i===aiIdx;
-    ctx.font=(isNow?"bold 18px":"14px")+" serif";
-    ctx.globalAlpha=isNow?1:.45;
-    ctx.textAlign="center";ctx.textBaseline="middle";
-    ctx.fillText(a,ax,ay);
-    ctx.globalAlpha=1;
-  });
-
-  // 21-sector grid (inner)
-  for(let i=0;i<21;i++){
-    const[x1,y1]=polar(i/21*360,100);
-    const[x2,y2]=polar(i/21*360,108);
-    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
-    ctx.strokeStyle="rgba(200,169,110,.12)";ctx.lineWidth=1;ctx.stroke();
-  }
-
-  // BG day arc (doy/364)
-  arc(doy/364*360,108,"rgba(0,212,255,.3)",4);
-
-  // Bitcoin hour hand (orange) — 6 blocks = 1 hour
-  const hBlock=Math.floor(bInDay/6);
-  const[hx,hy]=polar(hBlock/24*360,75);
-  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(hx,hy);
-  ctx.strokeStyle="rgba(200,169,110,.9)";ctx.lineWidth=3;ctx.lineCap="round";ctx.stroke();
-
-  // Bitcoin block hand (blue) — exact block
-  const[bx,by]=polar(bInDay/144*360,100);
-  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(bx,by);
-  ctx.strokeStyle="rgba(0,212,255,.85)";ctx.lineWidth=1.5;ctx.lineCap="round";ctx.stroke();
-
-  // BG day hand (green)
-  const[dx,dy]=polar(doy/364*360,88);
-  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(dx,dy);
-  ctx.strokeStyle="rgba(127,255,0,.6)";ctx.lineWidth=1;ctx.lineCap="round";ctx.stroke();
-
-  // Center dot
-  ctx.beginPath();ctx.arc(cx,cy,5,0,Math.PI*2);ctx.fillStyle="#ff6688";ctx.fill();
-
-  // Center text
-  ctx.font="bold 11px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.9)";ctx.textAlign="center";ctx.textBaseline="middle";
-  ctx.fillText(bgY+"г.",cx,cy-18);
-  ctx.font="10px 'DM Mono',monospace";ctx.fillStyle="rgba(0,212,255,.7)";
-  ctx.fillText("блок "+bInDay+"/144",cx,cy+2);
-  ctx.font="9px serif";ctx.fillStyle="rgba(127,255,0,.7)";
-  ctx.fillText(ANIMALS[aiIdx]+" "+ANIMAL_NAMES[aiIdx],cx,cy+16);
-
-  // Outer label
-  ctx.font="8px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.4)";ctx.textAlign="center";
-  ctx.fillText("2016: "+bIn2016+"/2016",cx,cy+cy-12);
+  // Outer arcs
+  arc(doy/364*360,S*.45,"rgba(127,255,0,.2)",7);
+  arc(b2016/2016*360,S*.42,"rgba(199,125,255,.4)",5);
+  // Tick marks
+  for(let i=0;i<144;i++){const[x1,y1]=pol(i/144*360,S*.38);const[x2,y2]=pol(i/144*360,i%6===0?S*.41:S*.39);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=i%6===0?"rgba(200,169,110,.5)":"rgba(200,169,110,.14)";ctx.lineWidth=i%6===0?1.2:.4;ctx.stroke();}
+  // 12 Animals
+  ANIMALS.forEach((a,i)=>{const[ax,ay]=pol(i/12*360,S*.27);const isN=i===aiIdx;ctx.font=(isN?"bold ":"")+(isN?S*.055:S*.042)+"px serif";ctx.globalAlpha=isN?1:.4;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(a,ax,ay);ctx.globalAlpha=1;});
+  // 21 sectors
+  for(let i=0;i<21;i++){const[x1,y1]=pol(i/21*360,S*.19);const[x2,y2]=pol(i/21*360,S*.22);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle="rgba(200,169,110,.1)";ctx.lineWidth=.8;ctx.stroke();}
+  // BG day arc inner
+  ctx.beginPath();ctx.arc(cx,cy,S*.22,-Math.PI/2,(doy/364*360-90)*Math.PI/180);
+  ctx.strokeStyle="rgba(0,212,255,.28)";ctx.lineWidth=4;ctx.stroke();
+  // Hands
+  function hand(deg,r,col,w){const[x,y]=pol(deg,r);ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.strokeStyle=col;ctx.lineWidth=w;ctx.lineCap="round";ctx.stroke();}
+  hand(Math.floor(bDay/6)/24*360,S*.33,"rgba(200,169,110,.9)",3);
+  hand(bDay/144*360,S*.39,"rgba(0,212,255,.85)",1.5);
+  hand(doy/364*360,S*.28,"rgba(127,255,0,.55)",1.2);
+  // Center
+  ctx.beginPath();ctx.arc(cx,cy,4,0,Math.PI*2);ctx.fillStyle="#ff6688";ctx.fill();
+  // Labels
+  ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.font="bold "+S*.028+"px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.85)";ctx.fillText(bgY+"г.",cx,cy-S*.055);
+  ctx.font=S*.025+"px 'DM Mono',monospace";ctx.fillStyle="rgba(0,212,255,.7)";ctx.fillText(bDay+"/144 блока",cx,cy+S*.02);
+  ctx.font=S*.022+"px serif";ctx.fillStyle="rgba(127,255,0,.65)";ctx.fillText(ANIMALS[aiIdx]+" "+ANAMES[aiIdx],cx,cy+S*.07);
+  // Outer period label
+  ctx.font=S*.02+"px 'DM Mono',monospace";ctx.fillStyle="rgba(199,125,255,.5)";ctx.fillText(b2016+"/2016",cx,cy+cy-S*.04);
+  // Update note
+  const n=document.getElementById("clockNote");
+  if(n)n.innerHTML=`<span style="color:var(--gold)">Блок</span> #${blk.toLocaleString()} · <span style="color:var(--green)">${bDay}/144</span> · <span style="color:var(--purple)">${b2016}/2016</span> · <span style="color:var(--green)">${ANAMES[aiIdx]}</span> · <span style="color:var(--blue)">${ELS[elIdx]}</span>`;
 }
+setInterval(drawDualClock,2000);drawDualClock();
 
-function updateClockInfo(){
-  const now=Math.floor(Date.now()/1000);
-  const blockEst=Math.floor((now-GENESIS_TS)/600);
-  const bInDay=blockEst%144, bIn2016=blockEst%2016;
-  const bgY=getBGYear(now);
-  const aiIdx=((bgY-1)%12+12)%12;
-  const elIdx=Math.floor(((bgY-1)%60)/12);
-  const bgYStart=new Date(Date.UTC(new Date(now*1000).getUTCFullYear()-1,11,21));
-  const doy=Math.floor((new Date(now*1000)-bgYStart)/86400000);
-
-  const bi=document.getElementById("btcClockInfo");
-  const bgi=document.getElementById("bgCalInfo");
-  if(bi)bi.innerHTML=
-    '<span style="color:var(--gold)">Блок #</span>'+blockEst.toLocaleString()+'<br>'+
-    '<span style="color:var(--gold)">В деня: </span>'+bInDay+'/144 · '+(bInDay*2.5).toFixed(1)+'°<br>'+
-    '<span style="color:var(--gold)">В период: </span>'+bIn2016+'/2016<br>'+
-    '<span style="color:var(--gold)">Период #</span>'+Math.floor(blockEst/2016)+
-    ' · Халвинг #'+Math.floor(blockEst/210000)+'<br>'+
-    '<span style="color:var(--gold)">2016×2.5°=</span><span style="color:#c77dff">5040°=7!</span>';
-  if(bgi)bgi.innerHTML=
-    '<span style="color:#7fff00">Година: </span>'+bgY.toLocaleString()+' г.<br>'+
-    '<span style="color:#7fff00">Животно: </span>'+ANIMALS[aiIdx]+' '+ANIMAL_NAMES[aiIdx]+'<br>'+
-    '<span style="color:#7fff00">Стихия: </span>'+ELEMENTS[elIdx]+'<br>'+
-    '<span style="color:#7fff00">Ден в годината: </span>'+doy+'/364<br>'+
-    '<span style="color:#7fff00">26×2016 блока=</span><span style="color:var(--gold)">364 дни ✓</span>';
-}
-
-function clockLoop(){drawDualClock();updateClockInfo();requestAnimationFrame(clockLoop);}
-clockLoop();
-
-// ══ ИНТЕРАКТИВНИ ОТКРИТИЯ ══
-const INT_DISC=[
-  {n:"01",ico:"🔗",title:"GCD = 3 Инвариант",
-   calc:`<div style="font-family:var(--mono);font-size:.65rem">
-     <div style="margin-bottom:8px"><span style="color:var(--gold)">Въведи хеш (64 hex):</span></div>
-     <input type="text" id="id01h" value="000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f" style="width:100%;font-size:.6rem;margin-bottom:6px">
-     <div style="display:flex;gap:6px;margin-bottom:8px">
-       <button onclick="id01run()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">АНАЛИЗ</button>
-       <button onclick="document.getElementById('id01h').value='000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f';id01run()" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.55rem;padding:4px 8px;cursor:pointer;border-radius:1px">Genesis</button>
-     </div>
-     <div id="id01out" style="color:var(--stone);line-height:2;min-height:40px"></div>
-   </div>`},
-  {n:"02",ico:"⚡",title:"0xffff = 3 × Ферма Прости",
-   calc:`<div style="font-family:var(--mono);font-size:.65rem">
-     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
-       <button onclick="id02show(65535)" style="background:rgba(200,169,110,.1);border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">0xffff</button>
-       <button onclick="id02show(255)" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.58rem;padding:4px 8px;cursor:pointer;border-radius:1px">0xFF</button>
-       <button onclick="id02show(5)" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.58rem;padding:4px 8px;cursor:pointer;border-radius:1px">F₁=5</button>
-       <button onclick="id02show(17)" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.58rem;padding:4px 8px;cursor:pointer;border-radius:1px">F₂=17</button>
-       <button onclick="id02show(257)" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.58rem;padding:4px 8px;cursor:pointer;border-radius:1px">F₃=257</button>
-     </div>
-     <canvas id="id02cv" width="400" height="80" style="width:100%;display:block"></canvas>
-     <div id="id02out" style="color:var(--stone);line-height:1.9;margin-top:6px"></div>
-   </div>`},
-  {n:"03",ico:"🌙",title:"0xFF = Слн-Лн Разлика",
-   calc:`<div style="font-family:var(--mono);font-size:.65rem">
-     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
-       <div><div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">Слн. година (дни)</div><input type="number" id="id03s" value="365" step=".01" style="width:100%;font-size:.65rem"></div>
-       <div><div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">Лунен месец</div><input type="number" id="id03l" value="29.53" step=".001" style="width:100%;font-size:.65rem"></div>
-     </div>
-     <div style="display:flex;gap:6px;margin-bottom:8px">
-       <button onclick="id03run()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">ПРЕСМЕТНИ</button>
-       <button onclick="document.getElementById('id03s').value=365;document.getElementById('id03l').value=29.53;id03run()" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.55rem;padding:4px 8px;cursor:pointer;border-radius:1px">Кръгли (0xFF)</button>
-     </div>
-     <div id="id03out" style="color:var(--stone);line-height:2"></div>
-   </div>`},
-  {n:"05",ico:"🌊",title:"21 = floor(π) × denom(π)",
-   calc:`<canvas id="id05cv" width="480" height="120" style="width:100%;display:block;margin-bottom:6px"></canvas>
-     <div style="font-family:var(--mono);font-size:.65rem;color:var(--stone);line-height:2" id="id05info">
-       π=3.14159... → floor(π)=<span style="color:var(--gold)">3</span><br>
-       π≈22/7 → denominator=<span style="color:var(--gold)">7</span> = лунна седмица<br>
-       3×7=<span style="color:var(--gold)">21</span>=F(8) · 21×96=<span style="color:#c77dff">2016</span> · 21M монети
-     </div>`},
-  {n:"07",ico:"📐",title:"2016×2.5°=5040°=7!",
-   calc:`<div style="font-family:var(--mono);font-size:.65rem">
-     <div style="display:flex;gap:6px;align-items:flex-end;margin-bottom:8px;flex-wrap:wrap">
-       <div><div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">Блокове</div><input type="number" id="id07b" value="2016" style="width:100px;font-size:.65rem"></div>
-       <button onclick="id07run()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">ПРЕСМЕТНИ</button>
-       <button onclick="document.getElementById('id07b').value=144;id07run()" style="background:transparent;border:1px solid rgba(200,169,110,.3);color:var(--stone);font-family:var(--mono);font-size:.55rem;padding:4px 8px;cursor:pointer;border-radius:1px">144 (ден)</button>
-     </div>
-     <canvas id="id07cv" width="200" height="200" style="width:140px;height:140px;float:right;margin-left:12px;display:block"></canvas>
-     <div id="id07out" style="color:var(--stone);line-height:2"></div>
-   </div>`},
-  {n:"09",ico:"🧬",title:"285 = 235 + 50",
-   calc:`<div style="font-family:var(--mono);font-size:.65rem">
-     <div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">Coinbase послание</div>
-     <input type="text" id="id09m" value="The Times 03/Jan/2009 Chancellor on brink of second bailout for banks" style="width:100%;font-size:.6rem;margin-bottom:6px" oninput="id09run()">
-     <div id="id09out" style="color:var(--stone);line-height:2"></div>
-   </div>`},
-  {n:"11",ico:"∞",title:"Теоремата на Станков",
-   calc:`<div style="font-family:var(--mono);font-size:.65rem">
-     <div style="display:flex;gap:6px;align-items:flex-end;margin-bottom:8px">
-       <div><div style="color:var(--gold);font-size:.58rem;margin-bottom:3px">k =</div><input type="number" id="id11k" value="50" min="1" max="100000" style="width:90px;font-size:.65rem"></div>
-       <button onclick="id11run()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:.58rem;padding:4px 10px;cursor:pointer;border-radius:1px">ПРЕСМЕТНИ nₖ</button>
-     </div>
-     <div id="id11out" style="color:var(--stone);line-height:2"></div>
-   </div>`},
-];
-
-function buildIntGrid(){
-  const g=document.getElementById("intGrid");
-  if(!g||g.children.length>0)return;
-  INT_DISC.forEach(d=>{
-    const el=document.createElement("div");
-    el.style.cssText="background:var(--bg2);border:1px solid rgba(200,169,110,.08);border-radius:2px;overflow:hidden;transition:border-color .2s;";
-    el.innerHTML=`
-      <div onclick="this.parentElement.querySelector('.ic').style.display=this.parentElement.querySelector('.ic').style.display==='none'?'block':'none'"
-           style="display:flex;align-items:center;gap:12px;padding:18px 20px;cursor:pointer;background:var(--bg2);transition:background .18s"
-           onmouseover="this.style.background='rgba(200,169,110,.04)'" onmouseout="this.style.background='var(--bg2)'">
-        <span style="font-family:var(--serif);font-size:2rem;color:rgba(200,169,110,.12);font-weight:600;min-width:30px">${d.n}</span>
-        <span style="font-size:1.3rem">${d.ico}</span>
-        <span style="font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--white);flex:1">${d.title}</span>
-        <span style="font-family:var(--mono);font-size:.65rem;color:var(--dim)">▾</span>
-      </div>
-      <div class="ic" style="display:none;padding:16px 20px;border-top:1px solid rgba(200,169,110,.08)">${d.calc}</div>`;
-    g.appendChild(el);
-  });
-  // Авто-иниц.
-  setTimeout(()=>{id02show(65535);id05draw();id03run();id09run();id11run();id07run();},200);
-}
-const intObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){buildIntGrid();intObs.disconnect();}});},{threshold:.1});
-const intSec=document.getElementById("interactive");if(intSec)intObs.observe(intSec);
-
-// Интерактивни функции
-function id01run(){
-  const h=document.getElementById("id01h")?.value.trim().toLowerCase();
-  const out=document.getElementById("id01out");if(!out)return;
-  if(!h||h.length!==64){out.innerHTML='<span style="color:#ff6688">⚠ 64 hex символа</span>';return;}
-  function h2b(x){const b=[];for(let i=0;i<x.length;i+=2)b.push(parseInt(x.slice(i,i+2),16));return b;}
-  function bg(a,b){a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b];}return a;}
-  function pf(n){let s=n.toString();if(s.length%2)s="0"+s;const p=[];for(let i=0;i<s.length;i+=2)p.push(s.slice(i,i+2));return BigInt(p.reverse().join(""));}
-  const bytes=h2b(h);
-  const N=BigInt("0x"+h);
-  const F=BigInt("0x"+[...bytes].reverse().map(b=>b.toString(16).padStart(2,"0")).join(""));
-  const r1=N>F?N%F:F%N;const f1=pf(r1);const r2=r1>f1?r1%f1:f1>r1?f1%r1:0n;
-  const g1=bg(N,F),g2=bg(r1,N),g3=bg(r2,N);
-  const gc=g=>g===3n?"#7fff00":"#ff6688";
-  out.innerHTML=`<span style="color:var(--gold)">GCD(N,F) = </span><span style="color:${gc(g1)};font-weight:bold">${g1}</span> ${g1===3n?"✓":"✗"}<br>`+
-    `<span style="color:var(--gold)">GCD(r₁,N) = </span><span style="color:${gc(g2)};font-weight:bold">${g2}</span> ${g2===3n?"✓":"✗"}<br>`+
-    `<span style="color:var(--gold)">GCD(r₂,N) = </span><span style="color:${gc(g3)};font-weight:bold">${g3}</span> ${g3===3n?"✓":"✗"}<br>`+
-    `<span style="color:${g1===3n&&g2===3n&&g3===3n?"#7fff00":"#ff6688"}">GCD=3 инвариант: ${g1===3n&&g2===3n&&g3===3n?"ПОТВЪРДЕН ✓":"НЕ ✗"}</span>`;
-}
-function id02show(n){
-  const cv=document.getElementById("id02cv");const out=document.getElementById("id02out");
-  if(!cv)return;
-  const W=cv.offsetWidth||400,H=80;cv.width=W;cv.height=H;
-  const ctx=cv.getContext("2d");ctx.clearRect(0,0,W,H);
-  const bn=n.toString(2);
-  const cw=Math.min(18,Math.floor((W-20)/bn.length));
-  const fermat=[3,5,17,257,65537];const isF=fermat.includes(n);
-  [...bn].forEach((b,i)=>{
-    const x=10+i*cw,isOne=b==="1";
-    ctx.fillStyle=isOne?(isF?"rgba(127,255,0,.3)":"rgba(0,212,255,.25)"):"rgba(30,30,50,.8)";
-    ctx.strokeStyle=isOne?(isF?"#7fff00":"#00d4ff"):"#1a1a35";ctx.lineWidth=.8;
-    ctx.beginPath();ctx.roundRect(x,20,cw-2,28,2);ctx.fill();ctx.stroke();
-    ctx.fillStyle=isOne?(isF?"#7fff00":"#00d4ff"):"#555568";
-    ctx.font="bold 12px 'DM Mono',monospace";ctx.textAlign="center";ctx.textBaseline="middle";
-    ctx.fillText(b,x+cw/2-1,34);
-  });
-  const factors=[];let tmp=n;for(let p=2;p*p<=tmp;p++){while(tmp%p===0){factors.push(p);tmp/=p;}}if(tmp>1)factors.push(tmp);
-  const col=isF?"#7fff00":factors.length===1?"#00d4ff":"var(--gold)";
-  if(out)out.innerHTML=`<span style="color:${col}">${n} = ${bn}₂ (${bn.length} бита)</span><br>`+
-    `<span style="color:var(--stone)">${isF?"✦ Ферма просто — модел 1,нули,1":factors.join(" × ")}</span>`;
-}
-function id03run(){
-  const sol=parseFloat(document.getElementById("id03s")?.value)||365;
-  const lun=parseFloat(document.getElementById("id03l")?.value)||29.53;
-  const out=document.getElementById("id03out");if(!out)return;
-  const diff=sol-12*lun,hrs=diff*24,is255=Math.abs(hrs-255)<1;
-  out.innerHTML=`<span style="color:var(--gold)">${sol} − 12×${lun}</span> = <span style="color:#00d4ff">${diff.toFixed(4)} дни</span><br>`+
-    `= <span style="color:${is255?"#7fff00":"#00d4ff"}">${hrs.toFixed(2)} ч ${is255?"= 0xFF ✓":"≠ 255"}</span><br>`+
-    `<span style="color:var(--stone)">0xFF × F₃ = 255 × 257 = 0xffff ✓</span>`;
-}
-function id05draw(){
-  const cv=document.getElementById("id05cv");if(!cv)return;
-  const W=cv.offsetWidth||480,H=120;cv.width=W;cv.height=H;
-  const ctx=cv.getContext("2d");ctx.clearRect(0,0,W,H);
-  const nodes=[
-    {x:.1,y:.3,w:.18,h:.35,col:"#c8a96e",txt:"π=3.1415..."},
-    {x:.1,y:.65,w:.12,h:.3,col:"#7fff00",txt:"3=floor(π)"},
-    {x:.28,y:.65,w:.12,h:.3,col:"#00d4ff",txt:"7=denom"},
-    {x:.45,y:.48,w:.16,h:.35,col:"#c77dff",txt:"7=🌙 седм."},
-    {x:.65,y:.48,w:.16,h:.35,col:"#c8a96e",txt:"3×7=21"},
-    {x:.85,y:.48,w:.13,h:.3,col:"#7fff00",txt:"F(8)=21"},
+// ══ АНТИКИТЕРА ══
+let antiAngle=0,antiTimer=null;
+function drawAnti(angle){
+  const cv=document.getElementById("antiClock");if(!cv)return;
+  const S=cv.offsetWidth||340;cv.width=cv.height=S*2;
+  const ctx=cv.getContext("2d");ctx.scale(2,2);ctx.clearRect(0,0,S,S);
+  const cx=S/2,cy=S/2;
+  const gears=[
+    {x:cx-S*.12,y:cy,r:S*.22,teeth:64,col:"rgba(200,169,110,.7)",lbl:"64",name:"Основно",ratio:1},
+    {x:cx+S*.15,y:cy,r:S*.13,teeth:38,col:"rgba(199,125,255,.8)",lbl:"38=2×19",name:"Метон",ratio:-64/38},
+    {x:cx+S*.36,y:cy-S*.1,r:S*.075,teeth:19,col:"rgba(127,255,0,.9)",lbl:"19",name:"19-год",ratio:(64/38)*(38/19)},
+    {x:cx+S*.38,y:cy+S*.12,r:S*.055,teeth:13,col:"rgba(0,212,255,.8)",lbl:"13",name:"Сарос",ratio:-(64/38)*(38/13)},
   ];
-  const arrows=[[0,1],[0,2],[2,3],[1,4],[3,4],[4,5]];
-  arrows.forEach(([a,b])=>{
-    const na=nodes[a],nb=nodes[b];
-    const ax=(na.x+na.w/2)*W,ay=(na.y+na.h/2)*H;
-    const bx=(nb.x+nb.w/2)*W,by=(nb.y+nb.h/2)*H;
-    ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);
-    ctx.strokeStyle="rgba(200,169,110,.2)";ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
-  });
-  nodes.forEach(n=>{
-    ctx.fillStyle=n.col.replace(")",",0.1)").replace("rgb","rgba").replace("#","rgba(").replace("rgba(","").slice(0,-1);
-    ctx.fillStyle="rgba(0,0,0,.5)";
-    ctx.strokeStyle=n.col;ctx.lineWidth=1;
-    ctx.beginPath();ctx.roundRect(n.x*W,n.y*H,n.w*W,n.h*H,3);ctx.fill();ctx.stroke();
-    ctx.fillStyle=n.col;ctx.font="bold 10px 'DM Mono',monospace";ctx.textAlign="center";ctx.textBaseline="middle";
-    ctx.fillText(n.txt,(n.x+n.w/2)*W,(n.y+n.h/2)*H);
-  });
-}
-function id07run(){
-  const b=parseInt(document.getElementById("id07b")?.value)||2016;
-  const out=document.getElementById("id07out");const cv=document.getElementById("id07cv");
-  if(!out)return;
-  const deg=b*2.5,revs=deg/360;
-  let fact=1,fn=0;for(let i=1;i<=12;i++){if(Math.round(deg)===fact){fn=i;break;}fact*=(i+1);}
-  out.innerHTML=`<span style="color:var(--gold)">${b}</span> × 2.5° = <span style="color:#00d4ff">${deg.toLocaleString()}°</span><br>`+
-    `= <span style="color:${Number.isInteger(revs)?"#7fff00":"#c8a96e"}">${revs.toFixed(3)} обороти${Number.isInteger(revs)?" ✓":""}</span><br>`+
-    (fn?`= <span style="color:#7fff00">${fn}! ✦</span><br>`:"");
-  if(cv){
-    cv.width=cv.height=200;const ctx=cv.getContext("2d");const cx=100,cy=100,R=88;
-    ctx.clearRect(0,0,200,200);
-    if(deg%360>0){
-      const a0=-Math.PI/2,a1=(deg%360-90)*Math.PI/180,laf=deg%360>180?1:0;
-      ctx.beginPath();ctx.moveTo(cx+Math.cos(a0)*R,cy+Math.sin(a0)*R);
-      ctx.arc(cx,cy,R,a0,(deg%360-90)*Math.PI/180);
-      ctx.strokeStyle="rgba(200,169,110,.5)";ctx.lineWidth=4;ctx.stroke();
+  // Connections
+  [[0,1],[1,2],[1,3]].forEach(([a,b])=>{const ga=gears[a],gb=gears[b];ctx.beginPath();ctx.moveTo(ga.x,ga.y);ctx.lineTo(gb.x,gb.y);ctx.strokeStyle="rgba(200,169,110,.08)";ctx.lineWidth=.5;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);});
+  gears.forEach(g=>{
+    const ga=angle*g.ratio*Math.PI/180;
+    // Outer circle
+    ctx.beginPath();ctx.arc(g.x,g.y,g.r,0,Math.PI*2);ctx.strokeStyle=g.col;ctx.lineWidth=.8;ctx.globalAlpha=.25;ctx.stroke();ctx.globalAlpha=1;
+    // Teeth
+    for(let t=0;t<g.teeth;t++){
+      const a1=t/g.teeth*Math.PI*2+ga,a2=(t+.38)/g.teeth*Math.PI*2+ga;
+      const r1=g.r,r2=g.r+S*.012;
+      ctx.beginPath();
+      ctx.moveTo(g.x+Math.cos(a1)*r1,g.y+Math.sin(a1)*r1);
+      ctx.lineTo(g.x+Math.cos(a1)*r2,g.y+Math.sin(a1)*r2);
+      ctx.lineTo(g.x+Math.cos(a2)*r2,g.y+Math.sin(a2)*r2);
+      ctx.lineTo(g.x+Math.cos(a2)*r1,g.y+Math.sin(a2)*r1);
+      ctx.closePath();ctx.fillStyle=g.col;ctx.globalAlpha=.55;ctx.fill();ctx.globalAlpha=1;
     }
-    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.strokeStyle="rgba(200,169,110,.1)";ctx.lineWidth=1;ctx.stroke();
-    for(let i=0;i<24;i++){const a=(i/24*360-90)*Math.PI/180;
-      ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*(R-6),cy+Math.sin(a)*(R-6));ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);
-      ctx.strokeStyle=i%6===0?"rgba(200,169,110,.5)":"rgba(200,169,110,.15)";ctx.lineWidth=i%6===0?1.5:.4;ctx.stroke();}
-    const ang=(deg%360-90)*Math.PI/180;
-    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(ang)*R*.8,cy+Math.sin(ang)*R*.8);
-    ctx.strokeStyle="#00d4ff";ctx.lineWidth=2;ctx.lineCap="round";ctx.stroke();
-    ctx.beginPath();ctx.arc(cx,cy,4,0,Math.PI*2);ctx.fillStyle="#ff6688";ctx.fill();
-    ctx.font="bold 11px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.8)";ctx.textAlign="center";
-    ctx.fillText((deg%360).toFixed(1)+"°",cx,cy-12);
-    if(fn){ctx.fillStyle="#7fff00";ctx.fillText(fn+"!",cx,cy+8);}
-  }
-}
-function id09run(){
-  const msg=document.getElementById("id09m")?.value||"";
-  const out=document.getElementById("id09out");if(!out)return;
-  const sc=msg.length+8,tx=4+1+32+4+1+sc+4+1+8+1+67+4,tot=80+1+tx;
-  const diff=tot-235;const col=diff===50?"#7fff00":Math.abs(diff-50)<3?"#c8a96e":"#ff6688";
-  out.innerHTML=`<span style="color:var(--gold)">${msg.length} символа</span> → скрипт ${sc}б → TX ${tx}б<br>`+
-    `Общо: <span style="color:#00d4ff">${tot} байта</span><br>`+
-    `${tot} − 235 (Метон) = <span style="color:${col}">${diff} ${diff===50?"= 50 BTC ✓":"≠ 50 BTC ✗"}</span>`;
-}
-function id11run(){
-  const k=parseInt(document.getElementById("id11k")?.value)||50;
-  const out=document.getElementById("id11out");if(!out)return;
-  const phi=(1+Math.sqrt(5))/2;
-  const ROOTS=[-0.627374237292,-1.477989493155,-2.499164223390,-3.502615861689,-4.498350256008,-5.500820256327,-6.499628652260,-7.500159406254,-8.499933684456,-9.500026996626];
-  const lastK=ROOTS.length,lastE=ROOTS[lastK-1]-(-lastK-0.5);
-  const A=lastE/(Math.pow(-1,lastK)*Math.pow(phi,-2*lastK));
-  const center=-k-0.5,corr=A*Math.pow(-1,k)*Math.pow(phi,-2*k),nPred=center+corr;
-  out.innerHTML=`<span style="color:var(--gold)">n_${k}</span> = <span style="color:#c77dff">${nPred.toFixed(15)}</span><br>`+
-    `Център: <span style="color:var(--gold)">${center}</span><br>`+
-    `Корекция: <span style="color:#7fff00">${corr>=0?"+":""}${corr.toExponential(5)}</span><br>`+
-    `φ² = φ+1 = <span style="color:var(--gold)">${(phi*phi).toFixed(8)}</span>`;
-}
-
-// ══ ТЕОРЕМА ДОКАЗАТЕЛСТВО ══
-const PROOF_ROOTS=[-0.627374237292,-1.477989493155,-2.499164223390,-3.502615861689,-4.498350256008,-5.500820256327,-6.499628652260,-7.500159406254,-8.499933684456,-9.500026996626];
-const PHI=(1+Math.sqrt(5))/2;
-
-function drawAxis(){
-  const cv=document.getElementById("axisCanvas");if(!cv)return;
-  const dpr=window.devicePixelRatio||1;
-  const W=cv.offsetWidth||900,H=160;
-  cv.width=W*dpr;cv.height=H*dpr;
-  const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
-  const nMin=-11,nMax=0.5,midY=H/2;
-  const toX=n=>32+(n-nMin)/(nMax-nMin)*(W-48);
-
-  // Блокове
-  for(let k=1;k<=10;k++){
-    const x1=toX(-k),x2=toX(-k+1);
-    ctx.fillStyle=k%2?"rgba(199,125,255,.07)":"rgba(0,212,255,.04)";
-    ctx.fillRect(x1,midY-34,x2-x1,68);
-    ctx.strokeStyle="rgba(199,125,255,.12)";ctx.lineWidth=.4;
-    ctx.strokeRect(x1,midY-34,x2-x1,68);
-    ctx.font="8px 'DM Mono',monospace";ctx.fillStyle="rgba(199,125,255,.45)";ctx.textAlign="center";
-    ctx.fillText("k="+k,(x1+x2)/2,midY-22);
-  }
-
-  // Ос
-  ctx.beginPath();ctx.moveTo(20,midY);ctx.lineTo(W-10,midY);
-  ctx.strokeStyle="rgba(200,169,110,.3)";ctx.lineWidth=1.5;ctx.stroke();
-
-  // Цели числа
-  for(let n=-10;n<=0;n++){
-    const x=toX(n);
-    ctx.beginPath();ctx.moveTo(x,midY-5);ctx.lineTo(x,midY+5);
-    ctx.strokeStyle="rgba(200,169,110,.35)";ctx.lineWidth=1;ctx.stroke();
-    ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.45)";ctx.textAlign="center";
-    ctx.fillText(n,x,midY+17);
-  }
-
-  // Полуцели
-  for(let k=1;k<=10;k++){
-    const x=toX(-k+.5);
-    ctx.beginPath();ctx.moveTo(x,midY-38);ctx.lineTo(x,midY+5);
-    ctx.strokeStyle="rgba(200,169,110,.25)";ctx.lineWidth=.8;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
-  }
-
-  // Корени + εₖ
-  PROOF_ROOTS.forEach((n,i)=>{
-    const k=i,x=toX(n),cx2=toX(-k+.5);
-    ctx.beginPath();ctx.moveTo(cx2,midY-12);ctx.lineTo(x,midY-12);
-    ctx.strokeStyle="rgba(127,255,0,.65)";ctx.lineWidth=1.5;ctx.stroke();
-    // Точка
-    ctx.beginPath();ctx.arc(x,midY,6.5,0,Math.PI*2);
-    ctx.fillStyle="rgba(255,102,136,.85)";ctx.fill();
-    ctx.strokeStyle="rgba(255,102,136,.3)";ctx.lineWidth=2;ctx.stroke();
-    // Лейбъл
-    ctx.font="bold 9px 'DM Mono',monospace";ctx.fillStyle="rgba(255,102,136,.8)";ctx.textAlign="center";
-    ctx.fillText("n"+k,x,midY-18);
+    // Center + indicator
+    ctx.beginPath();ctx.arc(g.x,g.y,g.r*.12,0,Math.PI*2);ctx.fillStyle=g.col;ctx.globalAlpha=.4;ctx.fill();ctx.globalAlpha=1;
+    ctx.beginPath();ctx.moveTo(g.x,g.y);ctx.lineTo(g.x+Math.cos(ga)*g.r*.78,g.y+Math.sin(ga)*g.r*.78);ctx.strokeStyle=g.col;ctx.lineWidth=1.2;ctx.globalAlpha=.8;ctx.stroke();ctx.globalAlpha=1;
+    // Label
+    ctx.font="bold "+S*.022+"px 'DM Mono',monospace";ctx.fillStyle=g.col;ctx.textAlign="center";ctx.textBaseline="top";
+    ctx.fillText(g.lbl,g.x,g.y+g.r+S*.015);
+    ctx.font=S*.018+"px 'DM Mono',monospace";ctx.globalAlpha=.55;
+    ctx.fillText(g.name,g.x,g.y+g.r+S*.033);ctx.globalAlpha=1;
   });
-
-  // Формула
-  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(199,125,255,.6)";ctx.textAlign="left";
-  ctx.fillText("nₖ = −k − ½ + A·(−1)ᵏ·φ^(−2k)",12,H-8);
-  ctx.textAlign="right";ctx.fillStyle="rgba(127,255,0,.5)";
-  ctx.fillText("↔ εₖ → 0 при k→∞",W-12,H-8);
+  // Metonic progress
+  const metPct=(angle/360)*(38/64);
+  ctx.font=S*.02+"px 'DM Mono',monospace";ctx.fillStyle="rgba(127,255,0,.6)";ctx.textAlign="left";
+  ctx.fillText("Метон: "+(metPct%19).toFixed(2)+"/19 год",S*.02,S*.04);
+  ctx.fillStyle="rgba(199,125,255,.55)";
+  ctx.fillText("64/38=32/19",S*.02,S*.07);
 }
+function toggleAnti(){
+  if(antiTimer){clearInterval(antiTimer);antiTimer=null;document.getElementById("antiBtn").textContent="▶ Анимирай";}
+  else{antiTimer=setInterval(()=>{antiAngle=(antiAngle+1.2)%3600;drawAnti(antiAngle);},40);document.getElementById("antiBtn").textContent="⏸ Пауза";}
+}
+drawAnti(0);
 
-function drawDecay(){
-  const cv=document.getElementById("decayCanvas");if(!cv)return;
-  const dpr=window.devicePixelRatio||1;
-  const W=cv.offsetWidth||900,H=200,pad=44;
-  cv.width=W*dpr;cv.height=H*dpr;
-  const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
-  const eps=PROOF_ROOTS.map((n,i)=>Math.abs(n-(-i-.5)));
-  const maxE=Math.max(...eps);
-  const toX=k=>pad+k/(eps.length-1)*(W-2*pad);
-  const toY=e=>H-pad-20-(e/maxE)*(H-2*pad-22);
-
-  // Grid
-  for(let i=0;i<=4;i++){
-    const y=toY(maxE*(1-i/4));
-    ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(W-pad,y);
-    ctx.strokeStyle="rgba(200,169,110,.06)";ctx.lineWidth=.4;ctx.stroke();
-    ctx.font="8px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.3)";ctx.textAlign="right";
-    ctx.fillText((maxE*(1-i/4)).toFixed(3),pad-4,y+3);
+// ══ ПИРАМИДА ══
+let pyMode="pi";
+function drawPyramid(){
+  const cv=document.getElementById("pyramidCv");if(!cv)return;
+  const W=cv.offsetWidth||340,H=280;cv.width=W*2;cv.height=H*2;
+  const ctx=cv.getContext("2d");ctx.scale(2,2);ctx.clearRect(0,0,W,H);
+  const cx=W/2,bW=W*.82,bY=H*.82,pY=H*.1,left=cx-bW/2,right=cx+bW/2;
+  const cubit=52.36,base=440*cubit/100,h_m=280*cubit/100,pi_calc=4*base/(2*h_m);
+  // Pyramid shape
+  ctx.beginPath();ctx.moveTo(left,bY);ctx.lineTo(right,bY);ctx.lineTo(cx,pY);ctx.closePath();
+  ctx.fillStyle="rgba(200,169,110,.07)";ctx.fill();ctx.strokeStyle="rgba(200,169,110,.6)";ctx.lineWidth=1.5;ctx.stroke();
+  // Height line
+  ctx.beginPath();ctx.moveTo(cx,bY);ctx.lineTo(cx,pY);ctx.strokeStyle="rgba(0,212,255,.5)";ctx.lineWidth=1;ctx.setLineDash([4,3]);ctx.stroke();ctx.setLineDash([]);
+  if(pyMode==="pi"){
+    // Circle: r=h, circumference=perimeter
+    const sc=(bY-pY)/h_m;
+    const r=h_m*sc;
+    ctx.beginPath();ctx.arc(cx,bY,r,Math.PI,Math.PI*2);ctx.strokeStyle="rgba(199,125,255,.4)";ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+    ctx.font="bold 10px 'DM Mono',monospace";ctx.fillStyle="rgba(199,125,255,.7)";ctx.textAlign="center";
+    ctx.fillText("4×base=circ(r=h)",cx,pY-8);
+    ctx.fillStyle="rgba(127,255,0,.8)";ctx.fillText("4×440/280="+pi_calc.toFixed(5)+"≈2π",cx,H-8);
+  } else if(pyMode==="cubit"){
+    ctx.fillStyle="rgba(200,169,110,.08)";ctx.fillRect(left,bY+8,50,28);ctx.strokeStyle="rgba(200,169,110,.4)";ctx.lineWidth=.7;ctx.strokeRect(left,bY+8,50,28);
+    ctx.font="bold 9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.8)";ctx.textAlign="center";
+    ctx.fillText("π/6 m",left+25,bY+20);ctx.fillText("52.36 cm",left+25,bY+33);
+    ctx.font="10px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.7)";ctx.textAlign="center";
+    ctx.fillText("440 × 52.36 = "+base.toFixed(1)+" m",cx,H-18);
+    ctx.fillText("h = 880/π = "+h_m.toFixed(2)+" m ≈ 280 лакета",cx,H-6);
+  } else {
+    // Bitcoin
+    const ang52=(52.5-90)*Math.PI/180;
+    ctx.beginPath();ctx.moveTo(cx,bY);ctx.lineTo(cx+Math.cos(ang52)*100,bY+Math.sin(ang52)*100);ctx.strokeStyle="rgba(127,255,0,.6)";ctx.lineWidth=1.2;ctx.stroke();
+    ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(127,255,0,.7)";ctx.textAlign="left";
+    ctx.fillText("21×2.5°=52.5°",cx+5,bY-30);ctx.fillText("≈52.36=π/6×100",cx+5,bY-19);
+    ctx.fillText("Δ=0.27%=err(π≈22/7)",cx+5,bY-7);
   }
-
-  // Теоретична φ^(-2k)
-  const A0=eps[0];
-  ctx.beginPath();
-  eps.forEach((_,i)=>{
-    const et=A0*Math.pow(PHI,-2*i);
-    const x=toX(i),y=toY(Math.abs(et));
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  });
-  ctx.strokeStyle="rgba(200,169,110,.35)";ctx.lineWidth=1.5;ctx.setLineDash([5,4]);ctx.stroke();ctx.setLineDash([]);
-
-  // Реална крива
-  ctx.beginPath();
-  eps.forEach((e,i)=>{const x=toX(i),y=toY(e);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-  ctx.strokeStyle="#ff6688";ctx.lineWidth=2;ctx.stroke();
-
-  // Точки + ÷φ²
-  eps.forEach((e,i)=>{
-    const x=toX(i),y=toY(e);
-    ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle="#ff6688";ctx.fill();
-    ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.5)";ctx.textAlign="center";
-    ctx.fillText(i,x,H-8);
-    if(i>=1){
-      const r=eps[i-1]/e;
-      const close=Math.abs(r-PHI*PHI)<0.9;
-      ctx.fillStyle=close?"#7fff00":"rgba(200,169,110,.6)";
-      ctx.fillText("÷"+r.toFixed(2),x,y-11);
-    }
-  });
-
-  // Оси
-  ctx.strokeStyle="rgba(200,169,110,.2)";ctx.lineWidth=.8;
-  ctx.beginPath();ctx.moveTo(pad,pad);ctx.lineTo(pad,H-pad-18);ctx.lineTo(W-pad,H-pad-18);ctx.stroke();
-  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.4)";ctx.textAlign="left";
-  ctx.fillText("|εₖ|",4,pad+4);
-  ctx.textAlign="center";ctx.fillText("k",W/2,H-2);
-  // Легенда
-  ctx.fillStyle="rgba(200,169,110,.4)";ctx.textAlign="right";ctx.fillText("- - - φ^(−2k)",W-pad,pad+14);
-  ctx.fillStyle="#ff6688";ctx.fillText("——  реално",W-pad,pad+26);
+  // Base label
+  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(127,255,0,.55)";ctx.textAlign="center";
+  ctx.fillText("440 лакета",cx,bY+12);
+  ctx.fillStyle="rgba(0,212,255,.55)";
+  ctx.fillText("280 лакета",cx+(cx-left)/2+10,(pY+bY)/2);
 }
-
-function drawRatio(){
-  const cv=document.getElementById("ratioCanvas");if(!cv)return;
-  const dpr=window.devicePixelRatio||1;
-  const W=cv.offsetWidth||900,H=160,pad=44;
-  cv.width=W*dpr;cv.height=H*dpr;
-  const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
-  const eps=PROOF_ROOTS.map((n,i)=>Math.abs(n-(-i-.5)));
-  const ratios=eps.slice(1).map((e,i)=>eps[i]/e);
-  // Sign alternation included
-  const signRatios=PROOF_ROOTS.slice(1).map((n,i)=>{
-    const e1=PROOF_ROOTS[i]-(-i-.5);
-    const e2=n-(-(i+1)-.5);
-    return e1!==0?e2/e1:0;
-  });
-  const target=-1/PHI/PHI;
-  const midY=H/2;
-  const toX=k=>pad+k/(signRatios.length-1)*(W-2*pad);
-  const toY=v=>midY-(v/0.5)*(midY-pad);
-
-  // Zero line
-  ctx.beginPath();ctx.moveTo(pad,midY);ctx.lineTo(W-pad,midY);
-  ctx.strokeStyle="rgba(200,169,110,.2)";ctx.lineWidth=.8;ctx.stroke();
-
-  // Target line −1/φ²
-  const ty=toY(target);
-  ctx.beginPath();ctx.moveTo(pad,ty);ctx.lineTo(W-pad,ty);
-  ctx.strokeStyle="rgba(127,255,0,.5)";ctx.lineWidth=1;ctx.setLineDash([6,4]);ctx.stroke();ctx.setLineDash([]);
-  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(127,255,0,.6)";ctx.textAlign="right";
-  ctx.fillText("−1/φ²="+target.toFixed(5),W-pad,ty-5);
-
-  // Ratio line
-  ctx.beginPath();
-  signRatios.forEach((r,i)=>{const x=toX(i),y=toY(Math.max(-0.5,Math.min(0.5,r)));i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-  ctx.strokeStyle="#00d4ff";ctx.lineWidth=1.8;ctx.stroke();
-
-  // Points
-  signRatios.forEach((r,i)=>{
-    const x=toX(i),y=toY(Math.max(-0.5,Math.min(0.5,r)));
-    const close=Math.abs(r-target)<0.05;
-    ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle=close?"#7fff00":"#00d4ff";ctx.fill();
-    ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.45)";ctx.textAlign="center";
-    ctx.fillText(i+1,x,H-8);
-    ctx.fillStyle=close?"#7fff00":"rgba(0,212,255,.6)";
-    ctx.fillText(r.toFixed(3),x,y-11);
-  });
-
-  ctx.font="9px 'DM Mono',monospace";ctx.fillStyle="rgba(200,169,110,.4)";ctx.textAlign="left";
-  ctx.fillText("εₖ₊₁/εₖ",4,pad+4);
-  ctx.textAlign="center";ctx.fillText("k",W/2,H-2);
-  ctx.fillStyle="rgba(0,212,255,.5)";ctx.textAlign="right";
-  ctx.fillText("—— εₖ₊₁/εₖ (клони към −1/φ²)",W-pad,pad+14);
-}
-
-// Инициализация на proof секцията при scroll
-const proofObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
-  setTimeout(()=>{drawAxis();drawDecay();drawRatio();},100);
-  proofObs.disconnect();
-}});},{threshold:.05});
-const proofSec=document.getElementById("proof");if(proofSec)proofObs.observe(proofSec);
-window.addEventListener("resize",()=>{drawAxis();drawDecay();drawRatio();drawDualClock();});
+drawPyramid();
+const modObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){drawDualClock();drawAnti(0);drawPyramid();modObs.disconnect();}});},{threshold:.1});
+const modSec=document.getElementById("models");if(modSec)modObs.observe(modSec);
 </script>
 </body>
 </html>
