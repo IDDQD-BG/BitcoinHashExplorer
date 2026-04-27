@@ -476,3 +476,390 @@ nₖ = −k − ½ + A·(−1)ᵏ·φ^(−2k), разпадане φ² = ${PHI2.
 </script>
 </body>
 </html>
+  .formula-bar span { color: var(--gold); }
+
+  /* Progress */
+  .progress { font-size: 11px; color: var(--dim); padding: 4px 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>⬡ ТЕОРЕМА НА СТАНКОВ — Статистически Тест</h1>
+    <p>pairFlip(hash) анализ върху реални Bitcoin блокове · mempool.space API</p>
+  </div>
+  <a href="bitcoin-hash-explorer.html" class="back-btn">← Hash Explorer</a>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="btn" id="cnt25" onclick="setCount(25)">25 блока</button>
+  <button class="btn active" id="cnt50" onclick="setCount(50)">50 блока</button>
+  <button class="btn" id="cnt100" onclick="setCount(100)">100 блока</button>
+  <button class="btn run" id="runBtn" onclick="runTest()">▶ Стартирай тест</button>
+  <span class="progress" id="progress"></span>
+</div>
+
+<div class="error" id="errBox" style="display:none"></div>
+
+<!-- STATS -->
+<div class="stats-panel" id="statsPanel" style="display:none">
+  <div class="panel-head" id="statsHead">РЕЗУЛТАТИ</div>
+  <div class="panel-body">
+    <div class="stats-row" id="statsRow"></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs" id="tabsRow" style="display:none; margin-top:12px;">
+  <button class="btn active" onclick="showTab('data')">📋 Данни</button>
+  <button class="btn" onclick="showTab('chart')">📈 График</button>
+  <button class="btn" id="aiTabBtn" onclick="showTab('ai')">🤖 AI Анализ</button>
+</div>
+
+<!-- DATA TAB -->
+<div class="data-panel" id="dataTab">
+  <div class="panel-head">БЛОК ДАННИ — pairFlip анализ (зелено = φ-близост &lt;5%)</div>
+  <div class="data-body" id="dataBody">
+    <div class="data-header">
+      <span>Висота</span><span>Хаш (начало)</span><span style="text-align:right">Ratio</span><span style="text-align:right">φ-dist</span>
+    </div>
+    <div id="dataRows"></div>
+  </div>
+</div>
+
+<!-- CHART TAB -->
+<div class="data-panel" id="chartTab" style="display:none">
+  <div class="panel-head">RATIO = pairFlip(H)/H — φ референтни линии (пунктирани)</div>
+  <div class="panel-body">
+    <canvas id="chart" width="700" height="310"></canvas>
+    <div style="margin-top:10px; display:flex; gap:16px; font-size:10px; color:var(--dim); flex-wrap:wrap;">
+      <span><span style="color:var(--blue)">━</span> ratio стойности</span>
+      <span><span style="color:var(--green)">●</span> φ-близост &lt;5%</span>
+      <span><span style="color:var(--gold)">- -</span> φ и 1/φ</span>
+      <span><span style="color:var(--orange)">- -</span> φ² и 1/φ²</span>
+    </div>
+  </div>
+</div>
+
+<!-- AI TAB -->
+<div class="data-panel" id="aiTab" style="display:none">
+  <div class="panel-head">🤖 AI МАТЕМАТИЧЕСКИ АНАЛИЗ</div>
+  <div class="panel-body">
+    <div id="aiContent" style="color:var(--dim);font-size:11px;">
+      Първо стартирай теста, след това натисни "Генерирай AI доклад".
+    </div>
+    <button class="btn" id="aiGenBtn" style="margin-top:12px;display:none;border-color:rgba(76,255,145,0.4);color:var(--green);"
+            onclick="generateAI()">▶ Генерирай AI доклад</button>
+  </div>
+</div>
+
+<!-- FORMULA BAR -->
+<div class="formula-bar">
+  <span>Методология: </span>
+  За всеки хаш H → pairFlip(H) = обръщане на байтовете → ratio = flip/H →
+  φ-близост = min(|ratio − t|) за t ∈ {φ, 1/φ, φ², 1/φ², 1} →
+  GCD изчислен с BigInt (256-bit точност) ·
+  <span>φ=1.618034</span>, φ²=2.618034, 1/φ²=0.381966
+</div>
+
+<script>
+// ── Constants ──────────────────────────────────────────────
+const PHI   = (1 + Math.sqrt(5)) / 2;
+const PHI2  = PHI * PHI;
+const DECAY = 1 / PHI2;
+const API   = "https://mempool.space/api";
+
+let blockCount = 50;
+let results    = [];
+let statsCache = null;
+
+// ── Pair-flip ──────────────────────────────────────────────
+function pairFlip(hex) {
+  const clean = hex.replace(/^0x/,"").toLowerCase().padStart(64,"0");
+  const bytes = [];
+  for (let i = 0; i < clean.length; i += 2) bytes.push(clean.slice(i, i+2));
+  return bytes.reverse().join("");
+}
+
+// ── BigInt GCD ─────────────────────────────────────────────
+function gcdBig(a, b) { while (b) { [a,b]=[b,a%b]; } return a; }
+function hexToBig(hex) { return BigInt("0x"+hex.replace(/^0x/,"")); }
+
+// ── Analyse ────────────────────────────────────────────────
+function analyseHash(hash) {
+  const flipped = pairFlip(hash);
+  const hBig    = hexToBig(hash);
+  const fBig    = hexToBig(flipped);
+  const gcd     = gcdBig(hBig, fBig);
+  const ratio   = Number(fBig) / Number(hBig);
+  const prox    = phiProximity(ratio);
+  return { hash, flipped, gcd: gcd.toString(), ratio, prox };
+}
+
+function phiProximity(ratio) {
+  const targets = [PHI, 1/PHI, PHI2, DECAY, 1];
+  let best = Infinity, bestT = 1;
+  for (const t of targets) {
+    const d = Math.abs(ratio - t);
+    if (d < best) { best = d; bestT = t; }
+  }
+  return { dist: best, target: bestT };
+}
+
+// ── UI helpers ─────────────────────────────────────────────
+function setCount(n) {
+  blockCount = n;
+  document.querySelectorAll('.btn[id^=cnt]').forEach(b => b.classList.remove('active'));
+  document.getElementById('cnt'+n).classList.add('active');
+}
+
+function showTab(t) {
+  ['data','chart','ai'].forEach(id => {
+    document.getElementById(id+'Tab').style.display = t===id ? '' : 'none';
+  });
+  document.querySelectorAll('.tabs .btn').forEach((b,i) => {
+    b.classList.toggle('active', ['data','chart','ai'][i] === t);
+  });
+  if (t === 'chart' && results.length) drawChart();
+}
+
+function setProgress(msg) {
+  document.getElementById('progress').textContent = msg;
+}
+function setError(msg) {
+  const box = document.getElementById('errBox');
+  if (msg) { box.textContent = '✗ ' + msg; box.style.display = ''; }
+  else       { box.style.display = 'none'; }
+}
+
+// ── Main test ──────────────────────────────────────────────
+async function runTest() {
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.textContent = '⟳ Зареждане…';
+  setError(null);
+  setProgress('Свързване с mempool.space…');
+  document.getElementById('statsPanel').style.display = 'none';
+  document.getElementById('tabsRow').style.display    = 'none';
+  document.getElementById('dataRows').innerHTML        = '';
+  results = [];
+
+  try {
+    // tip height
+    const tipR = await fetch(`${API}/blocks/tip/height`);
+    if (!tipR.ok) throw new Error(`HTTP ${tipR.status}`);
+    const tip  = await tipR.json();
+    setProgress(`Блок висота: ${tip} — зареждам…`);
+
+    const allBlocks = [];
+    let   cursor    = tip;
+
+    while (allBlocks.length < blockCount) {
+      const res   = await fetch(`${API}/v1/blocks/${cursor}`);
+      if (!res.ok) throw new Error(`Blocks HTTP ${res.status}`);
+      const batch = await res.json();
+      if (!batch || !batch.length) break;
+      for (const b of batch) {
+        allBlocks.push({ height: b.height, hash: b.id, time: b.timestamp });
+        if (allBlocks.length >= blockCount) break;
+      }
+      cursor = batch[batch.length - 1].height - 1;
+      setProgress(`Заредени ${allBlocks.length} / ${blockCount} блока…`);
+    }
+
+    // Analyse all
+    results = allBlocks.map(b => ({ ...b, ...analyseHash(b.hash) }));
+    statsCache = calcStats();
+    renderStats();
+    renderData();
+    document.getElementById('statsPanel').style.display = '';
+    document.getElementById('tabsRow').style.display    = 'flex';
+    document.getElementById('aiGenBtn').style.display   = '';
+    showTab('data');
+    setProgress(`✓ ${results.length} блока анализирани`);
+
+  } catch(e) {
+    setError(e.message);
+    setProgress('');
+  }
+
+  btn.disabled = false;
+  btn.textContent = '▶ Стартирай тест';
+}
+
+// ── Stats ──────────────────────────────────────────────────
+function calcStats() {
+  const phiHits    = results.filter(r => r.prox.dist < 0.05).length;
+  const phiPct     = (phiHits / results.length * 100).toFixed(1);
+  const gcdNonTriv = results.filter(r => r.gcd !== "1").length;
+  const mean       = results.reduce((s,r) => s+r.ratio, 0) / results.length;
+  const std        = Math.sqrt(results.reduce((s,r) => s+(r.ratio-mean)**2, 0) / results.length);
+  // random baseline: 5 targets × window 0.1 in range [0, 3.5]
+  const expRandom  = (5 * 0.1 / 3.5 * 100).toFixed(1);
+  return { phiHits, phiPct, gcdNonTriv, mean, std, expRandom };
+}
+
+function renderStats() {
+  const s = statsCache;
+  const above = parseFloat(s.phiPct) > parseFloat(s.expRandom);
+  document.getElementById('statsHead').textContent = `РЕЗУЛТАТИ — ${results.length} реални Bitcoin блока`;
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-box">
+      <div class="stat-val" style="color:var(--gold)">${s.phiPct}%</div>
+      <div class="stat-lbl">φ-близост (±5%)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val" style="color:var(--dim)">${s.expRandom}%</div>
+      <div class="stat-lbl">очаквано случайно</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val" style="color:${above ? 'var(--green)' : 'var(--red)'}">${above ? '↑ НАД' : '↓ ПОД'}</div>
+      <div class="stat-lbl">случайното ниво</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val" style="color:var(--blue)">${s.mean.toFixed(4)}</div>
+      <div class="stat-lbl">средно ratio</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val" style="color:var(--orange)">${PHI.toFixed(4)}</div>
+      <div class="stat-lbl">φ (референция)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val" style="color:rgba(255,255,255,0.6)">${s.gcdNonTriv}</div>
+      <div class="stat-lbl">GCD(H,flip)≠1</div>
+    </div>`;
+}
+
+function renderData() {
+  const html = results.map(r => `
+    <div class="data-row ${r.prox.dist < 0.05 ? 'phi-hit' : ''}">
+      <span>${r.height}</span>
+      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${r.hash.slice(0,22)}…${r.prox.dist<0.05?' ★':''}</span>
+      <span style="text-align:right">${r.ratio.toFixed(4)}</span>
+      <span style="text-align:right;color:${r.prox.dist<0.03?'var(--green)':r.prox.dist<0.1?'var(--gold)':'var(--dim)'}">${r.prox.dist.toFixed(4)}</span>
+    </div>`).join('');
+  document.getElementById('dataRows').innerHTML = html;
+}
+
+// ── Chart ──────────────────────────────────────────────────
+function drawChart() {
+  const canvas = document.getElementById('chart');
+  const ctx    = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = '#07070f'; ctx.fillRect(0,0,W,H);
+
+  const ml=55, mb=40, mt=30, mr=20;
+  const pw=W-ml-mr, ph=H-mt-mb;
+  const minR=0, maxR=3.5;
+  const mapY = v => mt + ph - ((Math.min(maxR,Math.max(minR,v))-minR)/(maxR-minR))*ph;
+  const mapX = i => ml + (i/(results.length-1))*pw;
+
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.04)'; ctx.lineWidth=1;
+  for(let i=0;i<=5;i++){const y=mt+(i/5)*ph; ctx.beginPath();ctx.moveTo(ml,y);ctx.lineTo(W-mr,y);ctx.stroke();}
+
+  // φ lines
+  [{v:PHI,l:'φ',c:'#c8a96e'},{v:1/PHI,l:'1/φ',c:'#c8a96e'},
+   {v:PHI2,l:'φ²',c:'#ff8c3c'},{v:DECAY,l:'1/φ²',c:'#ff8c3c'},
+   {v:1,l:'1',c:'rgba(255,255,255,0.2)'}].forEach(({v,l,c})=>{
+    if(v<minR||v>maxR) return;
+    const y=mapY(v);
+    ctx.strokeStyle=c+'55'; ctx.setLineDash([5,4]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(W-mr,y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=c; ctx.font='10px Courier New'; ctx.textAlign='right';
+    ctx.fillText(l, ml-4, y+3);
+  });
+
+  // Fill under line
+  const ratios = results.map(r=>r.ratio);
+  ctx.beginPath();
+  ratios.forEach((v,i)=>{ const x=mapX(i),y=mapY(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+  ctx.lineTo(mapX(ratios.length-1), mt+ph); ctx.lineTo(ml, mt+ph); ctx.closePath();
+  ctx.fillStyle='rgba(100,200,255,0.04)'; ctx.fill();
+
+  // Line
+  ctx.strokeStyle='rgba(100,200,255,0.5)'; ctx.lineWidth=1.5; ctx.beginPath();
+  ratios.forEach((v,i)=>{ const x=mapX(i),y=mapY(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+  ctx.stroke();
+
+  // Phi-hit dots
+  results.forEach((r,i)=>{
+    if(r.prox.dist >= 0.05) return;
+    const x=mapX(i), y=mapY(r.ratio);
+    const glow=ctx.createRadialGradient(x,y,0,x,y,10);
+    glow.addColorStop(0,'rgba(76,255,145,0.5)'); glow.addColorStop(1,'transparent');
+    ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(x,y,10,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#4cff91'; ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill();
+  });
+
+  // Axis labels
+  ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font='10px Courier New';
+  ctx.textAlign='center';
+  ctx.fillText('Блокове (нови → стари)', ml+pw/2, H-6);
+  ctx.save(); ctx.translate(12, mt+ph/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText('ratio = flip(H)/H', 0, 0); ctx.restore();
+  ctx.fillStyle='#c8a96e'; ctx.font='bold 11px Courier New'; ctx.textAlign='left';
+  ctx.fillText(`ratio за ${results.length} реални Bitcoin блока`, ml, mt-8);
+}
+
+// ── AI Report ──────────────────────────────────────────────
+async function generateAI() {
+  const s = statsCache;
+  if (!s) return;
+  document.getElementById('aiGenBtn').style.display = 'none';
+  document.getElementById('aiContent').innerHTML =
+    '<span class="spinner">⟳</span> Анализирам резултатите с Claude…';
+
+  const sample = results.slice(0,5).map(r=>r.ratio.toFixed(4)).join(', ');
+  const prompt = `Ти си математик специализиран в теория на числата и статистика.
+
+Анализирай резултатите от статистически тест на Теоремата на Станков върху реални Bitcoin блок хашове:
+
+ТЕОРЕМА НА СТАНКОВ: Корените nₖ на Fibonacci(n) = 2^(2ⁿ)−1 следват:
+nₖ = −k − ½ + A·(−1)ᵏ·φ^(−2k), разпадане φ² = ${PHI2.toFixed(6)}
+
+ТЕСТ: За всеки хаш H изчисляваме pairFlip(H) (обръщане на байтовете в hex) и ratio = pairFlip(H)/H.
+
+РЕЗУЛТАТИ (${results.length} реални Bitcoin блока от mempool.space):
+- φ-близост (±5% до φ,1/φ,φ²,1/φ²,1): ${s.phiPct}% (очаквано случайно: ${s.expRandom}%)
+- GCD(hash, flip) ≠ 1: ${s.gcdNonTriv} от ${results.length} (${(s.gcdNonTriv/results.length*100).toFixed(1)}%)
+- Средно ratio: ${s.mean.toFixed(6)} ± ${s.std.toFixed(6)}
+- φ = ${PHI.toFixed(6)}, 1/φ = ${(1/PHI).toFixed(6)}
+- Първи 5 ratio стойности: ${sample}
+
+Въпроси:
+1. Дали ${s.phiPct}% φ-близост е статистически значима спрямо очакваното ${s.expRandom}%?
+2. Какво означава средното ratio ${s.mean.toFixed(4)} спрямо φ=${PHI.toFixed(4)}?
+3. Може ли Bitcoin PoW да се счита за "живо доказателство" на теоремата?
+4. Честна математическа оценка на резултата.
+
+Отговори на БЪЛГАРСКИ, кратко и точно. Бъди честен — не потвърждавай нещо недоказано статистически.`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.filter(c=>c.type==='text').map(c=>c.text).join('\n')
+               || JSON.stringify(data);
+    document.getElementById('aiContent').innerHTML =
+      `<div class="ai-text">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+  } catch(e) {
+    document.getElementById('aiContent').innerHTML = `<span style="color:var(--red)">Грешка: ${e.message}</span>`;
+    document.getElementById('aiGenBtn').style.display = '';
+  }
+}
+</script>
+</body>
+</html>
