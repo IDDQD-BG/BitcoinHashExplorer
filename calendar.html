@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitcoin × Прабългарски Календар</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:   #07070a;
+  --bg2:  #0d0d14;
+  --bg3:  #131320;
+  --gold: #c8a96e;
+  --g2:   #e8c87e;
+  --stone:#8080a0;
+  --white:#ede8e0;
+  --dim:  #484860;
+  --green:#7fff00;
+  --blue: #00d4ff;
+  --purple:#c77dff;
+  --red:  #ff6688;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono: 'DM Mono','Courier New',monospace;
+}
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { height:100%; }
+body {
+  background:var(--bg);
+  color:var(--white);
+  font-family:var(--serif);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+/* grain */
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:.22;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+}
+#universe { position:fixed; inset:0; z-index:0; }
+
+/* LAYOUT */
+.wrap {
+  position:relative; z-index:1;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  min-height:100vh;
+  padding:28px 24px 24px;
+  max-width:1100px;
+  margin:0 auto;
+  gap:20px;
+}
+
+/* HEADER */
+header {
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+}
+.h-title {
+  font-family:var(--serif); font-weight:300; font-size:clamp(1rem,2.5vw,1.5rem);
+  color:var(--gold); letter-spacing:.12em;
+}
+.h-title span { color:var(--stone); font-size:.7em; }
+.h-live {
+  display:flex; align-items:center; gap:8px;
+  font-family:var(--mono); font-size:.6rem; color:var(--stone);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.dot { width:7px; height:7px; border-radius:50%; background:var(--green); animation:pu 1.5s ease infinite; }
+@keyframes pu { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.55)} }
+.back-link {
+  font-family:var(--mono); font-size:.6rem; color:var(--dim);
+  text-decoration:none; letter-spacing:.1em; text-transform:uppercase;
+  border:1px solid var(--dim); padding:4px 10px; border-radius:1px;
+  transition:all .2s;
+}
+.back-link:hover { color:var(--gold); border-color:var(--gold); }
+
+/* MAIN GRID */
+.main {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:16px;
+}
+
+/* CLOCK PANEL */
+.clock-panel {
+  background:var(--bg2);
+  border:1px solid rgba(200,169,110,.1);
+  border-radius:2px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px 16px;
+  position:relative;
+}
+.clock-panel::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.5;
+}
+#mainClock { width:100%; max-width:380px; display:block; }
+.clock-legend {
+  display:flex; gap:12px; flex-wrap:wrap; justify-content:center;
+  margin-top:12px;
+}
+.cl-item {
+  display:flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:.55rem; color:var(--dim);
+  letter-spacing:.08em;
+}
+.cl-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+/* INFO PANEL */
+.info-panel {
+  display:flex; flex-direction:column; gap:12px;
+}
+
+/* INFO CARD */
+.ic {
+  background:var(--bg2); border:1px solid rgba(200,169,110,.07);
+  border-radius:2px; padding:14px 16px; position:relative; overflow:hidden;
+  flex:1;
+}
+.ic::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+}
+.ic.btc::before { background:var(--gold); }
+.ic.bg::before  { background:var(--green); }
+.ic.bridge::before { background:var(--purple); }
+.ic-label {
+  font-family:var(--mono); font-size:.54rem; letter-spacing:.18em;
+  text-transform:uppercase; margin-bottom:10px; opacity:.65;
+}
+.ic.btc .ic-label    { color:var(--gold); }
+.ic.bg  .ic-label    { color:var(--green); }
+.ic.bridge .ic-label { color:var(--purple); }
+.ic-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:6px;
+}
+.ic-item {}
+.ic-k {
+  font-family:var(--mono); font-size:.5rem; color:var(--dim);
+  text-transform:uppercase; letter-spacing:.08em; margin-bottom:1px;
+}
+.ic-v {
+  font-family:var(--mono); font-size:.72rem; color:var(--stone);
+  line-height:1.3;
+}
+.ic-v.hi  { color:var(--gold); }
+.ic-v.g   { color:var(--green); }
+.ic-v.p   { color:var(--purple); }
+.ic-v.b   { color:var(--blue); }
+
+/* CALENDAR SECTION */
+.cal-section {
+  grid-column:1/-1;
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;
+}
+
+/* MONTH GRID */
+.month-card {
+  background:var(--bg2); border:1px solid rgba(200,169,110,.07);
+  border-radius:2px; padding:14px 14px;
+}
+.mc-header {
+  font-family:var(--mono); font-size:.54rem; color:var(--gold);
+  letter-spacing:.14em; text-transform:uppercase;
+  margin-bottom:10px; opacity:.7;
+  display:flex; justify-content:space-between;
+}
+.mc-days {
+  display:grid; grid-template-columns:repeat(7,1fr); gap:2px;
+}
+.mc-day-head {
+  font-family:var(--mono); font-size:.48rem; color:var(--dim);
+  text-align:center; padding:2px 0; letter-spacing:.04em;
+}
+.mc-day {
+  font-family:var(--mono); font-size:.6rem; text-align:center;
+  padding:3px 1px; border-radius:1px; border:1px solid transparent;
+  cursor:default; line-height:1.4;
+}
+.mc-day.today {
+  border-color:var(--gold); background:rgba(200,169,110,.12);
+  color:var(--gold); font-weight:bold;
+}
+.mc-day.sun { color:rgba(200,169,110,.6); }
+.mc-day.sat { color:rgba(199,125,255,.6); }
+.mc-day.empty { opacity:0; }
+
+/* METON BAR */
+.meton-card {
+  background:var(--bg2); border:1px solid rgba(200,169,110,.07);
+  border-radius:2px; padding:14px 14px;
+  grid-column:span 2;
+}
+.meton-label {
+  font-family:var(--mono); font-size:.54rem; color:var(--blue);
+  letter-spacing:.14em; text-transform:uppercase;
+  margin-bottom:8px; opacity:.7;
+}
+#metonBar { width:100%; display:block; }
+.meton-stats {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:8px;
+}
+
+/* BITCOIN TIME EXPLANATION */
+.btctime {
+  grid-column:1/-1;
+  background:var(--bg2); border:1px solid rgba(200,169,110,.07);
+  border-radius:2px; padding:16px 18px;
+}
+.btctime-title {
+  font-family:var(--serif); font-size:1.1rem; font-weight:600;
+  color:var(--gold); margin-bottom:10px;
+}
+.btctime-body {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;
+}
+.bt-item {
+  border-left:2px solid rgba(200,169,110,.2); padding-left:10px;
+}
+.bt-k { font-family:var(--mono); font-size:.54rem; color:var(--dim); letter-spacing:.1em; text-transform:uppercase; margin-bottom:3px; }
+.bt-v { font-family:var(--mono); font-size:.7rem; color:var(--stone); line-height:1.5; }
+.bt-v strong { color:var(--white); }
+
+/* FOOTER */
+footer {
+  border-top:1px solid rgba(200,169,110,.07);
+  padding-top:12px;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+}
+.f-note { font-family:var(--mono); font-size:.54rem; color:var(--dim); letter-spacing:.07em; }
+.f-note a { color:var(--gold); text-decoration:none; }
+.f-note a:hover { text-decoration:underline; }
+
+/* RESPONSIVE */
+@media(max-width:700px) {
+  .main { grid-template-columns:1fr; }
+  .cal-section { grid-template-columns:1fr; }
+  .meton-card { grid-column:1; }
+  .btctime-body { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:480px) {
+  .btctime-body { grid-template-columns:1fr; }
+  .meton-stats { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<canvas id="universe"></canvas>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="h-title">
+      ₿ Bitcoin × Прабългарски <span>· Часовник-Календар</span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="h-live"><div class="dot"></div><span id="hBlock">—</span></div>
+      <a href="index.html" class="back-link">← Начало</a>
+    </div>
+  </header>
+
+  <!-- MAIN: Часовник + Инфо -->
+  <div class="main">
+
+    <!-- Часовникът -->
+    <div class="clock-panel">
+      <canvas id="mainClock" width="760" height="760"></canvas>
+      <div class="clock-legend">
+        <div class="cl-item"><div class="cl-dot" style="background:var(--gold)"></div>Час Bitcoin (6 блока)</div>
+        <div class="cl-item"><div class="cl-dot" style="background:var(--blue)"></div>Блок в деня</div>
+        <div class="cl-item"><div class="cl-dot" style="background:var(--green)"></div>Ден в БГ год.</div>
+        <div class="cl-item"><div class="cl-dot" style="background:var(--purple);border-radius:2px;width:14px;height:4px"></div>2016 период</div>
+      </div>
+    </div>
+
+    <!-- Инфо панели -->
+    <div class="info-panel">
+      <div class="ic btc">
+        <div class="ic-label">₿ Bitcoin Време</div>
+        <div class="ic-grid" id="btcInfo"></div>
+      </div>
+      <div class="ic bg">
+        <div class="ic-label">Прабългарски Календар</div>
+        <div class="ic-grid" id="bgInfo"></div>
+      </div>
+      <div class="ic bridge">
+        <div class="ic-label">Мостът · 7514 Години</div>
+        <div class="ic-grid" id="bridgeInfo"></div>
+      </div>
+    </div>
+
+    <!-- Месечна мрежа -->
+    <div class="cal-section">
+      <div class="month-card" id="monthCard">
+        <div class="mc-header">
+          <span id="monthTitle">Прабългарски месец</span>
+          <span id="monthSub" style="color:var(--stone)"></span>
+        </div>
+        <div class="mc-days" id="monthGrid"></div>
+      </div>
+
+      <!-- Метонов таймер -->
+      <div class="meton-card">
+        <div class="meton-label">Метонов Цикъл (19 год = 235 лунни мес)</div>
+        <canvas id="metonBar" height="52"></canvas>
+        <div class="meton-stats" id="metonStats"></div>
+      </div>
+    </div>
+
+    <!-- Bitcoin Time обяснение -->
+    <div class="btctime">
+      <div class="btctime-title">Защо Bitcoin времето е уникално</div>
+      <div class="btctime-body">
+        <div class="bt-item">
+          <div class="bt-k">Консенсусно</div>
+          <div class="bt-v">Определя се от <strong>всички нодове едновременно</strong>. Никой не може да го манипулира.</div>
+        </div>
+        <div class="bt-item">
+          <div class="bt-k">Астрономически калибрирано</div>
+          <div class="bt-v">Δ/2 − 11×600 = B0→B1 с точност <strong>0.0098%</strong>. Слн-лн разликата е кодирана в Genesis.</div>
+        </div>
+        <div class="bt-item">
+          <div class="bt-k">Перпетуален (като БГ кал.)</div>
+          <div class="bt-v"><strong>26×2016 блока = 364 дни = 52×7</strong>. Двата календара са математически синхронни.</div>
+        </div>
+        <div class="bt-item">
+          <div class="bt-k">Звездна синхронизация</div>
+          <div class="bt-v">Звездната БГ година = 20 160 земни год = <strong>10×2016 Bitcoin периода</strong> ✓</div>
+        </div>
+        <div class="bt-item">
+          <div class="bt-k">Геометрия на времето</div>
+          <div class="bt-v">144 блока = 360° (1 ден). <strong>2016×2.5° = 5040° = 7!</strong> = факториел на лунната седмица.</div>
+        </div>
+        <div class="bt-item">
+          <div class="bt-k">Неотменяем</div>
+          <div class="bt-v">Всеки блок е timestamp в камък. Историята на Bitcoin е <strong>точна до секунда</strong> от 03.01.2009.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-note">© 2026 Любомир Станков · <a href="bitcoin-hash-explorer.html">Explorer</a> · <a href="index.html">Начало</a></div>
+    <div class="f-note" id="fTime"></div>
+  </footer>
+
+</div><!-- /wrap -->
+
+<script>
+const GENESIS = 1231006505;
+let liveBlock = 0; // реален блок от mempool.space API
+const PHI = (1+Math.sqrt(5))/2;
+const ANIMALS = ["🐭","🐂","🐆","🐇","🐲","🐍","🐎","🐒","🐓","🐕","🐗","🐏"];
+const ANAMES  = ["Мишка","Вол","Барс","Заек","Змей","Змия","Кон","Маймуна","Петел","Куче","Глиган","Овен"];
+const ELEMENTS= ["🌊 Вода","🔥 Огън","🌍 Земя","🌲 Дърво","⚙ Метал"];
+const DAYS_BG = ["Нд","Пн","Вт","Ср","Чт","Пт","Сб"];
+
+// ── Stars ──
+(()=>{
+  const cv=document.getElementById("universe"),ctx=cv.getContext("2d");
+  let W=cv.width=innerWidth,H=cv.height=innerHeight;
+  const st=Array.from({length:180},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,a:Math.random()*.5+.04,da:(Math.random()-.5)*.003}));
+  function draw(){ctx.clearRect(0,0,W,H);st.forEach(s=>{s.a+=s.da;if(s.a<.04||s.a>.7)s.da=-s.da;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(240,232,224,${s.a})`;ctx.fill();});requestAnimationFrame(draw);}
+  draw();
+  addEventListener("resize",()=>{W=cv.width=innerWidth;H=cv.height=innerHeight;st.forEach(s=>{s.x=Math.random()*W;s.y=Math.random()*H;});});
+})();
+
+// ── BG Calendar — верифицирана имплементация (bgkalendar/bgkalendar) ──
+// Епоха: START_OF_CALENDAR_BEFORE_UNIX_EPOCH = 2729830 дни (от LetoBulgarian.js)
+// Структура на месеците (верифицирана от LetoBulgarian.js):
+//   M1=31,M2=30,M3=30,M4=31,M5=30,M6=30(н)/31(в),M7=31,M8=30,M9=30,M10=31,M11=30,M12=31
+const BG_MONTH_DAYS=[
+  [31,30,30,31,30,30,31,30,30,31,30,31], // невисокосна: 365 дни
+  [31,30,30,31,30,31,31,30,30,31,30,31]  // високосна:   366 дни
+];
+
+// Правило за високосна година (от йерархичната структура на библиотеката):
+// 60-год. цикъл (STAR_DAY): невис.=14×YEARS_4_LEAP+1×YEARS_4=21914д; вис.=15×1461=21915д
+// 420-год. цикъл (STAR_WEEK): [nl,L,nl,L,nl,L,nl] → L STAR_DAYs са на позиции 2,4,6 (1-инд.)
+// Год. 60 на nl STAR_DAY НЕ е висок.; год. 60 на L STAR_DAY Е висок.
+function bgIsLeap(Y){
+  if(Y%4!==0)return false;
+  if(Y%60!==0)return true;
+  const p=((Y-1)%420)+1;          // позиция 1-420 в 420-год. цикъл
+  const sdIdx=Math.ceil(p/60);    // STAR_DAY индекс 1-7
+  return sdIdx===2||sdIdx===4||sdIdx===6;
+}
+
+function bgYear(ts){
+  const d=new Date(ts*1000),m=d.getUTCMonth()+1,dy=d.getUTCDate(),y=d.getUTCFullYear();
+  return(m===12&&dy>=21)?y+5505:y+5504;
+}
+
+function bgData(ts){
+  const d=new Date(ts*1000);
+  const y=d.getUTCFullYear(),m=d.getUTCMonth()+1,day=d.getUTCDate();
+  const Y=bgYear(ts);
+  const ai=((Y-1)%12+12)%12;
+  const ei=Math.floor(((Y-1)%60+60)%60/12);
+  const yearStart=new Date(Date.UTC((m<12||(m===12&&day<21))?y-1:y,11,21));
+  const doy=Math.floor((new Date(ts*1000)-yearStart)/86400000);
+  // doy=0 → 21 Дек. (Нова год. тържество); doy=1 → 22 Дек. (ден 1)
+  const isLeap=bgIsLeap(Y);
+  const months=BG_MONTH_DAYS[isLeap?1:0];
+  const calDay=doy-1; // 0-инд.: calDay=0 → ден 1 (22 Дек.)
+  let Q=0,mInQ=0,totalMonth=0,dayInM=0,monthLen=30;
+  if(calDay>=0){
+    let rem=calDay;
+    for(let mi=0;mi<12;mi++){
+      if(rem<months[mi]){
+        totalMonth=mi+1; monthLen=months[mi];
+        dayInM=rem+1; Q=Math.floor(mi/3)+1; mInQ=(mi%3)+1;
+        break;
+      }
+      rem-=months[mi];
+    }
+  }
+  const weekOfYear=Math.floor(doy/7)+1;
+  const dayOfWeek=doy%7;
+  return{Y,ai,ei,doy,isLeap,Q,mInQ,totalMonth,dayInM,monthLen,weekOfYear,dayOfWeek,
+    animal:ANIMALS[ai],aname:ANAMES[ai],element:ELEMENTS[ei],
+    cycle12:Math.floor((Y-1)/12)+1,cycle60:Math.floor((Y-1)/60)+1,
+    starWeek:Math.floor((Y-1)/420)+1,starYear:Math.floor((Y-1)/20160)+1};
+}
+
+// ── Main Clock ──
+function drawClock(){
+  const cv=document.getElementById("mainClock");if(!cv)return;
+  const dpr=window.devicePixelRatio||1;
+  const display=cv.offsetWidth||380;
+  const S=Math.min(display,380)*2;
+  if(cv._s!==S){cv.width=cv.height=S;cv._s=S;}
+  const ctx=cv.getContext("2d");
+  ctx.setTransform(1,0,0,1,0,0);ctx.scale(dpr,dpr);
+  const W=S/dpr,cx=W/2,cy=W/2;
+  ctx.clearRect(0,0,W,W);
+  const now=Math.floor(Date.now()/1000);
+  const blk=Math.floor((now-GENESIS)/600);
+  const bDay=blk%144,b2016=blk%2016,b26=blk%(26*2016);
+  const bg=bgData(now);
+  const R=W*.44;
+
+  function pol(deg,r){const a=(deg-90)*Math.PI/180;return[cx+Math.cos(a)*r,cy+Math.sin(a)*r];}
+  function arcFill(deg,r,col,w,cap='round'){
+    if(deg<=0.5)return;
+    ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,(deg-90)*Math.PI/180);
+    ctx.strokeStyle=col;ctx.lineWidth=w;ctx.lineCap=cap;ctx.stroke();
+  }
+
+  // ── Outer ring background
+  ctx.beginPath();ctx.arc(cx,cy,R+W*.065,0,Math.PI*2);
+  ctx.strokeStyle='rgba(200,169,110,.04)';ctx.lineWidth=W*.05;ctx.stroke();
+
+  // ── BG year arc (outermost)
+  arcFill(bg.doy/364*360,R+W*.065,'rgba(127,255,0,.18)',W*.05,'butt');
+
+  // ── 2016 period arc
+  arcFill(b2016/2016*360,R+W*.022,'rgba(199,125,255,.4)',W*.024,'butt');
+
+  // ── 144 tick marks
+  for(let i=0;i<144;i++){
+    const[x1,y1]=pol(i/144*360,R-W*.01);
+    const[x2,y2]=pol(i/144*360,i%6===0?R+W*.01:R);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
+    ctx.strokeStyle=i%6===0?'rgba(200,169,110,.55)':'rgba(200,169,110,.12)';
+    ctx.lineWidth=i%6===0?1.5:.4;ctx.stroke();
+  }
+
+  // ── Hour numbers (24h)
+  [0,6,12,18].forEach(h=>{
+    const[lx,ly]=pol(h/24*360,R-W*.065);
+    ctx.font=`${W*.027}px DM Mono,monospace`;ctx.fillStyle='rgba(200,169,110,.42)';
+    ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(h+'h',lx,ly);
+  });
+
+  // ── 12 animals ring
+  ANIMALS.forEach((a,i)=>{
+    const[ax,ay]=pol(i/12*360,R*.62);
+    const isNow=i===bg.ai;
+    ctx.save();
+    ctx.globalAlpha=isNow?1:.38;
+    ctx.font=`${isNow?W*.056:W*.042}px serif`;
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(a,ax,ay);
+    if(isNow){
+      ctx.beginPath();ctx.arc(ax,ay,W*.038,0,Math.PI*2);
+      ctx.strokeStyle='rgba(127,255,0,.35)';ctx.lineWidth=1.2;ctx.stroke();
+    }
+    ctx.restore();
+  });
+
+  // ── 21-sector lines (inner)
+  for(let i=0;i<21;i++){
+    const[x1,y1]=pol(i/21*360,R*.22);const[x2,y2]=pol(i/21*360,R*.27);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
+    ctx.strokeStyle='rgba(200,169,110,.1)';ctx.lineWidth=.8;ctx.stroke();
+  }
+
+  // ── BG day arc (inner)
+  arcFill(bg.doy/364*360,R*.27,'rgba(0,212,255,.3)',W*.024,'butt');
+
+  // ── Hands
+  // Hour (orange) — 6 blocks = 1 hour
+  const hBlock=Math.floor(bDay/6);
+  const[hx,hy]=pol(hBlock/24*360,R*.5);
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(hx,hy);
+  ctx.strokeStyle='rgba(200,169,110,.92)';ctx.lineWidth=W*.014;ctx.lineCap='round';ctx.stroke();
+  // Shadow
+  ctx.beginPath();ctx.moveTo(cx+1,cy+1);ctx.lineTo(hx+1,hy+1);
+  ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=W*.016;ctx.lineCap='round';ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(hx,hy);
+  ctx.strokeStyle='rgba(200,169,110,.92)';ctx.lineWidth=W*.013;ctx.lineCap='round';ctx.stroke();
+
+  // Block (blue)
+  const[bx,by]=pol(bDay/144*360,R*.82);
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(bx,by);
+  ctx.strokeStyle='rgba(0,212,255,.82)';ctx.lineWidth=W*.006;ctx.lineCap='round';ctx.stroke();
+
+  // BG day (green)
+  const[dx,dy]=pol(bg.doy/364*360,R*.7);
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(dx,dy);
+  ctx.strokeStyle='rgba(127,255,0,.55)';ctx.lineWidth=W*.005;ctx.lineCap='round';ctx.stroke();
+
+  // Center jewel
+  ctx.beginPath();ctx.arc(cx,cy,W*.018,0,Math.PI*2);
+  ctx.fillStyle='#ff6688';ctx.fill();
+  ctx.beginPath();ctx.arc(cx,cy,W*.012,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,102,136,.6)';ctx.fill();
+
+  // Center text
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.font=`bold ${W*.028}px DM Mono,monospace`;ctx.fillStyle='rgba(200,169,110,.85)';
+  ctx.fillText(bg.Y+'г.',cx,cy-W*.058);
+  ctx.font=`${W*.023}px DM Mono,monospace`;ctx.fillStyle='rgba(0,212,255,.72)';
+  ctx.fillText(bDay+'/144',cx,cy+W*.015);
+  ctx.font=`${W*.02}px serif`;ctx.fillStyle='rgba(127,255,0,.65)';
+  ctx.fillText(bg.animal+' '+bg.aname,cx,cy+W*.052);
+  ctx.font=`${W*.018}px DM Mono,monospace`;ctx.fillStyle='rgba(199,125,255,.5)';
+  ctx.fillText(b2016+'/2016',cx,cy+W*.098);
+
+  // Season arc label
+  const seaColor=['rgba(0,212,255,.5)','rgba(127,255,0,.5)','rgba(200,169,110,.5)','rgba(199,125,255,.5)'];
+  const seaNames=['❄ Зима','🌸 Пролет','☀ Лято','🍂 Есен'];
+  const seaQ=Math.max(0,bg.Q-1);
+  const[sx,sy]=pol((seaQ*91+45)/364*360,R+W*.1);
+  ctx.font=`${W*.022}px serif`;ctx.fillStyle=seaColor[seaQ];ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(seaNames[seaQ],sx,sy);
+}
+
+// ── Info panels ──
+function iv(k,v,cls=''){return`<div class="ic-item"><div class="ic-k">${k}</div><div class="ic-v ${cls}">${v}</div></div>`;}
+
+function updateInfo(){
+  const now=Math.floor(Date.now()/1000);
+  const blk=Math.floor((now-GENESIS)/600);
+  const bDay=blk%144,b2016=blk%2016;
+  const bg=bgData(now);
+  const halvingN=Math.floor(blk/210000);
+  const nextHalv=((halvingN+1)*210000-blk).toLocaleString();
+
+  // BTC info
+  const dispBlk = liveBlock || blk;
+  const btcEl=document.getElementById("btcInfo");
+  if(btcEl)btcEl.innerHTML=
+    iv(liveBlock?'Блок (live)':'Прибл. блок','#'+dispBlk.toLocaleString(),'hi')+
+    iv('В деня',bDay+'/144 · '+(bDay*2.5).toFixed(1)+'°','b')+
+    iv('В период',b2016+'/2016','p')+
+    iv('2016×2.5°','5040°=7!=14 обор.','hi')+
+    iv('Период #','#'+Math.floor(blk/2016).toLocaleString(),'')+
+    iv('Халвинг #','#'+halvingN+' · '+nextHalv+' до следващ','');
+
+  // BG info
+  const bgEl=document.getElementById("bgInfo");
+  if(bgEl)bgEl.innerHTML=
+    iv('Година',bg.Y.toLocaleString()+' г.','hi')+
+    iv('Животно',bg.animal+' '+bg.aname,'g')+
+    iv('Стихия',bg.element,'g')+
+    iv('Ден в год.',bg.doy+' / 364','')+
+    iv('Q'+bg.Q+' · М'+bg.totalMonth,'Ден '+bg.dayInM+(bg.totalMonth>0?' / '+bg.monthLen:''),'')+
+    iv('12/60/420 цикъл','#'+bg.cycle12+' · #'+bg.cycle60+' · #'+bg.starWeek,'');
+
+  // Bridge
+  const brEl=document.getElementById("bridgeInfo");
+  if(brEl)brEl.innerHTML=
+    iv('26×2016 блока','= 364.0 дни ✓','g')+
+    iv('Звездна год.','20 160 = 10×2016 ✓','p')+
+    iv('21 Декември','= Нова год БГ = Bitcoin 21','hi')+
+    iv('7514 години','едно знание','');
+
+  // Header
+  const hEl=document.getElementById("hBlock");
+  if(hEl)hEl.textContent='Блок #'+(liveBlock||blk).toLocaleString()+(liveBlock?' ◆':'~');
+
+  // Footer time
+  const fEl=document.getElementById("fTime");
+  if(fEl){
+    const d=new Date();
+    fEl.textContent=d.toLocaleTimeString('bg-BG')+' · Bitcoin блок ~'+bDay+'/144 · '+bg.Y+'г.';
+  }
+}
+
+// ── Month Grid ──
+function drawMonth(){
+  const now=Math.floor(Date.now()/1000);
+  const bg=bgData(now);
+  const grid=document.getElementById("monthGrid");
+  const title=document.getElementById("monthTitle");
+  const sub=document.getElementById("monthSub");
+  if(!grid)return;
+
+  const qColors=['','rgba(0,212,255,.6)','rgba(127,255,0,.6)','rgba(200,169,110,.6)','rgba(199,125,255,.6)'];
+  if(title)title.textContent=`Q${bg.Q} · Месец ${bg.totalMonth}`;
+  if(sub)sub.textContent=bg.element;
+
+  // First day of current month
+  const monthStart=bg.doy-bg.dayInM; // day-of-year of first day of this month
+  const startWeekDay=monthStart%7;   // 0=Нд
+
+  const len=bg.totalMonth>0?bg.monthLen:0;
+  if(len===0){grid.innerHTML='';return;}
+
+  let html='';
+  DAYS_BG.forEach((d,i)=>{
+    html+=`<div class="mc-day-head" style="color:${i===0?'rgba(200,169,110,.5)':i===6?'rgba(199,125,255,.5)':'var(--dim)'}">${d}</div>`;
+  });
+  for(let e=0;e<startWeekDay;e++) html+=`<div class="mc-day empty"></div>`;
+  for(let d=1;d<=len;d++){
+    const isT=d===bg.dayInM;
+    const dow=(startWeekDay+d-1)%7;
+    const cls=isT?'today':dow===0?'sun':dow===6?'sat':'';
+    html+=`<div class="mc-day ${cls}" title="Ден ${monthStart+d} от БГ год.">${d}</div>`;
+  }
+  grid.innerHTML=html;
+}
+
+// ── Meton Bar ──
+function drawMeton(){
+  const cv=document.getElementById("metonBar");if(!cv)return;
+  const now=Math.floor(Date.now()/1000);
+  const metDays=19*365.2422;
+  const elapsed=(now-GENESIS)%(metDays*86400);
+  const pct=elapsed/(metDays*86400);
+  const num=Math.floor((now-GENESIS)/(metDays*86400))+1;
+  const W=cv.offsetWidth||500,H=52;
+  cv.width=W*2;cv.height=H*2;
+  const ctx=cv.getContext("2d");ctx.scale(2,2);ctx.clearRect(0,0,W,H);
+
+  // Background bar
+  ctx.beginPath();ctx.roundRect(0,18,W,20,3);
+  ctx.fillStyle='rgba(255,255,255,.04)';ctx.fill();
+  ctx.strokeStyle='rgba(200,169,110,.1)';ctx.lineWidth=.5;ctx.stroke();
+
+  // Progress gradient
+  const gr=ctx.createLinearGradient(0,0,W,0);
+  gr.addColorStop(0,'rgba(199,125,255,.7)');gr.addColorStop(1,'rgba(200,169,110,.7)');
+  ctx.beginPath();ctx.roundRect(0,18,W*pct,20,3);
+  ctx.fillStyle=gr;ctx.fill();
+
+  // 19 year marks
+  for(let y=1;y<=19;y++){
+    const x=W*y/19;
+    const isL=[3,6,8,11,14,17,19].includes(y);
+    ctx.beginPath();ctx.moveTo(x,isL?12:16);ctx.lineTo(x,40);
+    ctx.strokeStyle=isL?'rgba(127,255,0,.6)':'rgba(200,169,110,.18)';
+    ctx.lineWidth=isL?1.5:.4;ctx.stroke();
+    if(isL){
+      ctx.font='7px DM Mono,monospace';ctx.fillStyle='rgba(127,255,0,.55)';
+      ctx.textAlign='center';ctx.fillText(y+'✓',x,10);
+    }
+  }
+
+  // Needle
+  const nx=W*pct;
+  ctx.beginPath();ctx.moveTo(nx,10);ctx.lineTo(nx,42);
+  ctx.strokeStyle='#ff6688';ctx.lineWidth=1.8;ctx.stroke();
+  ctx.beginPath();ctx.arc(nx,10,3.5,0,Math.PI*2);ctx.fillStyle='#ff6688';ctx.fill();
+
+  // Labels
+  ctx.font='7.5px DM Mono,monospace';ctx.fillStyle='rgba(200,169,110,.5)';ctx.textAlign='left';
+  ctx.fillText('Метон '+num,4,H-3);
+  ctx.textAlign='right';ctx.fillStyle='rgba(0,212,255,.6)';
+  ctx.fillText((pct*100).toFixed(2)+'% · '+((1-pct)*19).toFixed(2)+' год. остават',W-4,H-3);
+
+  // Meton stats
+  const sEl=document.getElementById("metonStats");
+  if(sEl)sEl.innerHTML=
+    iv('Метон # от Genesis',num,'hi')+
+    iv('Прогрес',(pct*100).toFixed(3)+'%','g')+
+    iv('Остават год.',((1-pct)*19).toFixed(3),'')+
+    iv('285=235+50','Genesis=Метон+BTC','p');
+}
+
+// ── Live fetch ──
+async function fetchBlock(){
+  try{
+    const r=await fetch('https://mempool.space/api/blocks/tip/height');
+    liveBlock=await r.json();
+    updateInfo();
+  }catch(e){}
+}
+
+// ── Main loop ──
+let frame=0;
+function loop(){
+  drawClock();
+  frame++;
+  if(frame%30===0){updateInfo();drawMeton();}
+  if(frame%5===0){drawMonth();}
+  requestAnimationFrame(loop);
+}
+
+// ── Init ──
+window.addEventListener('load',()=>{
+  updateInfo();drawMonth();drawMeton();
+  loop();
+  fetchBlock();
+  setInterval(fetchBlock,30000);
+});
+window.addEventListener('resize',()=>{drawClock();drawMeton();});
+</script>
+</body>
+</html>
