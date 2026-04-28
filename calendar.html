@@ -135,7 +135,7 @@ header {
 .ic-grid {
   display:grid; grid-template-columns:1fr 1fr; gap:6px;
 }
-.ic-item {}
+.ic-item { display:flex; flex-direction:column; gap:2px; }
 .ic-k {
   font-family:var(--mono); font-size:.5rem; color:var(--dim);
   text-transform:uppercase; letter-spacing:.08em; margin-bottom:1px;
@@ -255,7 +255,8 @@ footer {
     <div class="h-title">
       ₿ Bitcoin × Прабългарски <span>· Часовник-Календар</span>
     </div>
-    <div style="display:flex;gap:10px;align-items:center">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div class="h-live"><div class="dot" id="mtpDot" style="background:var(--dim)"></div><span id="hMtp">⛓ MTP…</span></div>
       <div class="h-live"><div class="dot"></div><span id="hBlock">—</span></div>
       <a href="index.html" class="back-link">← Начало</a>
     </div>
@@ -353,6 +354,9 @@ footer {
 <script>
 const GENESIS = 1231006505;
 let liveBlock = 0; // реален блок от mempool.space API
+let mtpTime   = 0; // Bitcoin MTP (медиана на последните 11 блока timestamps)
+
+function getNow(){ return mtpTime || Math.floor(Date.now()/1000); }
 const PHI = (1+Math.sqrt(5))/2;
 const ANIMALS = ["🐭","🐂","🐆","🐇","🐲","🐍","🐎","🐒","🐓","🐕","🐗","🐏"];
 const ANAMES  = ["Мишка","Вол","Барс","Заек","Змей","Змия","Кон","Маймуна","Петел","Куче","Глиган","Овен"];
@@ -438,7 +442,7 @@ function drawClock(){
   ctx.setTransform(1,0,0,1,0,0);ctx.scale(dpr,dpr);
   const W=S/dpr,cx=W/2,cy=W/2;
   ctx.clearRect(0,0,W,W);
-  const now=Math.floor(Date.now()/1000);
+  const now=getNow();
   const blk=Math.floor((now-GENESIS)/600);
   const bDay=blk%144,b2016=blk%2016,b26=blk%(26*2016);
   const bg=bgData(now);
@@ -555,7 +559,7 @@ function drawClock(){
 function iv(k,v,cls=''){return`<div class="ic-item"><div class="ic-k">${k}</div><div class="ic-v ${cls}">${v}</div></div>`;}
 
 function updateInfo(){
-  const now=Math.floor(Date.now()/1000);
+  const now=getNow();
   const blk=Math.floor((now-GENESIS)/600);
   const bDay=blk%144,b2016=blk%2016;
   const bg=bgData(now);
@@ -598,14 +602,15 @@ function updateInfo(){
   // Footer time
   const fEl=document.getElementById("fTime");
   if(fEl){
-    const d=new Date();
-    fEl.textContent=d.toLocaleTimeString('bg-BG')+' · Bitcoin блок ~'+bDay+'/144 · '+bg.Y+'г.';
+    const d=mtpTime?new Date(mtpTime*1000):new Date();
+    const pfx=mtpTime?'⛓ MTP':'⚠ системно';
+    fEl.textContent=pfx+' · '+d.toLocaleTimeString('bg-BG')+' · Блок #'+(liveBlock||blk).toLocaleString()+' · '+bg.Y+'г.';
   }
 }
 
 // ── Month Grid ──
 function drawMonth(){
-  const now=Math.floor(Date.now()/1000);
+  const now=getNow();
   const bg=bgData(now);
   const grid=document.getElementById("monthGrid");
   const title=document.getElementById("monthTitle");
@@ -640,7 +645,7 @@ function drawMonth(){
 // ── Meton Bar ──
 function drawMeton(){
   const cv=document.getElementById("metonBar");if(!cv)return;
-  const now=Math.floor(Date.now()/1000);
+  const now=getNow();
   const metDays=19*365.2422;
   const elapsed=(now-GENESIS)%(metDays*86400);
   const pct=elapsed/(metDays*86400);
@@ -694,13 +699,39 @@ function drawMeton(){
     iv('285=235+50','Genesis=Метон+BTC','p');
 }
 
-// ── Live fetch ──
-async function fetchBlock(){
+// ── MTP indicator ──
+function updateMTPIndicator(ok){
+  const el=document.getElementById('hMtp');
+  const dot=document.getElementById('mtpDot');
+  if(!el)return;
+  if(ok&&mtpTime){
+    const d=new Date(mtpTime*1000);
+    const ds=d.toLocaleDateString('bg-BG')+' '+d.toLocaleTimeString('bg-BG');
+    el.textContent='⛓ MTP: '+ds;
+    if(dot){dot.style.background='var(--green)';}
+  }else{
+    const blk=Math.floor((Math.floor(Date.now()/1000)-GENESIS)/600);
+    el.textContent='⚠ системно · ~#'+blk.toLocaleString();
+    if(dot){dot.style.background='var(--red)';}
+  }
+}
+
+// ── Live fetch — Bitcoin MTP (медиана на последните 11 блока) ──
+async function fetchMTP(){
   try{
-    const r=await fetch('https://mempool.space/api/blocks/tip/height');
-    liveBlock=await r.json();
-    updateInfo();
-  }catch(e){}
+    const r=await fetch('https://mempool.space/api/blocks');
+    const blocks=await r.json();
+    if(!Array.isArray(blocks)||blocks.length===0)throw new Error('no blocks');
+    liveBlock=blocks[0].height;
+    // Вземи timestamps на до 11 блока, сортирай, вземи медианата
+    const ts=blocks.slice(0,11).map(b=>b.timestamp).sort((a,b)=>a-b);
+    mtpTime=ts[Math.floor(ts.length/2)];
+    updateMTPIndicator(true);
+    updateInfo();drawMeton();
+  }catch(e){
+    mtpTime=0;
+    updateMTPIndicator(false);
+  }
 }
 
 // ── Main loop ──
@@ -717,8 +748,8 @@ function loop(){
 window.addEventListener('load',()=>{
   updateInfo();drawMonth();drawMeton();
   loop();
-  fetchBlock();
-  setInterval(fetchBlock,30000);
+  fetchMTP();
+  setInterval(fetchMTP,30000);
 });
 window.addEventListener('resize',()=>{drawClock();drawMeton();});
 </script>
