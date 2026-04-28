@@ -619,6 +619,7 @@ async function fetchFromMempool(){
   const tipR = await fetch('https://mempool.space/api/blocks/tip/height');
   if(!tipR.ok) throw new Error('tip failed');
   const height = await tipR.json();
+  window.calLiveBlock = height; // споделен с CALinit()
 
   // Последните 10 блока
   const blocksR = await fetch(`https://mempool.space/api/v1/blocks`);
@@ -1848,7 +1849,10 @@ if(_st) window.ST=function(id,el){ _st(id,el); if(id==='tffb') FFBinit2(); if(id
 <!-- ═══ КАЛЕНДАР ═══ -->
 <div id="tcal" style="display:none">
 <div class="panel pp">
-  <div class="pt p">▸ Прабългарски Календар × Bitcoin Clock</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+    <div class="pt p" style="margin:0">▸ Прабългарски Календар × Bitcoin Clock</div>
+    <a href="calendar.html" target="_blank" style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--accent);border:1px solid rgba(247,147,26,.4);padding:5px 12px;border-radius:2px;text-decoration:none;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.background='rgba(247,147,26,.08)'" onmouseout="this.style.background=''">⧗ Отвори Часовника →</a>
+  </div>
   <div class="grid" id="calTopCards" style="margin-bottom:12px"></div>
 </div>
 
@@ -2323,7 +2327,8 @@ function drawNumbers() {
 window.CALinit = function() {
   const nowTs = Math.floor(Date.now()/1000);
   const bg = getBGDate(nowTs);
-  const blockEst = Math.floor((nowTs - GENESIS_TS)/600);
+  const blockEst = window.calLiveBlock || Math.floor((nowTs - GENESIS_TS)/600);
+  const blockLabel = window.calLiveBlock ? 'Блок (live)' : 'Прибл. блок';
 
   // Top cards
   document.getElementById('calTopCards').innerHTML = cards([
@@ -2331,7 +2336,7 @@ window.CALinit = function() {
     {l:'Животно',           v:bg.animal.emoji+' '+bg.animal.name,       c:'p'},
     {l:'Стихия',            v:bg.element,                                c:'g'},
     {l:'Днес в БГ год.',    v:'Ден '+bg.dayOfBGYear+' от 364',          c:''},
-    {l:'Прибл. блок',       v:'#'+blockEst.toLocaleString(),             c:'o'},
+    {l:blockLabel,          v:'#'+blockEst.toLocaleString(),             c:'o'},
     {l:'20,160 = 10×2016',  v:'Звездна год ✓',                          c:'g'},
   ]);
 
